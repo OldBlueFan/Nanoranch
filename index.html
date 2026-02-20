@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nano};{ranch</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,600;1,500&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+
+        /* ── Reset & Base ── */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --black:       #0b0b0b;
+            --white:       #f7f7f5;
+            --grey-dark:   #181818;
+            --grey-rule:   #d0d0cc;
+            --grey-pale:   #eeeeec;
+            /*
+             * AAA-compliant muted text colours (WCAG 1.4.6, 7:1 minimum):
+             *   --text-dark  #a8a8a8  →  8.55:1 on #0b0b0b  |  7.48:1 on #181818
+             *   --text-light #4d4d4d  →  7.88:1 on #f7f7f5  |  7.29:1 on #eeeeec
+             */
+            --text-dark:   #a8a8a8;
+            --text-light:  #4d4d4d;
+            /* AAA-compliant form border (SC 1.4.11, 3:1 non-text minimum):
+             *   #6e6e6e  →  3.98:1 on #0b0b0b
+             */
+            --border-dark: #6e6e6e;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--black);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        /* ── Focus (SC 2.4.13 AAA — 3:1 contrast, enclosed area) ── */
+        :focus-visible {
+            outline: 2px solid var(--white);
+            outline-offset: 3px;
+            border-radius: 1px;
+        }
+
+        /* ── Navigation ── */
+        /*
+         * Persistent dark background ensures nav text maintains AAA contrast
+         * across all scroll positions, regardless of underlying section colour.
+         */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            padding: 1.4rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 11, 11, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(247, 247, 245, 0.07);
+        }
+
+        .nav-logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.015em;
+        }
+
+        /* Medium Italic for };{ in all horizontal logo instances */
+        .logo-glyph {
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            list-style: none;
+        }
+
+        /* Padding extends the click/tap target (SC 2.5.5 AAA: 44×44px minimum) */
+        .nav-links a {
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.72rem;
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on nav dark bg */
+            text-decoration: none;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: color 0.25s;
+            padding: 0.85rem 1rem;    /* ≥44px tall touch target */
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: 100svh;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 40%, #1e1e1e 0%, var(--black) 100%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on #0b0b0b */
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 2.25rem;
+            line-height: 1;
+        }
+
+        .hero-logo-glyph {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 500;
+            font-style: italic;
+            font-size: clamp(7rem, 18vw, 16rem);
+            color: var(--white);
+            line-height: 0.9;
+            display: block;
+        }
+
+        .hero-logo-text {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 200;
+            font-style: normal;
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            color: var(--white);
+            letter-spacing: -0.015em;
+            display: block;
+        }
+
+        .hero-logo-bullet {
+            font-size: 0.45em;
+            vertical-align: middle;
+            position: relative;
+            bottom: 0.08em;
+        }
+
+        .hero-rule {
+            width: 1px;
+            height: 48px;
+            background: rgba(247, 247, 245, 0.2);
+            margin: 0 auto 2.25rem;
+        }
+
+        .hero-tagline {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on #0b0b0b */
+            letter-spacing: 0.06em;
+            max-width: 520px;
+            line-height: 1.9;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.65rem;
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on #0b0b0b */
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ── Shared Section Utilities ── */
+        section {
+            padding: 7.5rem 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .container-narrow {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .section-rule {
+            width: 36px;
+            height: 1px;
+            background: var(--grey-rule);
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-rule--light {
+            background: rgba(247, 247, 245, 0.2);
+        }
+
+        /* ── Mission ── */
+        .mission {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .mission h2 {
+            font-size: clamp(2.2rem, 4.5vw, 3.75rem);
+            margin-bottom: 2rem;
+        }
+
+        .mission p {
+            font-size: 1.05rem;
+            color: var(--text-light);  /* #4d4d4d → 7.88:1 on #f7f7f5 */
+            line-height: 1.9;
+            max-width: 580px;
+            margin: 0 auto 1.4rem;
+        }
+
+        /* ── Scale ── */
+        .scale {
+            background: var(--grey-pale);
+            text-align: center;
+        }
+
+        .scale h2 {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .scale .intro {
+            font-size: 0.95rem;
+            color: var(--text-light);  /* #4d4d4d → 7.29:1 on #eeeeec */
+            letter-spacing: 0.04em;
+            margin-bottom: 4rem;
+        }
+
+        .scale-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--grey-rule);
+        }
+
+        .scale-item {
+            padding: 3rem 1.5rem;
+            border-right: 1px solid var(--grey-rule);
+        }
+
+        .scale-item:last-child {
+            border-right: none;
+        }
+
+        .scale-unit {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.9rem;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .scale-sublabel {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-light);  /* #4d4d4d → 7.29:1 on #eeeeec */
+        }
+
+        /* ── Pillars ── */
+        .pillars {
+            background: var(--white);
+        }
+
+        .pillars-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .pillars-header h2 {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .pillars-header .intro {
+            font-size: 0.95rem;
+            color: var(--text-light);  /* #4d4d4d → 7.88:1 on #f7f7f5 */
+            letter-spacing: 0.04em;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3.5rem;
+        }
+
+        .pillar {
+            border-top: 1px solid var(--grey-rule);
+            padding-top: 2rem;
+        }
+
+        .pillar-num {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.8rem;
+            color: var(--text-light);  /* #4d4d4d → 7.88:1 on #f7f7f5 */
+            letter-spacing: 0.1em;
+            margin-bottom: 1.25rem;
+        }
+
+        .pillar h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar p {
+            font-size: 0.92rem;
+            color: var(--text-light);  /* #4d4d4d → 7.88:1 on #f7f7f5 */
+            line-height: 1.85;
+        }
+
+        /* ── About ── */
+        .about {
+            background: var(--grey-dark);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+
+        .about p {
+            font-size: 1rem;
+            color: var(--text-dark);  /* #a8a8a8 → 7.48:1 on #181818 */
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto 1.4rem;
+        }
+
+        .about .section-rule {
+            background: rgba(247, 247, 245, 0.18);
+        }
+
+        .fauna-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-top: 3.5rem;
+            border-top: 1px solid rgba(247, 247, 245, 0.14);
+            border-left: 1px solid rgba(247, 247, 245, 0.14);
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .fauna-tag {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-dark);  /* #a8a8a8 → 7.48:1 on #181818 */
+            padding: 0.9rem 1.6rem;
+            border-right: 1px solid rgba(247, 247, 245, 0.14);
+            border-bottom: 1px solid rgba(247, 247, 245, 0.14);
+        }
+
+        /* ── CTA ── */
+        .cta {
+            background: var(--black);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(2.2rem, 4vw, 3.75rem);
+            color: var(--white);
+            margin-bottom: 1.25rem;
+        }
+
+        .cta p {
+            font-size: 0.95rem;
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on #0b0b0b */
+            line-height: 1.9;
+            max-width: 480px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Border #6e6e6e → 3.98:1 on #0b0b0b, meets SC 1.4.11 non-text 3:1 */
+        .email-form {
+            display: flex;
+            max-width: 460px;
+            margin: 0 auto;
+            border: 1px solid var(--border-dark);
+        }
+
+        .email-form input {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            padding: 1rem 1.4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.88rem;
+            color: var(--white);
+            outline: none;
+        }
+
+        /* Placeholder #a8a8a8 → 8.55:1 on #0b0b0b, visually distinct from input text */
+        .email-form input::placeholder {
+            color: var(--text-dark);
+            letter-spacing: 0.06em;
+        }
+
+        /* min-height: 44px meets SC 2.5.5 AAA target size requirement */
+        .email-form button {
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            padding: 1rem 1.75rem;
+            min-height: 44px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .email-form button:hover {
+            background: var(--grey-rule);
+        }
+
+        .cta-note {
+            margin-top: 1.25rem;
+            font-size: 0.7rem;
+            color: var(--text-dark);  /* #a8a8a8 → 8.55:1 on #0b0b0b */
+            letter-spacing: 0.1em;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--grey-dark);
+            border-top: 1px solid rgba(247, 247, 245, 0.07);
+            padding: 2.5rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /*
+         * Logotype text is exempt from SC 1.4.6 contrast requirements
+         * (WCAG exception for logos and brand names). Colour set to
+         * --text-dark for visual quality regardless.
+         */
+        .footer-logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-dark);
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: var(--text-dark);  /* #a8a8a8 → 7.48:1 on #181818 */
+            letter-spacing: 0.12em;
+        }
+
+        /* ── Hamburger menu toggle ── */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Hidden on desktop; flex on mobile via breakpoint */
+        .nav-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle-bar {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--white);
+            transition: transform 0.3s ease, opacity 0.25s ease;
+            transform-origin: center;
+        }
+
+        /*
+         * Three bars → ×:
+         * Bars are 1.5px tall with 5px gaps → centre of bar 1 sits 6.5px
+         * above the middle, bar 3 sits 6.5px below → translateY brings
+         * each to the midpoint before rotating.
+         */
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0.1);
+        }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        /* ── Reduced motion (SC 2.3.3 AAA) ── */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+
+        /* ── Responsive: Tablet (≤768px) ── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.1rem 1.5rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            /* Full-screen overlay when open */
+            .nav-links {
+                position: fixed;
+                inset: 0;
+                z-index: 150;
+                background: var(--black);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0;
+                padding-top: 4.5rem;
+                list-style: none;
+                /* Hidden state */
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: opacity 0.3s ease, transform 0.35s ease,
+                            visibility 0s linear 0.35s;
+            }
+
+            .nav-links.is-open {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+                transition: opacity 0.3s ease, transform 0.35s ease;
+            }
+
+            /* Decorative };{ watermark in menu background */
+            .nav-links::before {
+                content: '};{';
+                font-family: 'Crimson Pro', Georgia, serif;
+                font-weight: 500;
+                font-style: italic;
+                font-size: 50vw;
+                color: rgba(247, 247, 245, 0.04);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                user-select: none;
+                white-space: nowrap;
+                aria-hidden: true;
+            }
+
+            .nav-links a {
+                font-family: 'Crimson Pro', serif;
+                font-weight: 400;
+                font-size: clamp(2.5rem, 8vw, 3.5rem);
+                color: var(--white);   /* #f7f7f5 on #0b0b0b → 19:1 ✓ AAA */
+                letter-spacing: 0.02em;
+                text-transform: none;
+                padding: 0.85rem 2rem;
+                transition: opacity 0.2s;
+            }
+
+            .nav-links a:hover {
+                opacity: 0.65;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .pillars-header {
+                margin-bottom: 3.5rem;
+            }
+
+            .scale-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .scale-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .scale-item:nth-child(1),
+            .scale-item:nth-child(2) {
+                border-bottom: 1px solid var(--grey-rule);
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .email-form input {
+                border-bottom: 1px solid var(--border-dark);
+                padding: 1rem 1.25rem;
+            }
+
+            .email-form button {
+                padding: 1rem 1.25rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+        }
+
+        /* ── Responsive: Mobile (≤480px) ── */
+        @media (max-width: 480px) {
+            section {
+                padding: 4.5rem 1.25rem;
+            }
+
+            .hero {
+                padding: 7rem 1.25rem 5rem;
+            }
+
+            .scale-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scale-item {
+                border-right: none;
+                border-bottom: 1px solid var(--grey-rule);
+                padding: 2rem 1.25rem;
+            }
+
+            .scale-item:last-child {
+                border-bottom: none;
+            }
+
+            .fauna-list {
+                max-width: 100%;
+            }
+
+            .pillars-grid {
+                gap: 2rem;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <a href="#" class="nav-logo">nano<span class="logo-glyph">};{</span>ranch</a>
+        <ul class="nav-links" id="nav-links" role="list">
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#stewardship">Stewardship</a></li>
+            <li><a href="#join">Join</a></li>
+        </ul>
+        <button
+            class="nav-toggle"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-links"
+        >
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+    </nav>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-inner">
+                <p class="hero-eyebrow">Scalable stewardship for a range of rewilding</p>
+                <h1 id="hero-heading" class="hero-logo">
+                    <span class="hero-logo-glyph" aria-hidden="true">};{</span>
+                    <span class="hero-logo-text">nano<span class="hero-logo-bullet">•</span>ranch</span>
+                </h1>
+                <div class="hero-rule" aria-hidden="true"></div>
+                <p class="hero-tagline">
+                    From a planter box on a city balcony to several acres of open land —
+                    every patch of soil is an invitation to steward.
+                </p>
+            </div>
+            <span class="hero-scroll" aria-hidden="true">Scroll to explore</span>
+        </section>
+
+        <!-- Mission -->
+        <section class="mission" id="mission" aria-labelledby="mission-heading">
+            <div class="container-narrow">
+                <div class="section-rule" aria-hidden="true"></div>
+                <h2 id="mission-heading">Every patch of soil is a portal</h2>
+                <p>
+                    Rewilding is not a grand gesture reserved for those with vast estates.
+                    It is a daily practice — a quiet commitment to the ground beneath your feet,
+                    whatever the measure of that ground may be.
+                </p>
+                <p>
+                    nano};{ranch is being built as a living resource for anyone ready to become
+                    a true steward: to learn, to plant, to observe, and to nurture the native
+                    ecology that belongs to your place.
+                </p>
+            </div>
+        </section>
+
+        <!-- Scale -->
+        <section class="scale" aria-labelledby="scale-heading">
+            <div class="container">
+                <div class="section-rule" aria-hidden="true"></div>
+                <h2 id="scale-heading">Your scale. Your stewardship.</h2>
+                <p class="intro">No parcel is too small to matter. Every act of rewilding compounds.</p>
+                <div class="scale-grid" role="list">
+                    <div class="scale-item" role="listitem">
+                        <div class="scale-unit">A planter box</div>
+                        <div class="scale-sublabel">Balcony · Windowsill · Patio</div>
+                    </div>
+                    <div class="scale-item" role="listitem">
+                        <div class="scale-unit">A front yard</div>
+                        <div class="scale-sublabel">Urban lot · Garden bed</div>
+                    </div>
+                    <div class="scale-item" role="listitem">
+                        <div class="scale-unit">A field</div>
+                        <div class="scale-sublabel">Rural edge · Meadow margin</div>
+                    </div>
+                    <div class="scale-item" role="listitem">
+                        <div class="scale-unit">Several acres</div>
+                        <div class="scale-sublabel">Open range · Restored land</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillars -->
+        <section class="pillars" id="stewardship" aria-labelledby="pillars-heading">
+            <div class="container">
+                <div class="pillars-header">
+                    <div class="section-rule" aria-hidden="true"></div>
+                    <h2 id="pillars-heading">What we are building toward</h2>
+                    <p class="intro">A platform rooted in ecology, education, and the living world.</p>
+                </div>
+                <div class="pillars-grid">
+                    <div class="pillar">
+                        <div class="pillar-num" aria-label="Pillar one">01</div>
+                        <h3>Native Plants & Flora</h3>
+                        <p>
+                            Guidance on selecting, sourcing, and establishing native species
+                            suited to your specific region, soil, and microclimate — the
+                            foundation of any rewilding practice.
+                        </p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-num" aria-label="Pillar two">02</div>
+                        <h3>Pollinators & Biodiversity</h3>
+                        <p>
+                            Understanding the intricate relationships between plants and the
+                            bees, butterflies, moths, beetles, and birds that depend on them
+                            for survival.
+                        </p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-num" aria-label="Pillar three">03</div>
+                        <h3>Migration & Habitat Corridors</h3>
+                        <p>
+                            How your patch connects to the larger landscape — living corridors
+                            for monarchs, songbirds, and other fauna moving through the seasons
+                            and across regions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Fauna -->
+        <section class="about" aria-labelledby="about-heading">
+            <div class="container-narrow">
+                <div class="section-rule" aria-hidden="true"></div>
+                <h2 id="about-heading">Who you are stewarding for</h2>
+                <p>
+                    When you restore native plants to a patch of earth, you are not just
+                    gardening. You are reweaving a web of relationships that sustains life
+                    at every scale — local, regional, and beyond.
+                </p>
+                <p>
+                    Our guides will connect you to the specific fauna your choices can benefit,
+                    giving your stewardship a sense of depth, purpose, and wonder.
+                </p>
+                <ul class="fauna-list" aria-label="Fauna benefited by rewilding">
+                    <li class="fauna-tag">Monarch Butterflies</li>
+                    <li class="fauna-tag">Native Bees</li>
+                    <li class="fauna-tag">Songbirds</li>
+                    <li class="fauna-tag">Moths</li>
+                    <li class="fauna-tag">Hummingbirds</li>
+                    <li class="fauna-tag">Beetles</li>
+                    <li class="fauna-tag">Fireflies</li>
+                    <li class="fauna-tag">Migrating Raptors</li>
+                    <li class="fauna-tag">Wild Mammals</li>
+                    <li class="fauna-tag">Dragonflies</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta" id="join" aria-labelledby="cta-heading">
+            <div class="container-narrow">
+                <div class="section-rule section-rule--light" aria-hidden="true"></div>
+                <h2 id="cta-heading">Be first to know when we launch</h2>
+                <p>
+                    nano};{ranch is in early development. Leave your email and we will
+                    reach out when the first resources are ready — no noise, just signal.
+                </p>
+                <form
+                    class="email-form"
+                    action="mailto:max@nanoranch.org"
+                    method="post"
+                    enctype="text/plain"
+                    aria-label="Launch notification signup"
+                >
+                    <input type="hidden" name="Subject" value="nano};{ranch — new signup" />
+                    <input
+                        type="email"
+                        name="Email"
+                        placeholder="your@email.com"
+                        aria-label="Email address"
+                        autocomplete="email"
+                        required
+                    />
+                    <button type="submit">Notify me</button>
+                </form>
+                <p class="cta-note">No spam. Unsubscribe any time.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo" aria-label="nano};{ranch">nano<span class="logo-glyph">};{</span>ranch</div>
+        <div class="footer-copy">&copy; 2026 &nbsp;&middot;&nbsp; Scalable stewardship for a range of rewilding</div>
+    </footer>
+
+    <script>
+    (function () {
+        var toggle = document.querySelector('.nav-toggle');
+        var menu   = document.getElementById('nav-links');
+        var links  = Array.from(menu.querySelectorAll('a'));
+
+        function openMenu() {
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Close navigation menu');
+            menu.classList.add('is-open');
+            document.body.classList.add('menu-open');
+            links[0].focus();
+        }
+
+        function closeMenu() {
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation menu');
+            menu.classList.remove('is-open');
+            document.body.classList.remove('menu-open');
+            toggle.focus();
+        }
+
+        toggle.addEventListener('click', function () {
+            menu.classList.contains('is-open') ? closeMenu() : openMenu();
+        });
+
+        /* Escape key closes the menu */
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+                closeMenu();
+            }
+        });
+
+        /* Close when any nav link is followed */
+        links.forEach(function (link) {
+            link.addEventListener('click', closeMenu);
+        });
+
+        /*
+         * Focus trap (SC 2.4.3 AAA):
+         * Tab cycles between the toggle button and the nav links while
+         * the menu is open so keyboard focus cannot reach elements behind
+         * the overlay.
+         */
+        toggle.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab' && !e.shiftKey && menu.classList.contains('is-open')) {
+                e.preventDefault();
+                links[0].focus();
+            }
+        });
+
+        menu.addEventListener('keydown', function (e) {
+            if (e.key !== 'Tab') return;
+            var first = links[0];
+            var last  = links[links.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                toggle.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                toggle.focus();
+            }
+        });
+    }());
+    </script>
+</body>
+</html>
