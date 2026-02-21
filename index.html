@@ -655,6 +655,17 @@
                 display: flex;
             }
 
+            /*
+             * Keep the logo and hamburger/× button above the full-screen overlay
+             * so the close button remains visible and tappable when the menu is open.
+             * Flex items accept z-index without needing position: relative.
+             * Both sit at 160 — above the overlay's 150 — within nav's stacking context.
+             */
+            .nav-logo,
+            .nav-toggle {
+                z-index: 160;
+            }
+
             /* Full-screen overlay when open */
             .nav-links {
                 position: fixed;
@@ -666,7 +677,7 @@
                 justify-content: center;
                 align-items: center;
                 gap: 0;
-                padding-top: 4.5rem;
+                padding-top: 5.5rem; /* clears the taller nav bar (colour strip + inner row) */
                 list-style: none;
                 /* Hidden state */
                 visibility: hidden;
