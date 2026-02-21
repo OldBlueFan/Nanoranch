@@ -592,6 +592,89 @@
             overflow: hidden;
         }
 
+        /*
+         * ── Mobile Menu Overlay ──
+         * The nav uses backdrop-filter which creates a containing block for
+         * position:fixed descendants in Safari and Chrome — any fixed child
+         * is clipped to the nav's own bounding box instead of the viewport.
+         * Moving the overlay outside <nav> avoids this entirely.
+         * z-index: 190 keeps it below the nav bar (200) so the logo and
+         * hamburger remain visible and tappable at all times.
+         */
+        .mobile-menu {
+            display: none; /* hidden on desktop */
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
+                position: fixed;
+                inset: 0;
+                z-index: 190;
+                background: var(--black);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                /* Hidden state */
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-8px);
+                transition: opacity 0.3s ease, transform 0.35s ease,
+                            visibility 0s linear 0.35s;
+            }
+
+            .mobile-menu.is-open {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+                transition: opacity 0.3s ease, transform 0.35s ease;
+            }
+
+            /* Decorative };{ watermark */
+            .mobile-menu::before {
+                content: '};{';
+                font-family: 'Crimson Pro', Georgia, serif;
+                font-weight: 500;
+                font-style: italic;
+                font-size: 50vw;
+                color: rgba(247, 247, 245, 0.04);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                user-select: none;
+                white-space: nowrap;
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+            }
+
+            .mobile-menu a {
+                display: block;
+                font-family: 'Crimson Pro', serif;
+                font-weight: 400;
+                font-size: clamp(2.5rem, 8vw, 3.5rem);
+                color: var(--fg);
+                letter-spacing: 0.02em;
+                text-decoration: none;
+                padding: 0.85rem 2rem;
+                transition: opacity 0.2s;
+            }
+
+            .mobile-menu a:hover,
+            .mobile-menu a:focus {
+                opacity: 0.65;
+            }
+        }
+
         /* Hidden on desktop; flex on mobile via breakpoint */
         .nav-toggle {
             display: none;
@@ -655,78 +738,9 @@
                 display: flex;
             }
 
-            /*
-             * Keep the logo and hamburger/× button above the full-screen overlay
-             * so the close button remains visible and tappable when the menu is open.
-             * Flex items accept z-index without needing position: relative.
-             * Both sit at 160 — above the overlay's 150 — within nav's stacking context.
-             */
-            .nav-logo,
-            .nav-toggle {
-                z-index: 160;
-            }
-
-            /* Full-screen overlay when open */
+            /* Hide the desktop nav-links list on mobile; mobile-menu overlay takes over */
             .nav-links {
-                position: fixed;
-                inset: 0;
-                z-index: 150;
-                background: var(--black);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 0;
-                padding-top: 5.5rem; /* clears the taller nav bar (colour strip + inner row) */
-                list-style: none;
-                /* Hidden state */
-                visibility: hidden;
-                opacity: 0;
-                pointer-events: none;
-                transform: translateY(-10px);
-                transition: opacity 0.3s ease, transform 0.35s ease,
-                            visibility 0s linear 0.35s;
-            }
-
-            .nav-links.is-open {
-                visibility: visible;
-                opacity: 1;
-                pointer-events: auto;
-                transform: translateY(0);
-                transition: opacity 0.3s ease, transform 0.35s ease;
-            }
-
-            /* Decorative };{ watermark in menu background */
-            .nav-links::before {
-                content: '};{';
-                font-family: 'Crimson Pro', Georgia, serif;
-                font-weight: 500;
-                font-style: italic;
-                font-size: 50vw;
-                color: rgba(247, 247, 245, 0.04);
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-                user-select: none;
-                white-space: nowrap;
-                aria-hidden: true;
-            }
-
-            .nav-links a {
-                font-family: 'Crimson Pro', serif;
-                font-weight: 400;
-                font-size: clamp(2.5rem, 8vw, 3.5rem);
-                color: var(--fg);   /* opposes --black bg → AAA in all themes */
-                letter-spacing: 0.02em;
-                text-transform: none;
-                padding: 0.85rem 2rem;
-                transition: opacity 0.2s;
-            }
-
-            .nav-links a:hover {
-                opacity: 0.65;
+                display: none;
             }
 
             section {
@@ -832,7 +846,7 @@
                 class="nav-toggle"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
-                aria-controls="nav-links"
+                aria-controls="mobile-menu"
             >
                 <span class="nav-toggle-bar" aria-hidden="true"></span>
                 <span class="nav-toggle-bar" aria-hidden="true"></span>
@@ -840,6 +854,19 @@
             </button>
         </div>
     </nav>
+
+    <!--
+        Mobile fullscreen menu — sibling of <nav>, NOT a descendant.
+        Kept outside nav so backdrop-filter on the nav bar cannot create
+        a containing block that clips this element to the nav's height.
+    -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <ul role="list">
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#stewardship">Stewardship</a></li>
+            <li><a href="#join">Join</a></li>
+        </ul>
+    </div>
 
     <main>
 
@@ -1192,13 +1219,14 @@
     /* ── Hamburger Menu ── */
     (function () {
         var toggle = document.querySelector('.nav-toggle');
-        var menu   = document.getElementById('nav-links');
+        var menu   = document.getElementById('mobile-menu');
         var links  = Array.from(menu.querySelectorAll('a'));
 
         function openMenu() {
             toggle.setAttribute('aria-expanded', 'true');
             toggle.setAttribute('aria-label', 'Close navigation menu');
             menu.classList.add('is-open');
+            menu.setAttribute('aria-hidden', 'false');
             document.body.classList.add('menu-open');
             links[0].focus();
         }
@@ -1207,6 +1235,7 @@
             toggle.setAttribute('aria-expanded', 'false');
             toggle.setAttribute('aria-label', 'Open navigation menu');
             menu.classList.remove('is-open');
+            menu.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('menu-open');
             toggle.focus();
         }
