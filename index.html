@@ -44,6 +44,12 @@
              */
             --fg:         #f7f7f5;
             --hero-fade:  rgba(247, 247, 245, 0.2); /* hero rule; inverted in light theme */
+            /*
+             * --ink is the permanent body/heading text colour for light-background
+             * sections (Mission, Scale, Pillars). Unlike --black, it never changes
+             * between themes so those sections always stay dark-on-light.
+             */
+            --ink:        #0b0b0b;
         }
 
         html {
@@ -53,7 +59,7 @@
 
         body {
             background: var(--white);
-            color: var(--black);
+            color: var(--ink);
             font-family: 'Outfit', sans-serif;
             font-weight: 300;
             line-height: 1.65;
@@ -361,7 +367,7 @@
         .scale-unit {
             font-family: 'Crimson Pro', serif;
             font-size: 1.9rem;
-            color: var(--black);
+            color: var(--ink);
             margin-bottom: 0.5rem;
         }
 
