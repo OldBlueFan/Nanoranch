@@ -102,6 +102,35 @@
   color: #f7f7f5;
 }
 
+/* Blue — tertiary / login */
+.blue {
+  background-color: #4a7a9b;
+  color: #f7f7f5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+}
+.blue .prefix {
+  opacity: 0.6;
+  color: #f7f7f5;
+}
+.blue .divider {
+  color: #f7f7f5;
+}
+
+/* ── Large modifier — primary CTA sizing ── */
+.large {
+  padding: 1rem 1.5rem;
+  font-size: 0.98rem;
+  min-height: 58px;
+}
+
+/* ── Suffix label — muted hint after action text ── */
+.suffix {
+  font-weight: 300;
+  font-size: 0.8em;
+  opacity: 0.55;
+  margin-left: 0.2rem;
+}
+
 /* ── Dark mode adjustments ── */
 [data-theme="dark"] .light {
   background-color: rgba(80, 130, 60, 0.3);
