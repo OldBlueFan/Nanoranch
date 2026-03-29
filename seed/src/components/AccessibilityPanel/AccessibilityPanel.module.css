@@ -1,0 +1,196 @@
+/* ── Wrapper: anchors the panel to bottom-right ── */
+.wrapper {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+/* ── Toggle button ── */
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--season-bg);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+  transition: filter var(--transition-base), transform var(--transition-fast);
+}
+.toggle:hover { filter: brightness(1.25); }
+.toggle:active { transform: scale(0.95); }
+
+/* Active indicator dot (any non-default pref is active) */
+.activeDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  border: 1.5px solid var(--season-bg);
+}
+
+/* ── Panel ── */
+.panel {
+  background: var(--season-bg);
+  border: 1px solid var(--grey-rule);
+  border-radius: 10px;
+  padding: 1.25rem;
+  width: min(88vw, 280px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    visibility 0s var(--transition-base);
+}
+
+.panelOpen {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    visibility 0s 0s;
+}
+
+.panelTitle {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--grey-rule);
+}
+
+/* ── Fieldset / Radio group ── */
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.legend {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+.radioLabel:hover { color: var(--accent-primary); }
+
+.radioInput {
+  accent-color: var(--accent-cta);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Toggle rows (dyslexia / dark mode) ── */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--grey-rule);
+}
+
+.toggleLabel {
+  font-size: 0.875rem;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  cursor: pointer;
+}
+
+.toggleSub {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+/* ── Switch button ── */
+.switchBtn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 22px;
+  border: 1.5px solid var(--grey-rule);
+  border-radius: 11px;
+  background: var(--grey-pale);
+  cursor: pointer;
+  padding: 2px;
+  position: relative;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.switchOn {
+  background: var(--accent-cta);
+  border-color: var(--accent-cta);
+}
+
+.switchThumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform var(--transition-base);
+}
+
+.switchOn .switchThumb {
+  transform: translateX(18px);
+}
+
+/* ── Dark mode adjustments ── */
+[data-theme="dark"] .panel {
+  background: var(--grey-dark);
+  border-color: #3a3a38;
+}
+[data-theme="dark"] .toggle {
+  background: var(--grey-pale);
+  color: var(--black);
+}

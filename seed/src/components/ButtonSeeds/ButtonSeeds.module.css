@@ -1,0 +1,77 @@
+/*
+ * ButtonSeeds — position:fixed canvas centered just below the midpoint of the
+ * viewport (where the "Get Seeding" button lives). Seeds travel outward in all
+ * directions using viewport units so they reach the screen edges before fading.
+ *
+ * position:fixed breaks out of any ancestor overflow:hidden, so seeds escape
+ * the button, the screen container, and the page entirely — drifting across
+ * the full viewport as intended.
+ */
+
+.canvas {
+  position: fixed;
+  /* Anchor just below vertical center — aligns with where the button sits */
+  top:  calc(50% + 1.5rem);
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 0;          /* behind content (z-index:1) but above background */
+  pointer-events: none;
+  --seed-opacity: 0.22;
+}
+
+/* Increase opacity while the form is open */
+.canvas.active {
+  --seed-opacity: 0.42;
+}
+
+.seed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Start centered on the anchor point */
+  transform: translate(-50%, -50%);
+  animation: radiate var(--dur, 6s) var(--delay, 0s) ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.svg {
+  width: 18px;
+  height: 29px;
+  color: var(--accent-primary);
+  display: block;
+}
+
+@keyframes radiate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--seed-opacity);
+  }
+  70% {
+    /* 80% of full travel distance, still partially visible */
+    transform:
+      translate(
+        calc(-50% + var(--dx) * 0.8),
+        calc(-50% + var(--dy) * 0.8)
+      )
+      rotate(var(--rot, 10deg));
+    opacity: calc(var(--seed-opacity) * 0.5);
+  }
+  100% {
+    /* Full travel — at or beyond viewport edge */
+    transform:
+      translate(
+        calc(-50% + var(--dx)),
+        calc(-50% + var(--dy))
+      )
+      rotate(var(--rot, 10deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas { display: none; }
+}

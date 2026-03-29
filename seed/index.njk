@@ -1,0 +1,17 @@
+---
+layout: base.njk
+title: nano};{ranch — tell us about your space
+description: Tell us about your space and we'll know what wants to grow there.
+ogTitle: nano};{ranch
+ogDescription: Tell us about your space and we'll know what wants to grow there.
+---
+
+{# Load the Vite-compiled React bundle.
+   Assets are at /seed/dist/assets/ because:
+     vite.config.js  →  base: '/seed/dist/', outDir: 'dist'
+     .eleventy.js    →  addPassthroughCopy("seed/dist") → _site/seed/dist/ #}
+<link rel="stylesheet" href="/seed/dist/assets/index.css" />
+
+<div id="root"></div>
+
+<script type="module" src="/seed/dist/assets/index.js"></script>

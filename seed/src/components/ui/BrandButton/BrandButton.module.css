@@ -1,0 +1,127 @@
+/* ── Base button — stacked column layout ── */
+.btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+
+  min-width: 9rem;
+  min-height: 72px;        /* taller than horizontal layout to accommodate two rows */
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+
+  transition:
+    filter var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+}
+
+/* Mobile: full-width when stacked */
+@media (max-width: 540px) {
+  .btn {
+    width: 100%;
+    max-width: 22rem;
+  }
+}
+
+.btn:hover  { filter: brightness(0.91); }
+.btn:active { transform: scale(0.97); }
+
+/* ── Row 1: brand wordmark ── */
+.wordmark {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+.glyph {
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ── Row 2: action label ── */
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+/* ── Inline icons ── */
+.playIcon {
+  font-size: 0.65em;
+  opacity: 0.85;
+}
+.extIcon {
+  font-size: 0.75em;
+  opacity: 0.7;
+}
+
+/* ── Suffix hint — "(start)", "(login)" ── */
+.suffix {
+  font-weight: 300;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+/* ── Variants ── */
+
+.light {
+  background-color: var(--accent-light-btn);
+  color: var(--accent-light-text);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.light .wordmark { color: var(--accent-light-text); }
+
+.dark {
+  background-color: var(--accent-cta);
+  color: #f7f7f5;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+}
+.dark .wordmark { color: #f7f7f5; opacity: 0.55; }
+
+.blue {
+  background-color: #4a7a9b;
+  color: #f7f7f5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+}
+.blue .wordmark { color: #f7f7f5; opacity: 0.55; }
+
+/* ── Large modifier — center CTA, noticeably bigger ── */
+.large {
+  min-height: 92px;
+  min-width: 11rem;
+  padding: 1.1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+}
+.large .wordmark {
+  font-size: 0.82rem;
+}
+.large .action {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .light {
+  background-color: rgba(80, 130, 60, 0.3);
+  color: var(--accent-primary);
+}
+[data-theme="dark"] .light .wordmark {
+  color: var(--accent-primary);
+}

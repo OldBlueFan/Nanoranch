@@ -1,4 +1,4 @@
-/* ── Colour Theme Bar ── */
+    /* ── Colour Theme Bar ── */
     (function () {
         'use strict';
 
@@ -170,6 +170,43 @@
                 e.preventDefault();
                 btns[(i - 1 + btns.length) % btns.length].focus();
             }
+        });
+    }());
+
+    /* ── Hash-free anchor scrolling & scroll-position reset ── */
+    (function () {
+        'use strict';
+
+        /* Tell the browser not to restore the previous scroll position on
+         * refresh. Supported in all modern browsers including iOS Safari 11+. */
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        /* Strip any hash already in the URL (e.g. loaded via a bookmark) so
+         * the address bar is always clean and a refresh returns to the top. */
+        if (location.hash) {
+            history.replaceState(null, '', location.pathname + location.search);
+        }
+
+        /* iOS Safari serves pages from its back/forward cache (bfcache) and
+         * won't re-run the above on a cache-restore. pageshow fires in both
+         * cases and ensures the page always starts at the top. */
+        window.addEventListener('pageshow', function (e) {
+            window.scrollTo(0, 0);
+        });
+
+        /* Intercept every in-page anchor click and scroll without writing a
+         * hash to the URL, so the page always reloads from the top. */
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest('a[href^="#"]');
+            if (!a) return;
+            var hash = a.getAttribute('href');
+            if (hash === '#') return;          /* logo / back-to-top links */
+            var target = document.querySelector(hash);
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
         });
     }());
 
