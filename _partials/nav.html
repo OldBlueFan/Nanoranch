@@ -1,0 +1,47 @@
+<!--
+    COPY-PASTE TEMPLATE — nav + mobile-menu
+    ========================================
+    Paste both elements directly inside <body>, before <main>.
+    Pages at the root level use href="css/main.css" and href="js/main.js".
+    Pages in subdirectories (e.g. guides/) use href="../css/main.css" etc.
+    Update the anchor hrefs to match the target page's section IDs or URLs.
+-->
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <!-- ROYGBIV colour theme swatches — populated by JS -->
+        <div class="color-bar" role="toolbar" aria-label="Colour theme"></div>
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">nano<span class="logo-glyph">};{</span>ranch</a>
+            <ul class="nav-links" id="nav-links" role="list">
+                <li><a href="#mission">Mission</a></li>
+                <li><a href="#mosaic">Mosaic</a></li>
+                <li><a href="#memory">Memory</a></li>
+                <li><a href="#join">More</a></li>
+            </ul>
+            <button
+                class="nav-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+            >
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+                <span class="nav-toggle-bar" aria-hidden="true"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!--
+        Mobile fullscreen menu — sibling of <nav>, NOT a descendant.
+        Kept outside nav so backdrop-filter on the nav bar cannot create
+        a containing block that clips this element to the nav's height.
+    -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <ul role="list">
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#mosaic">Mosaic</a></li>
+            <li><a href="#memory">Memory</a></li>
+            <li><a href="#join">More</a></li>
+        </ul>
+    </div>
