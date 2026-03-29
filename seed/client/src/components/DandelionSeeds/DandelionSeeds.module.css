@@ -1,0 +1,33 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.seed {
+  position: absolute;
+  bottom: -40px;
+  left: var(--x, 50%);
+  animation: rise 5s var(--delay, 0s) ease-in infinite;
+  will-change: transform, opacity;
+}
+
+.svg {
+  width: 20px;
+  height: 32px;
+  color: var(--accent-primary);
+  opacity: 0.55;
+}
+
+@keyframes rise {
+  0%   { transform: translate(0, 0) rotate(0deg);                    opacity: 0;    }
+  8%   { opacity: 0.55; }
+  50%  { transform: translate(var(--drift, 6px), -45vh) rotate(12deg); opacity: 0.45; }
+  90%  { opacity: 0.2; }
+  100% { transform: translate(calc(var(--drift, 6px) * 1.5), -95vh) rotate(20deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas { display: none; }
+}

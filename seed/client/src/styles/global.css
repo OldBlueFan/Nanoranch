@@ -1,0 +1,86 @@
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  /* Season + theme + a11y data attrs applied here by App.jsx */
+}
+
+body {
+  background-color: var(--season-bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* ── Skip link (screen reader / keyboard nav) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--ink);
+  color: var(--season-bg);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.1s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Focus ring (WCAG 2.4.7) ── */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Screen reader only utility ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── CVD filter wrapper ── */
+#cvd-root {
+  min-height: 100dvh;
+  display: contents; /* transparent wrapper — doesn't affect layout */
+}
+#cvd-root[style] {
+  display: block; /* when a filter is applied, needs to form a stacking context */
+  min-height: 100dvh;
+}

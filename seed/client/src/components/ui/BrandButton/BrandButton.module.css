@@ -1,0 +1,138 @@
+/* ── Base button ── */
+.btn {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  min-height: 52px; /* WCAG 2.5.5 AAA touch target */
+  padding: 0.85rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+
+  /* Transition */
+  transition:
+    filter var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.btn:hover {
+  filter: brightness(0.92);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* ── Brand prefix "nano};{ranch" ── */
+.prefix {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.glyph {
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ── Divider "/" ── */
+.divider {
+  opacity: 0.35;
+  font-weight: 200;
+  flex-shrink: 0;
+}
+
+/* ── Action label ── */
+.action {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  /* Truncate if viewport is very narrow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Play / external icons ── */
+.playIcon {
+  font-size: 0.7em;
+  opacity: 0.9;
+}
+.extIcon {
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-left: 0.1rem;
+}
+
+/* ── Variants ── */
+
+/* Light green — secondary actions */
+.light {
+  background-color: var(--accent-light-btn);
+  color: var(--accent-light-text);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Dark green — primary CTA */
+.dark {
+  background-color: var(--accent-cta);
+  color: #f7f7f5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.dark .prefix {
+  opacity: 0.6;
+  color: #f7f7f5;
+}
+.dark .divider {
+  color: #f7f7f5;
+}
+
+/* Blue — tertiary / login */
+.blue {
+  background-color: #4a7a9b;
+  color: #f7f7f5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+}
+.blue .prefix {
+  opacity: 0.6;
+  color: #f7f7f5;
+}
+.blue .divider {
+  color: #f7f7f5;
+}
+
+/* ── Large modifier — primary CTA sizing ── */
+.large {
+  padding: 1rem 1.5rem;
+  font-size: 0.98rem;
+  min-height: 58px;
+}
+
+/* ── Suffix label — muted hint after action text ── */
+.suffix {
+  font-weight: 300;
+  font-size: 0.8em;
+  opacity: 0.55;
+  margin-left: 0.2rem;
+}
+
+/* ── Dark mode adjustments ── */
+[data-theme="dark"] .light {
+  background-color: rgba(80, 130, 60, 0.3);
+  color: var(--accent-primary);
+}

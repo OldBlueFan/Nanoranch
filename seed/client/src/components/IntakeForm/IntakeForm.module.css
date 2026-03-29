@@ -1,0 +1,121 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--grey-rule);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  margin-top: 0.5rem;
+}
+
+[data-theme="dark"] .wrapper {
+  background: rgba(24, 24, 24, 0.7);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.75rem 1.5rem;
+}
+
+.intro {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--ink);
+  opacity: 0.8;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+.input {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--ink);
+  background: var(--season-bg);
+  border: 1.5px solid var(--grey-rule);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  width: 100%;
+  transition: border-color var(--transition-base);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent-cta);
+}
+.input::placeholder { opacity: 0.45; }
+
+.textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.55;
+}
+
+/* ── Submit button — inherits BrandButton aesthetic ── */
+.submit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0.9rem 1.4rem;
+  min-height: 52px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent-cta);
+  color: #f7f7f5;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 400;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: filter var(--transition-base);
+  width: 100%;
+  justify-content: center;
+}
+.submit:hover  { filter: brightness(0.88); }
+.submit:active { transform: scale(0.98); }
+
+.submitPrefix {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+.glyph {
+  font-weight: 500;
+  font-style: italic;
+}
+.submitDivider {
+  opacity: 0.35;
+}
