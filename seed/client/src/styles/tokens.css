@@ -1,0 +1,114 @@
+/*
+ * Design tokens — re-derived from /css/main.css in the parent static site.
+ * Do NOT import the parent file directly; it contains section-level rules that
+ * would leak unwanted styles into the app shell.
+ * Keep in sync manually when parent token values change.
+ */
+
+:root {
+  /* ── Core palette (mirrors parent site) ── */
+  --black:        #0b0b0b;
+  --white:        #f7f7f5;
+  --grey-dark:    #181818;
+  --grey-rule:    #d0d0cc;
+  --grey-pale:    #eeeeec;
+  --text-dark:    #a8a8a8;  /* AAA on dark bg:   8.55:1 on #0b0b0b */
+  --text-light:   #4d4d4d;  /* AAA on light bg:  7.88:1 on #f7f7f5 */
+  --border-dark:  #6e6e6e;  /* SC 1.4.11:        3.98:1 on #0b0b0b */
+  --ink:          #0b0b0b;  /* permanent dark text — never theme-inverted */
+  --fg:           #f7f7f5;
+
+  /* ── Typography ── */
+  --font-serif:     'Crimson Pro', Georgia, serif;
+  --font-sans:      'Outfit', system-ui, sans-serif;
+  --font-dyslexia:  'Lexend', system-ui, sans-serif;
+
+  /* ── Seasonal defaults (spring — overridden per [data-season]) ── */
+  --season-bg:          #fdf8f5;
+  --accent-primary:     #b8d4a8;
+  --accent-secondary:   #e8c4d0;
+  --accent-cta:         #2d6820;   /* dark green CTA button */
+  --accent-light-btn:   #c8e8b8;   /* light green secondary buttons */
+  --accent-light-text:  #2a5e1a;   /* text on light-green buttons (AAA) */
+  --season-glow:        rgba(184, 212, 168, 0.18);
+  --creature-fill:      #b8d4a8;
+  --creature-stroke:    #8ab87a;
+
+  /* ── Transitions (match parent 0.2–0.25s convention) ── */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.22s ease;
+}
+
+/* ── Spring: pastels ── */
+[data-season="spring"] {
+  --season-bg:         #fdf8f5;
+  --accent-primary:    #b8d4a8;
+  --accent-secondary:  #e8c4d0;
+  --accent-cta:        #2d6820;
+  --accent-light-btn:  #d0e8c0;
+  --accent-light-text: #2a5e1a;
+  --season-glow:       rgba(184, 212, 168, 0.18);
+  --creature-fill:     #d4a8c4;   /* soft mauve butterflies */
+  --creature-stroke:   #b888a8;
+}
+
+/* ── Summer: greens + yellows ── */
+[data-season="summer"] {
+  --season-bg:         #f6fdf2;
+  --accent-primary:    #7ab84a;
+  --accent-secondary:  #e8d840;
+  --accent-cta:        #1e5810;
+  --accent-light-btn:  #c8e898;
+  --accent-light-text: #1e5810;
+  --season-glow:       rgba(122, 184, 74, 0.14);
+  --creature-fill:     #d4d830;   /* golden butterflies */
+  --creature-stroke:   #a8a810;
+}
+
+/* ── Fall: oranges + browns ── */
+[data-season="fall"] {
+  --season-bg:         #fdf5ec;
+  --accent-primary:    #c87830;
+  --accent-secondary:  #8b5020;
+  --accent-cta:        #5a2808;
+  --accent-light-btn:  #f0d898;
+  --accent-light-text: #5a2808;
+  --season-glow:       rgba(200, 120, 48, 0.13);
+  --creature-fill:     #d89040;   /* amber butterflies */
+  --creature-stroke:   #a86010;
+}
+
+/* ── Winter: blues + grays ── */
+[data-season="winter"] {
+  --season-bg:         #f4f7fc;
+  --accent-primary:    #6898b8;
+  --accent-secondary:  #8898a8;
+  --accent-cta:        #243858;
+  --accent-light-btn:  #c8dce8;
+  --accent-light-text: #1e3050;
+  --season-glow:       rgba(104, 152, 184, 0.13);
+  --creature-fill:     #a8c8d8;   /* icy blue birds */
+  --creature-stroke:   #6898b8;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] {
+  --season-bg:        var(--grey-dark);
+  --ink:              var(--white);
+  --text-light:       var(--text-dark);
+  --grey-rule:        #3a3a38;
+  --accent-light-btn: #2a4a2a;
+  --accent-light-text: #a8d898;
+}
+
+/* ── Dyslexia-friendly font ── */
+[data-dyslexia="true"] body,
+[data-dyslexia="true"] p,
+[data-dyslexia="true"] li,
+[data-dyslexia="true"] label,
+[data-dyslexia="true"] button {
+  font-family: var(--font-dyslexia);
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
+}
