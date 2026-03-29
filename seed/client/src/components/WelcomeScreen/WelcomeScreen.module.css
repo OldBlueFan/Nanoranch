@@ -1,0 +1,90 @@
+/* ── Screen: full viewport, light seasonal background ── */
+.screen {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--season-bg);
+  padding: 2rem 1.25rem 3rem;
+  overflow: hidden;
+  /* Remove default focus ring for this element — it's the landmark, not interactive */
+  outline: none;
+  transition: background-color 0.4s ease;
+}
+
+/* ── Seasonal radial glow ── */
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    var(--season-glow),
+    transparent 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Content stack (above glow + creatures) ── */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  max-width: 38rem;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Logo: inherits parent site's nano};{ranch treatment ── */
+.logo {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  opacity: 0.55;
+  text-transform: lowercase;
+}
+
+.glyph {
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ── Headline ── */
+.headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.85rem, 6vw, 3rem);
+  line-height: 1.18;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* "Tell us about your space…" — slightly lighter weight */
+.sub {
+  display: block;
+  margin-top: 0.55em;
+  font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  font-weight: 300;
+  color: var(--ink);
+  opacity: 0.75;
+  line-height: 1.45;
+}
+
+/* ── Button group ── */
+.actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 52rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
