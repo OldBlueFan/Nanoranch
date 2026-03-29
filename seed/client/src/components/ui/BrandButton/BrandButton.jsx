@@ -4,6 +4,11 @@
  * Variants:
  *   light — light-green background (secondary actions)
  *   dark  — deep-green background  (primary CTA)
+ *   blue  — muted blue background  (tertiary/login)
+ *
+ * Modifiers:
+ *   large  — slightly larger padding and font (for primary CTA)
+ *   suffix — appended after action label in muted text (e.g. "start", "login")
  *
  * Can render as <button> or <a> (when `href` is provided).
  */
@@ -16,6 +21,9 @@ export default function BrandButton({
   href,
   external,    // true → opens in new tab + adds ↗ indicator
   onClick,
+  large,       // boolean — larger sizing for primary CTA
+  suffix,      // string — muted label after action text
+  'aria-expanded': ariaExpanded,
 }) {
   const inner = (
     <>
@@ -28,6 +36,9 @@ export default function BrandButton({
           <span className={styles.playIcon} aria-hidden="true">▶</span>
         )}
         {action}
+        {suffix && (
+          <span className={styles.suffix} aria-hidden="true">({suffix})</span>
+        )}
         {external && (
           <span className={styles.extIcon} aria-hidden="true">↗</span>
         )}
@@ -37,7 +48,11 @@ export default function BrandButton({
     </>
   )
 
-  const cls = `${styles.btn} ${styles[variant]}`
+  const cls = [
+    styles.btn,
+    styles[variant],
+    large ? styles.large : '',
+  ].filter(Boolean).join(' ')
 
   if (href) {
     return (
@@ -53,7 +68,12 @@ export default function BrandButton({
   }
 
   return (
-    <button type="button" className={cls} onClick={onClick}>
+    <button
+      type="button"
+      className={cls}
+      onClick={onClick}
+      aria-expanded={ariaExpanded}
+    >
       {inner}
     </button>
   )
