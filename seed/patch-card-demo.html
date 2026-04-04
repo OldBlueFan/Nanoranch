@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deck Planter Box — nanoranch patch card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #f5f2eb;
+      --dark-nav:   #1a1a18;
+      --green:      #3B6D11;
+      --green-pale: #eef5e8;
+      --green-mid:  #c8e0b0;
+      --mint:       #7ecfaa;
+      --ink:        #1a1a18;
+      --muted:      #5a5a52;
+      --card-bg:    #ffffff;
+      --border:     #d8d4c8;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Color Bar ── */
+    .color-bar {
+      display: flex;
+      width: 100%;
+      height: 10px;
+    }
+
+    .color-bar span {
+      flex: 1;
+    }
+
+    /* Nine swatches: black · ROYGBIV · white */
+    .color-bar span:nth-child(1) { background: #0b0b0b; }
+    .color-bar span:nth-child(2) { background: hsl(4,   90%, 46%); }
+    .color-bar span:nth-child(3) { background: hsl(28,  95%, 50%); }
+    .color-bar span:nth-child(4) { background: hsl(52, 100%, 52%); }
+    .color-bar span:nth-child(5) { background: hsl(130, 72%, 38%); }
+    .color-bar span:nth-child(6) { background: hsl(218, 88%, 50%); }
+    .color-bar span:nth-child(7) { background: hsl(248, 88%, 44%); }
+    .color-bar span:nth-child(8) { background: hsl(280, 85%, 44%); }
+    .color-bar span:nth-child(9) { background: #f7f7f5; }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--dark-nav);
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .wordmark {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: #f7f7f5;
+      letter-spacing: 0.015em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .wordmark .logo-glyph {
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    .patch-info {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: var(--mint);
+      letter-spacing: 0.03em;
+      text-align: right;
+      line-height: 1.45;
+    }
+
+    .patch-info strong {
+      display: block;
+      font-weight: 400;
+      font-size: 0.8rem;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2.5rem;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.55rem;
+    }
+
+    /* ── Card base ── */
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Patch Assessment ── */
+    .assessment {
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .assessment p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── This Weekend checklist ── */
+    .weekend {
+      background: var(--green-pale);
+      border: 1px solid var(--green-mid);
+      border-radius: 8px;
+      padding: 1.1rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .weekend .section-label {
+      margin-bottom: 0.75rem;
+    }
+
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .checklist li .check-box {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--green);
+      border-radius: 4px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15em;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .checklist li.checked .check-box {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .checklist li .check-mark {
+      display: none;
+      color: white;
+      font-size: 0.75rem;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .checklist li.checked .check-mark {
+      display: block;
+    }
+
+    .checklist li .check-label {
+      font-size: 0.875rem;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-top: 0.05em;
+    }
+
+    .checklist li.checked .check-label {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    /* ── Plants heading ── */
+    .plants-heading {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      margin-top: 0.25rem;
+    }
+
+    /* ── Plant card ── */
+    .plant-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      transition: border-color 0.15s;
+    }
+
+    .plant-card.checked {
+      border-color: var(--green);
+      background: #fafff7;
+    }
+
+    .plant-emoji {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      background: var(--green-pale);
+      border: 1px solid var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .plant-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .plant-name {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .plant-sci {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .plant-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+    }
+
+    .plant-qty {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--green);
+      margin-bottom: 0.35rem;
+    }
+
+    .plant-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .tag {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      background: var(--green-pale);
+      border: 1px solid var(--green-mid);
+      border-radius: 100px;
+      padding: 0.15em 0.55em;
+    }
+
+    .plant-check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1em;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .plant-card.checked .plant-check {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .plant-check-mark {
+      display: none;
+      color: white;
+      font-size: 0.72rem;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .plant-card.checked .plant-check-mark {
+      display: block;
+    }
+
+    /* ── Wonder Box ── */
+    .wonder-box {
+      background: var(--dark-nav);
+      border-radius: 8px;
+      padding: 1.25rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .wonder-box .section-label {
+      color: var(--mint);
+      margin-bottom: 0.55rem;
+    }
+
+    .wonder-box p {
+      font-size: 0.875rem;
+      color: #a8a8a0;
+      line-height: 1.75;
+    }
+
+    .wonder-box p strong {
+      color: var(--mint);
+      font-weight: 400;
+    }
+
+    /* ── Local Resources ── */
+    .resources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .resources-list li {
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 0;
+    }
+
+    .resources-list li:last-child {
+      border-bottom: none;
+    }
+
+    .resources-list a {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      gap: 0.1rem;
+    }
+
+    .resources-list .res-name {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .resources-list .res-url {
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .site-footer p {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Print ── */
+    @media print {
+      .color-bar { display: none; }
+      .site-header { background: #1a1a18 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .plant-card, .card, .weekend, .wonder-box { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Rainbow color bar — nine swatches matching nanoranch.org -->
+  <div class="color-bar" aria-hidden="true">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Dark header bar -->
+  <header class="site-header">
+    <a href="https://nanoranch.org" class="wordmark">nano<span class="logo-glyph">};{</span>ranch</a>
+    <div class="patch-info">
+      <strong>Deck Planter Box</strong>
+      Austin, TX&thinsp;&middot;&thinsp;April 2026
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="page">
+
+    <!-- Patch Assessment -->
+    <p class="section-label">Patch Assessment</p>
+    <div class="card assessment">
+      <p>Raised cedar deck planter with last season's dead material still in place. Fresh green growth emerging — possibly self-seeded or returning perennial. Partial shade from surrounding canopy. Soil refresh needed before planting.</p>
+    </div>
+
+    <!-- This Weekend checklist -->
+    <div class="weekend">
+      <p class="section-label">This Weekend</p>
+      <ul class="checklist" aria-label="Weekend tasks">
+        <li>
+          <span class="check-box"><span class="check-mark">&#10003;</span></span>
+          <span class="check-label">Clear dead material from box</span>
+        </li>
+        <li>
+          <span class="check-box"><span class="check-mark">&#10003;</span></span>
+          <span class="check-label">Top off soil with fresh potting mix</span>
+        </li>
+        <li>
+          <span class="check-box"><span class="check-mark">&#10003;</span></span>
+          <span class="check-label">Visit a local native nursery</span>
+        </li>
+        <li>
+          <span class="check-box"><span class="check-mark">&#10003;</span></span>
+          <span class="check-label">Plant immediately — rain forecast helps establishment</span>
+        </li>
+        <li>
+          <span class="check-box"><span class="check-mark">&#10003;</span></span>
+          <span class="check-label">Water in well after planting</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Plant cards -->
+    <h2 class="plants-heading">Plants for this patch</h2>
+
+    <div class="plant-card" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="plant-emoji">&#127800;</div>
+      <div class="plant-info">
+        <div class="plant-name">Scarlet Sage</div>
+        <div class="plant-sci">Salvia coccinea</div>
+        <div class="plant-desc">Hummingbird magnet</div>
+        <div class="plant-qty">1 plant &mdash; sunny end</div>
+        <div class="plant-tags">
+          <span class="tag">Hummingbirds</span>
+        </div>
+      </div>
+      <div class="plant-check" aria-hidden="true"><span class="plant-check-mark">&#10003;</span></div>
+    </div>
+
+    <div class="plant-card" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="plant-emoji">&#127803;</div>
+      <div class="plant-info">
+        <div class="plant-name">Blackfoot Daisy</div>
+        <div class="plant-sci">Melampodium leucanthum</div>
+        <div class="plant-desc">Compact, drought tolerant</div>
+        <div class="plant-qty">2 plants &mdash; center</div>
+        <div class="plant-tags">
+          <span class="tag">Native Bees</span>
+          <span class="tag">Butterflies</span>
+        </div>
+      </div>
+      <div class="plant-check" aria-hidden="true"><span class="plant-check-mark">&#10003;</span></div>
+    </div>
+
+    <div class="plant-card" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="plant-emoji">&#129419;</div>
+      <div class="plant-info">
+        <div class="plant-name">Gregg's Mistflower</div>
+        <div class="plant-sci">Conoclinium greggii</div>
+        <div class="plant-desc">Monarch magnet, blooms fall</div>
+        <div class="plant-qty">1 plant &mdash; back corner</div>
+        <div class="plant-tags">
+          <span class="tag">Monarchs</span>
+          <span class="tag">Queen Butterfly</span>
+        </div>
+      </div>
+      <div class="plant-check" aria-hidden="true"><span class="plant-check-mark">&#10003;</span></div>
+    </div>
+
+    <div class="plant-card" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="plant-emoji">&#127807;</div>
+      <div class="plant-info">
+        <div class="plant-name">Frogfruit</div>
+        <div class="plant-sci">Phyla nodiflora</div>
+        <div class="plant-desc">Larval host plant</div>
+        <div class="plant-qty">1 plant &mdash; trailing edge</div>
+        <div class="plant-tags">
+          <span class="tag">Larval Host</span>
+          <span class="tag">Native Bees</span>
+        </div>
+      </div>
+      <div class="plant-check" aria-hidden="true"><span class="plant-check-mark">&#10003;</span></div>
+    </div>
+
+    <div class="plant-card" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="plant-emoji">&#127804;</div>
+      <div class="plant-info">
+        <div class="plant-name">Straggler Daisy</div>
+        <div class="plant-sci">Calyptocarpus vialis</div>
+        <div class="plant-desc">Low growing edge plant</div>
+        <div class="plant-qty">1 plant &mdash; edges</div>
+        <div class="plant-tags">
+          <span class="tag">Native Bees</span>
+        </div>
+      </div>
+      <div class="plant-check" aria-hidden="true"><span class="plant-check-mark">&#10003;</span></div>
+    </div>
+
+    <!-- Wonder Box -->
+    <div class="wonder-box">
+      <p class="section-label">Wonder</p>
+      <p>Plant this box and you could attract a <strong>Phaon Crescent butterfly</strong> — one of the few butterflies that can complete its entire life cycle in a single planter box. That's a whole story in a few square feet.</p>
+    </div>
+
+    <!-- Local Resources -->
+    <p class="section-label">Local Resources</p>
+    <div class="card">
+      <ul class="resources-list">
+        <li>
+          <a href="https://bartonspringsnursery.net" target="_blank" rel="noopener">
+            <span class="res-name">Barton Springs Nursery</span>
+            <span class="res-url">bartonspringsnursery.net</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://tgonursery.com" target="_blank" rel="noopener">
+            <span class="res-name">The Great Outdoors</span>
+            <span class="res-url">tgonursery.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wildflower.org" target="_blank" rel="noopener">
+            <span class="res-name">Lady Bird Johnson Wildflower Center</span>
+            <span class="res-url">wildflower.org</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://inaturalist.org" target="_blank" rel="noopener">
+            <span class="res-name">iNaturalist</span>
+            <span class="res-url">inaturalist.org</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>steward what&rsquo;s yours to restore what&rsquo;s ours &middot; nanoranch.org</p>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* Checklist tap toggle */
+      var items = document.querySelectorAll('.checklist li');
+      for (var i = 0; i < items.length; i++) {
+        (function (el) {
+          el.addEventListener('click', function () {
+            el.classList.toggle('checked');
+          });
+          el.addEventListener('keydown', function (e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              el.classList.toggle('checked');
+            }
+          });
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'checkbox');
+          el.setAttribute('aria-checked', 'false');
+        }(items[i]));
+      }
+
+      /* Plant card tap toggle */
+      var cards = document.querySelectorAll('.plant-card');
+      for (var j = 0; j < cards.length; j++) {
+        (function (card) {
+          function toggle() {
+            var checked = card.classList.toggle('checked');
+            card.setAttribute('aria-checked', checked ? 'true' : 'false');
+          }
+          card.addEventListener('click', toggle);
+          card.addEventListener('keydown', function (e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              toggle();
+            }
+          });
+        }(cards[j]));
+      }
+
+      /* Sync checklist aria-checked on click */
+      var chkItems = document.querySelectorAll('.checklist li');
+      for (var k = 0; k < chkItems.length; k++) {
+        (function (el) {
+          var orig = el.onclick;
+          el.addEventListener('click', function () {
+            el.setAttribute('aria-checked', el.classList.contains('checked') ? 'true' : 'false');
+          });
+        }(chkItems[k]));
+      }
+    }());
+  </script>
+</body>
+</html>
