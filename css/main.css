@@ -480,6 +480,7 @@
             text-decoration: none;
             transition: filter 0.2s;
             white-space: nowrap;
+            margin-bottom: 1.5rem;
         }
 
         .substack-btn:hover {

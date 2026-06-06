@@ -1,0 +1,83 @@
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 11, 0.72);
+  backdrop-filter: blur(3px);
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Dialog ── */
+.dialog {
+  background: var(--season-bg);
+  border: 1px solid var(--grey-rule);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  animation: slideUp 0.22s ease;
+  outline: none;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--grey-rule);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity var(--transition-base), background var(--transition-base);
+  flex-shrink: 0;
+}
+.closeBtn:hover { opacity: 1; background: var(--grey-pale); }
+
+/* ── Body ── */
+.body {
+  padding: 1.5rem;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .dialog {
+  background: var(--grey-dark);
+  border-color: #3a3a38;
+}
