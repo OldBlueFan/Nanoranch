@@ -18,13 +18,37 @@ No build tools, no bundler, no framework. Everything ships as-is.
 
 ## Deployment
 
-The site is hosted on **Dreamhost** and deployed via `git push` to a `dreamhost` remote. After making changes, deploy by running:
+The live site is hosted on **Dreamhost** and serves the `main` branch. Deploying means getting your change onto `main` and pushing `main` to both remotes:
+
+- `origin` — GitHub (`git@github.com:OldBlueFan/Nanoranch.git`)
+- `dreamhost` — the live host (`ssh://malloy@pdx1-shared-a2-06.dreamhost.com/~/nanoranch.org.git`)
+
+**If you're working directly on `main` with a clean tree**, the quick path is:
 
 ```sh
 git add . && git commit -m 'describe change' && git push origin main && git push dreamhost main
 ```
 
-This commits the work, pushes to GitHub (`origin`), and then pushes to the live host (`dreamhost`). Both pushes target `main`. Replace `describe change` with a real commit message.
+**Active work usually happens on a feature branch** (e.g. `feat/welcome-screen-updates`) and the tree may have unrelated uncommitted WIP (the `seed/` app). In that case, don't `git add .` on `main` — it would sweep in the WIP. Instead:
+
+```sh
+# on your feature branch, commit only the files you want to ship
+git add <files> && git commit -m 'describe change'
+
+# stash anything still uncommitted so you can switch branches cleanly
+git stash push -u -m 'WIP'
+
+git checkout main
+git pull --ff-only origin main      # main is often behind; fast-forward first
+git merge <feature-branch>
+git push origin main && git push dreamhost main
+
+# return to your work and restore the WIP
+git checkout <feature-branch>
+git stash pop
+```
+
+Replace `describe change` with a real commit message. Both pushes target `main`.
 
 ## Design system
 
