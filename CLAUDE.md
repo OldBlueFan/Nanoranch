@@ -16,6 +16,16 @@ favicon.ico / .svg  Favicons
 
 No build tools, no bundler, no framework. Everything ships as-is.
 
+## Deployment
+
+The site is hosted on **Dreamhost** and deployed via `git push` to a `dreamhost` remote. After making changes, deploy by running:
+
+```sh
+git add . && git commit -m 'describe change' && git push origin main && git push dreamhost main
+```
+
+This commits the work, pushes to GitHub (`origin`), and then pushes to the live host (`dreamhost`). Both pushes target `main`. Replace `describe change` with a real commit message.
+
 ## Design system
 
 **Fonts** — `Crimson Pro` (serif, headings) · `Outfit` (sans-serif, body)
