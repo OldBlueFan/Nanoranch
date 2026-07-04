@@ -17,7 +17,8 @@ npm run dev
   block), and the **live** set components actually use. The future
   night→day scroll tween animates only the live tokens.
 - Static full-viewport night hero: gradient void, CSS-only iridescent
-  shimmer, two-depth starfield, centered `};{` mark placeholder.
+  shimmer, two-depth starfield, centered <i>};{</i> mark placeholder
+  (the mark is always presented in italic).
 - GSAP + ScrollTrigger registered through `src/lib/motion.js`; all
   choreography gates behind `prefers-reduced-motion: no-preference`.
 

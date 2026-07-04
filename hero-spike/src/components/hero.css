@@ -90,6 +90,9 @@
   display: flex;
   align-items: baseline;
   font-family: var(--font-display);
+  /* the };{ glyphs are always presented in italic — true italic face
+     loaded in main.jsx, never a synthesized oblique */
+  font-style: italic;
   font-size: var(--text-hero);
   font-weight: 400;
   line-height: 1;

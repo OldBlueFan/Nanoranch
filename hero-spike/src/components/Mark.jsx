@@ -1,7 +1,9 @@
 /* PLACEHOLDER for the real nanoranch mark.
  *
  * Direction: the };{ glyph — brace, semicolon, brace — with
- * nano•ranch beneath. Readings the future entrance is built on:
+ * nano•ranch beneath. The };{ glyphs are ALWAYS presented in
+ * italic (Crimson Pro's true italic face; see hero.css and the
+ * wght-italic import in main.jsx). Readings the future entrance is built on:
  *   }  and  {   the two birds, converging from left and right
  *   ;           butterfly head-and-body, and equally a sapling
  *               rising from soil (dot = seed-head, comma = the
