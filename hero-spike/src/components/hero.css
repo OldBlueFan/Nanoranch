@@ -1,0 +1,122 @@
+/* Hero — static night composition.
+   Everything references the LIVE token set only (--sky-*, --ink,
+   --accent-*): when the night→day tween lands it animates those
+   custom properties and this file doesn't change. */
+
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--sky-zenith) 0%,
+    var(--sky-zenith) 45%,
+    var(--sky-horizon) 100%
+  );
+}
+
+/* ---- iridescent shimmer — static, CSS-only -------------------
+   Four low-alpha nebula washes, one per accent hue, drifting off
+   the edges of the viewport. Alphas 4–6%: present on a good
+   panel, subliminal on a bad one, never competing with text.    */
+.hero__shimmer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 12% 18%,
+      color-mix(in srgb, var(--accent-lavender) 6%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 88% 12%,
+      color-mix(in srgb, var(--accent-turquoise) 5%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 82% 88%,
+      color-mix(in srgb, var(--accent-coral) 5%, transparent), transparent 70%),
+    radial-gradient(45% 40% at 15% 92%,
+      color-mix(in srgb, var(--accent-gold) 4%, transparent), transparent 70%);
+}
+
+/* ---- starfield — static, two depths ---------------------------
+   Each layer is a single dot cloned across the viewport by its
+   box-shadow list (vw/vh offsets so the field scales with the
+   viewport). Star colour comes from --ink via currentColor;
+   depth is expressed through size and layer opacity.            */
+.hero__stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  color: var(--ink);
+  background: transparent;
+}
+
+.hero__stars--far {
+  width: 1px;
+  height: 1px;
+  opacity: 0.45;
+  box-shadow:
+     4vw  8vh,  11vw 31vh,  17vw 64vh,  23vw 12vh,  29vw 83vh,
+    34vw 42vh,  39vw  6vh,  44vw 57vh,  51vw 27vh,  56vw 74vh,
+    61vw 15vh,  66vw 48vh,  71vw 88vh,  76vw 33vh,  81vw  9vh,
+    86vw 61vh,  91vw 24vh,  96vw 79vh,   8vw 51vh,  19vw 93vh,
+    47vw 91vh,  59vw 96vh,  74vw 70vh,  89vw 44vh,  14vw 76vh,
+    27vw 22vh,  93vw 58vh,  37vw 68vh;
+}
+
+.hero__stars--near {
+  opacity: 0.85;
+  box-shadow:
+     6vw 21vh,  13vw 72vh,  21vw 39vh,  31vw 11vh,  36vw 66vh,
+    43vw 86vh,  49vw 17vh,  54vw 47vh,  63vw 79vh,  69vw  7vh,
+    73vw 36vh,  79vw 59vh,  84vw 14vh,  88vw 82vh,  94vw 37vh,
+    98vw 67vh,   9vw 89vh,  26vw 54vh,  58vw 30vh,  16vw  4vh,
+    41vw 94vh,  91vw  5vh;
+}
+
+/* ---- mark placeholder -----------------------------------------*/
+.mark {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  /* fixed-size slot the real mark will occupy */
+  width: min(20rem, 70vw);
+  padding: var(--space-6) 0;
+  text-align: center;
+}
+
+.mark__glyph {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+}
+
+/* separate spans: the entrance stage moves } in from the left,
+   { in from the right, and raises the ; from the bottom */
+.mark__bird {
+  display: inline-block;
+}
+
+.mark__body {
+  display: inline-block;
+  margin: 0 0.06em;
+  color: var(--accent-gold);
+}
+
+.mark__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.mark__sep {
+  margin: 0 0.12em;
+  color: var(--accent-coral);
+}

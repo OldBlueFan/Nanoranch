@@ -1,0 +1,43 @@
+/* base: reset + document defaults + reduced-motion kill-switch */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--sky-zenith);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Reduced-motion kill-switch (layer 1 of 3 — see src/lib/motion.js
+   for the gsap.matchMedia gate and the component-level helper).
+   Near-zero rather than zero so transitionend/animationend events
+   still fire for any logic that waits on them. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

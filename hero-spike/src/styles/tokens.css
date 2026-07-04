@@ -1,0 +1,108 @@
+/* ============================================================
+   nanoranch hero — design tokens
+   ============================================================
+   Concept: the page opens in COSMIC DARK and scrolls INTO
+   DAYLIGHT. Tokens come in three tiers:
+
+     1. NIGHT set  (--night-*)  fixed endpoints, pre-dawn dark
+     2. DAY set    (--day-*)    fixed endpoints, full daylight
+                                — PROVISIONAL, see below
+     3. LIVE set   (--sky-*, --ink*, --accent-*, --surface)
+                                the ONLY tokens components use
+
+   The live tokens default to the night values. In later stages
+   GSAP tweens the live custom properties from the night
+   endpoints to the day endpoints as the user scrolls, so the
+   entire night→day transition is a token swap — components
+   never change.
+
+   Contrast ratios below are computed (WCAG 2.1 relative
+   luminance) — keep them current when a value changes.
+   ============================================================ */
+
+:root {
+  /* ---- night: genuine pre-dawn cosmic dark ------------------
+     Deep-indigo void chosen for the night-sky concept itself.  */
+  --night-void:       #06050f;  /* zenith / page base            */
+  --night-horizon:    #151034;  /* bottom-of-viewport glow stop  */
+  --night-surface:    #0f0d1f;  /* cards / panels, later stages  */
+  --night-ink:        #f4f2ff;  /* 18.33:1 on void ✓ AAA         */
+  --night-ink-muted:  #aaa4cc;  /*  8.58:1 on void,
+                                    7.69:1 on horizon ✓ AAA      */
+
+  /* iridescent accents — saturated + high-lightness so they POP
+     on the dark field; all are text-safe at night (≥ 7:1)       */
+  --night-coral:      #ff7a6b;  /*  7.96:1 on void ✓ AAA         */
+  --night-turquoise:  #3ee6cf;  /* 12.95:1 on void ✓ AAA         */
+  --night-lavender:   #b9a7ff;  /*  9.68:1 on void ✓ AAA         */
+  --night-gold:       #ffc95c;  /* 13.28:1 on void ✓ AAA         */
+
+  /* ---- day: full daylight -----------------------------------
+     ⚠ PROVISIONAL — UNRESOLVED. Do not treat these hexes as
+     locked. Softened accents on a saturated sky wash out —
+     measured against --day-field #7ec3f0 they all FAIL
+     SC 1.4.11 (≥ 3:1 non-text):
+         --day-coral      1.54:1 ✗
+         --day-turquoise  1.53:1 ✗
+         --day-lavender   1.77:1 ✗
+         --day-gold       1.27:1 ✗
+     and --day-ink-muted is 4.10:1 on the field (AA, not AAA).
+     The day tier will be retuned against a paler, lower-
+     saturation field when the night→day transition stage is
+     built. Ratios vs --day-surface are healthy (ink 14.78:1,
+     ink-muted 7.35:1 ✓ AAA).                                    */
+  --day-zenith:       #4da3e3;  /* top of sky                    */
+  --day-horizon:      #bfe3f9;  /* bright horizon                */
+  --day-field:        #7ec3f0;  /* main sky-blue field           */
+  --day-surface:      #f2f8fd;  /* warm near-white panels        */
+  --day-ink:          #10233c;  /*  8.25:1 on field ✓ AAA        */
+  --day-ink-muted:    #3a527a;  /*  4.10:1 on field — see above  */
+  --day-coral:        #e0796c;
+  --day-turquoise:    #2fa896;
+  --day-lavender:     #8f7fd6;
+  --day-gold:         #d99a33;
+
+  /* ---- transition -------------------------------------------
+     Warm horizon bloom that blends in mid-scroll, between the
+     night and day endpoints.                                    */
+  --dawn-glow:        #f08c4f;
+
+  /* ---- live set ----------------------------------------------
+     Components reference ONLY these. Initialized to night;
+     GSAP tweens them toward the day endpoints in later stages.  */
+  --sky-zenith:       var(--night-void);
+  --sky-horizon:      var(--night-horizon);
+  --surface:          var(--night-surface);
+  --ink:              var(--night-ink);
+  --ink-muted:        var(--night-ink-muted);
+  --accent-coral:     var(--night-coral);
+  --accent-turquoise: var(--night-turquoise);
+  --accent-lavender:  var(--night-lavender);
+  --accent-gold:      var(--night-gold);
+
+  /* ---- type --------------------------------------------------*/
+  --font-display: 'Crimson Pro Variable', 'Crimson Pro', Georgia, serif;
+  --font-ui:      'Outfit Variable', 'Outfit', system-ui, sans-serif;
+
+  --text-hero: clamp(2.75rem, 2rem + 4vw, 5.5rem);
+  --text-lg:   clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-sm:   clamp(0.85rem, 0.8rem + 0.2vw, 0.95rem);
+
+  /* ---- space -------------------------------------------------*/
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 4rem;
+  --space-8: 6.5rem;
+
+  /* ---- motion ------------------------------------------------
+     Defined now so later stages share one vocabulary.           */
+  --ease-drift: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-fast: 200ms;
+  --dur-med:  600ms;
+  --dur-slow: 1400ms;
+}
