@@ -1,0 +1,77 @@
+:root {
+  /* ---- Dusk sky scale (top → horizon). Always used as a vertical gradient. ---- */
+  --sky-0: #04030c;
+  --sky-1: #0a0921;
+  --sky-2: #130e30;
+  --sky-3: #1d1240;
+  --sky-4: #241546;
+  --sky-5: #2a184a;
+
+  /* The full backdrop gradient + horizon glow, ready to use */
+  --gradient-dusk: linear-gradient(180deg, var(--sky-0) 0%, var(--sky-1) 30%, var(--sky-2) 52%, var(--sky-3) 72%, var(--sky-4) 88%, var(--sky-5) 100%);
+  --glow-horizon: radial-gradient(130% 45% at 50% 106%, rgba(80,170,200,.18) 0%, rgba(95,80,185,.10) 45%, rgba(0,0,0,0) 72%);
+
+  /* ---- Labradorite color fields (horizon stone). Used as large zones, never confetti. ---- */
+  --lab-gold: hsl(45, 88%, 52%);
+  --lab-amber: hsl(30, 85%, 46%);
+  --lab-cyan: hsl(187, 92%, 48%);
+  --lab-teal: hsl(199, 82%, 40%);
+  --lab-milk: hsl(213, 28%, 56%);
+  --lab-cobalt: hsl(226, 68%, 36%);
+  --lab-deep: hsl(232, 58%, 30%);
+  --lab-green: hsl(152, 62%, 40%);
+  --lab-fracture: rgba(20, 13, 5, 0.55);
+
+  /* ---- Silhouette inks (grasses, ground line) ---- */
+  --ink-grass-back: #191128;
+  --ink-grass: #070510;
+
+  /* ---- Text on the dark backdrop ---- */
+  --text-primary: #ffffff;
+  --text-body: rgba(240, 238, 248, 0.88);
+  --text-intro: rgba(244, 242, 250, 0.92);
+  --text-soft: rgba(235, 235, 245, 0.72);
+  --text-muted: rgba(235, 235, 245, 0.6);
+  --text-link: rgba(235, 235, 245, 0.5);
+  --text-dim: rgba(235, 235, 245, 0.62);   /* min alpha for small text on the dusk sky (≥4.5:1) */
+  --text-hint: rgba(235, 235, 245, 0.6);    /* LEARN MORE hints */
+  --text-note: rgba(235, 232, 246, 0.62);
+
+  /* ---- Surfaces & borders (glass on dark) ---- */
+  --surface-card: rgba(14, 11, 32, 0.55);
+  --surface-nav: rgba(8, 6, 20, 0.42);
+  --border-soft: rgba(255, 255, 255, 0.07);
+  --border-card: rgba(255, 255, 255, 0.14);
+  --border-control: rgba(255, 255, 255, 0.22);
+  --border-hover: rgba(255, 255, 255, 0.4);
+  --border-control-hover: rgba(255, 255, 255, 0.55);
+  --surface-control-hover: rgba(255, 255, 255, 0.06);
+  --underline-link: rgba(255, 255, 255, 0.18);
+  --underline-link-hover: rgba(255, 255, 255, 0.5);
+
+  /* ---- Gold accent (focus, card hairlines, active states, in-card links) ---- */
+  --accent-gold: rgba(240, 200, 120, 0.85);        /* link text, hairline peak */
+  --accent-gold-strong: rgba(240, 200, 120, 0.9);  /* focus rings */
+  --accent-gold-border: rgba(240, 200, 120, 0.65); /* active card stroke */
+  --accent-gold-dim: rgba(240, 200, 120, 0.35);    /* underlines at rest */
+  --glow-gold: 0 0 22px rgba(240, 200, 120, 0.14), inset 0 0 14px rgba(240, 200, 120, 0.06);
+  --focus-ring: 2px solid var(--accent-gold-strong); /* + outline-offset 3px (8px inside cards) */
+
+  /* ---- Navstone (nav-bar iridescence — pinks/purples/turquoise, complementary to labradorite) ---- */
+  --nav-pink: hsl(322, 82%, 66%);
+  --nav-magenta: hsl(330, 86%, 68%);
+  --nav-purple: hsl(288, 72%, 58%);
+  --nav-violet: hsl(262, 70%, 54%);
+  --nav-turquoise: hsl(178, 85%, 56%);
+  --nav-teal: hsl(190, 80%, 54%);
+  /* Text-protection overlay: darker at edges (where lockup + links sit), light center */
+  --overlay-nav-protect: linear-gradient(90deg, rgba(8,6,20,.68) 0%, rgba(8,6,20,.3) 30%, rgba(8,6,20,.3) 62%, rgba(8,6,20,.68) 100%);
+  --shadow-nav-text: 0 1px 8px rgba(4, 3, 12, 0.85);
+
+  /* ---- Card surface (glass gradient) ---- */
+  --surface-card-gradient: linear-gradient(180deg, rgba(20,15,44,.62) 0%, rgba(12,9,28,.55) 100%);
+
+  /* ---- Stars ---- */
+  --star: rgba(255, 250, 240, 0.85);
+  --star-glow: rgba(255, 248, 230, 0.5);
+}

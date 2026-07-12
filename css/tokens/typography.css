@@ -1,0 +1,45 @@
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Crimson Pro', Georgia, serif;  /* wordmark, mark, headings, body */
+  --font-caps: 'Outfit', sans-serif;              /* tracked uppercase labels only */
+
+  /* ---- The mark };{ ---- */
+  --mark-weight: 480;           /* always italic, always white */
+  --mark-size-hero: clamp(130px, 23vw, 230px);
+
+  /* ---- Wordmark nano•ranch ---- */
+  --wordmark-weight: 250;
+  --wordmark-size-hero: clamp(44px, 8.4vw, 88px);
+  --wordmark-size-nav: clamp(17px, 5vw, 21px);
+  --wordmark-weight-nav: 450;
+
+  /* ---- Tracked caps (Outfit) ---- */
+  --caps-weight: 400;
+  --caps-size-kicker: 15px;      /* REWILD */
+  --caps-size-button: 13px;      /* SOIL / SPACE / SOUL buttons */
+  --caps-size-label: 12.5px;     /* section labels */
+  --caps-size-nav: 12px;         /* nav links */
+  --caps-size-hint: 11px;        /* EXPLORE ABOVE OR SCROLL FOR MORE */
+  --tracking-kicker: 0.58em;
+  --tracking-label: 0.5em;
+  --tracking-hint: 0.42em;
+  --tracking-button: 0.4em;
+  --tracking-nav: clamp(0.18em, 1.1vw, 0.34em);
+  --tracking-link: 0.3em;
+
+  /* ---- Prose (leading is deliberately tight) ---- */
+  --text-size-intro: clamp(20px, 2.6vw, 27px);       /* section intros */
+  --text-size-statement: clamp(23px, 2.8vw, 30px);   /* About focal statement */
+  --text-size-frame: clamp(17px, 1.9vw, 20px);       /* About framing lines */
+  --text-size-card-title: clamp(18px, 1.9vw, 22px);
+  --text-size-card-note: 15px;
+  --leading-intro: 1.4;
+  --leading-frame: 1.45;
+  --leading-statement: 1.18;
+  --weight-frame: 280;
+  --weight-statement: 480;
+  --weight-intro: 350;
+  --weight-card-title: 500;      /* card titles are Outfit, centered */
+
+  /* About-block rhythm: light frame → heavy statement → light frame */
+}

@@ -4,208 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nano};{ranch</title>
-    <meta property="og:title" content="Scalable stewardship for a range of rewilding">
-    <meta property="og:description" content="From city planter box to leased suburban yard to rural open acreage — restoring native habitat reignites wonder about our place, our people, and ourselves.">
+    <meta name="description" content="Nanoranch explores the wonder of personal rewilding across soil, space, and soul.">
+    <meta property="og:title" content="nano};{ranch">
+    <meta property="og:description" content="Exploring the wonder of personal rewilding across soil, space, and soul.">
     <meta property="og:url" content="https://nanoranch.org/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="/nanoranch-opengraph.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta name="theme-color" content="#04030c">
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,600;1,500&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav aria-label="Main navigation">
-        <!-- ROYGBIV colour theme swatches — populated by JS -->
-        <div class="color-bar" role="toolbar" aria-label="Colour theme"></div>
-        <div class="nav-inner">
-            <a href="#" class="nav-logo">nano<span class="logo-glyph">};{</span>ranch</a>
-            <ul class="nav-links" id="nav-links" role="list">
-                <li><a href="#mission">Mission</a></li>
-                <li><a href="#mosaic">Mosaic</a></li>
-                <li><a href="#memory">Memory</a></li>
-                <li><a href="#join">More</a></li>
-            </ul>
-            <button
-                class="nav-toggle"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="mobile-menu"
-            >
-                <span class="nav-toggle-bar" aria-hidden="true"></span>
-                <span class="nav-toggle-bar" aria-hidden="true"></span>
-                <span class="nav-toggle-bar" aria-hidden="true"></span>
-            </button>
-        </div>
-    </nav>
-
-    <!--
-        Mobile fullscreen menu — sibling of <nav>, NOT a descendant.
-        Kept outside nav so backdrop-filter on the nav bar cannot create
-        a containing block that clips this element to the nav's height.
-    -->
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-        <ul role="list">
-            <li><a href="#mission">Mission</a></li>
-            <li><a href="#mosaic">Mosaic</a></li>
-            <li><a href="#memory">Memory</a></li>
-            <li><a href="#join">More</a></li>
-        </ul>
-    </div>
+    <!-- Backdrop layers (bottom-up): dusk gradient, horizon glow, stars, labradorite, grass -->
+    <div class="backdrop-sky" aria-hidden="true"></div>
+    <div class="backdrop-glow" aria-hidden="true"></div>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <!-- labradorite.svg is fetched and inlined by JS so its baked-in facet-flash
+         and light-sweep animations run (keyframes live in main.css) -->
+    <div class="horizon-stone" id="horizonStone" aria-hidden="true"></div>
+    <div class="grass-layer" aria-hidden="true"><img src="assets/grass.svg" alt=""></div>
 
     <main>
-
-        <!-- Hero -->
-        <section class="hero" aria-labelledby="hero-heading">
-            <div class="hero-inner">
-                <p class="hero-eyebrow">Scalable stewardship for a range of rewilding</p>
-                <h1 id="hero-heading" class="hero-logo">
-                    <span class="hero-logo-glyph" aria-hidden="true">};{</span>
-                    <span class="hero-logo-text">nano<span class="hero-logo-bullet">•</span>ranch</span>
-                </h1>
-                <div class="hero-rule" aria-hidden="true"></div>
-                <p class="hero-tagline">
-                    From city planter box to leased suburban yard to rural open acreage —
-                    restoring native habitat reignites wonder about our place, our people, and ourselves.
-                </p>
+        <!-- Home hero -->
+        <div class="hero nr-vh" id="hero" style="min-height:100svh">
+            <div class="hero-kicker">Rewild</div>
+            <div class="hero-mark" aria-hidden="true">
+                <span class="mark-brace-l" id="braceL">}</span>
+                <span class="mark-center">
+                    <span class="mark-dot" id="markDot"></span>
+                    <span class="mark-comma" id="markComma">,</span>
+                </span>
+                <span class="mark-brace-r" id="braceR">{</span>
             </div>
-            <span class="hero-scroll" aria-hidden="true">Scroll to explore</span>
-        </section>
-
-        <!-- Mission -->
-        <section class="mission" id="mission" aria-labelledby="mission-heading">
-            <div class="container-narrow">
-                <div class="section-rule" aria-hidden="true"></div>
-                <h2 id="mission-heading">Rewilding within reach</h2>
-                <p>
-                    We make rewilding accessible to anyone, at any scale, through everyday acts
-                    that reignite wonder, restore native habitat, and cultivate thriving ecosystems.
-                </p>
+            <h1 class="hero-wordmark">
+                <span>nano</span><span class="hero-bullet" aria-hidden="true">&#9679;</span><span>ranch</span>
+            </h1>
+            <div class="hero-buttons">
+                <button type="button" class="ghost-btn" id="soilBtn" data-go="soil">Soil</button>
+                <button type="button" class="ghost-btn" data-go="space">Space</button>
+                <button type="button" class="ghost-btn" data-go="soul">Soul</button>
             </div>
-        </section>
+            <div class="hero-hint">Explore above or scroll for more</div>
+        </div>
 
-        <!-- Scale -->
-        <section class="scale" id="mosaic" aria-labelledby="scale-heading">
-            <div class="container">
-                <div class="section-rule" aria-hidden="true"></div>
-                <h2 id="scale-heading">Stewardship seeded</h2>
-                <p class="intro">Wherever you touch soil, plants, water, or wildlife, opportunities emerge to learn, to contribute, and to celebrate what matters most.</p>
-                <p class="intro">Small acts, when thoughtfully connected, form a living network of shared knowledge and measurable impact.</p>
-                <div class="scale-grid" role="list">
-                    <div class="scale-item" role="listitem">
-                        <div class="scale-unit">A planter box</div>
-                        <div class="scale-sublabel">Balcony · Windowsill · Patio</div>
-                    </div>
-                    <div class="scale-item" role="listitem">
-                        <div class="scale-unit">A front yard</div>
-                        <div class="scale-sublabel">Urban lot · Garden bed</div>
-                    </div>
-                    <div class="scale-item" role="listitem">
-                        <div class="scale-unit">A field</div>
-                        <div class="scale-sublabel">Rural edge · Meadow margin</div>
-                    </div>
-                    <div class="scale-item" role="listitem">
-                        <div class="scale-unit">Several acres</div>
-                        <div class="scale-sublabel">Open range · Restored land</div>
-                    </div>
+        <!-- Below the fold (About) -->
+        <div class="below" id="below">
+            <div class="about">
+                <p class="about-frame">Rewilding is the practice of restoring, respecting, and realizing our harmony with nature, place, time, community, and ourselves.</p>
+                <p class="about-statement">Nanoranch explores the wonder of personal rewilding across soil, space, and soul.</p>
+                <p class="about-frame">Inspiration for Nanoranch is continually reignited by the life, love, and being of Lori Clay Malloy.</p>
+                <div class="about-links">
+                    <a href="https://beinglori.com" target="_blank" rel="noopener" class="pill-link nr-glass" aria-label="Discover Being Lori (opens in new window)"><span>Discover Being Lori</span><svg aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 1.5 H10.5 V7.5"></path><path d="M10.5 1.5 L3 9"></path></svg></a>
                 </div>
             </div>
-        </section>
-
-        <!-- Pillars -->
-        <section class="pillars" id="stewardship" aria-labelledby="pillars-heading">
-            <div class="container">
-                <div class="pillars-header">
-                    <div class="section-rule" aria-hidden="true"></div>
-                    <h2 id="pillars-heading">Restoration rooted</h2>
-                    <p class="intro">However you engage, restoration begins in place — grounded in soil, community, and the living systems that sustain us.</p>
-                    <p class="intro">When observations are connected and insights are aggregated, restoration becomes more informed, coordinated, and resilient.</p>
-                </div>
-                <div class="pillars-grid">
-                    <div class="pillar">
-                        <div class="pillar-num" aria-label="Pillar one">01</div>
-                        <h3>Native Flora & Fauna</h3>
-                        <p>
-                            Access hyperlocal guidance on selecting, sourcing, and establishing native species
-                            suited to your region, soil, and microclimate — forming the foundation of rewilding.
-                        </p>
-                    </div>
-                    <div class="pillar">
-                        <div class="pillar-num" aria-label="Pillar two">02</div>
-                        <h3>Pollinators & Biodiversity</h3>
-                        <p>
-                            Contribute to adaptive, self-learning systems that surface and strengthen
-                            the intricate relationships between soil, water, plants, and the native
-                            pollinators and animals dependent on them.
-                        </p>
-                    </div>
-                    <div class="pillar">
-                        <div class="pillar-num" aria-label="Pillar three">03</div>
-                        <h3>Migration & Habitats</h3>
-                        <p>
-                            Monitor, track, and celebrate reconnection to the larger landscape —
-                            living corridors for monarchs, songbirds, and other fauna moving
-                            through the seasons and across regions.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About / Fauna -->
-        <section class="about" id="memory" aria-labelledby="about-heading">
-            <div class="container">
-                <div class="section-rule" aria-hidden="true"></div>
-                <h2 id="about-heading">Wonder welcomed</h2>
-                <p>
-                    Whoever feels a spark at seeing birds at the feeder, a pollinator at work,
-                    or native plants emerging anew — sharing that joy with others is, in its
-                    own way, a rewilding of our connection to one another.
-                </p>
-                <p>
-                    Nanoranch is inspired by someone who paid attention - and ignited a curiosity in others to
-                    find wonder not as an abstract idea, but as a practice that was shared and
-                    invited.
-                </p>
-                <a class="substack-btn" href="/memory/Lori-Malloy_In-Memoriam.pdf" target="_blank" rel="noopener noreferrer">Learn About Being Lori</a>
-
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta" id="join" aria-labelledby="cta-heading">
-            <div class="container-narrow">
-                <div class="section-rule section-rule--light" aria-hidden="true"></div>
-                <h2 id="cta-heading">Season's start</h2>
-                <p>
-                    While nano};{ranch continues to take shape, and we ready social channels and outreach campaigns – don't have to wait to begin. Start with your own patch of ground.
-                </p>
-                <p>
-                    Don't focus on perfection, or ripping everything out. Just begin shifting toward what belongs – what supports life around you. Native plants are one of the simplest, highest-impact ways to do that.
-                </p>
-                <a class="substack-btn" href="https://www.wildflower.org/plants-main" target="_blank" rel="noopener noreferrer">Visit the Ladybird Johnson Wildflower Center</a>
-                <p>
-                    The native plants database is an amazing discovery resource.
-                </p>
-                <p style="font-size: 1.2em; font-weight: 800;">
-                    Just bring curiosity - and a willingness to let something grow.
-                </p>
-            </div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo" aria-label="nano};{ranch">nano<span class="logo-glyph">};{</span>ranch</div>
-        <div class="footer-copy">&copy; 2026 &nbsp;&middot;&nbsp; Scalable stewardship for a range of rewilding</div>
-    </footer>
+    <!-- Section view (SOIL / SPACE / SOUL) — populated by JS -->
+    <section class="section-layer" id="sectionLayer" data-mode="" hidden>
+        <div class="section-intro">
+            <div class="section-intro-inner" id="sectionIntroInner">
+                <h2 class="section-label" id="sectionLabel"></h2>
+                <p class="section-text" id="sectionText"></p>
+            </div>
+        </div>
+        <div class="cards-row" id="cardsRow"></div>
+    </section>
+
+    <!-- Flying mark elements land here -->
+    <div id="flightLayer"></div>
+
+    <!-- Navstone teaser strip (visible while the nav bar is hidden) -->
+    <div class="nav-strip" id="navStrip" aria-hidden="true"></div>
+
+    <!-- Nav bar -->
+    <div class="site-nav nr-glass-nav" id="siteNav">
+        <a href="#" class="nav-home" id="navHome" aria-label="nanoranch home">nano<span class="nav-home-mark">};{</span>ranch</a>
+        <nav aria-label="Sections" class="nav-links">
+            <a href="#" class="nav-link" data-go="soil">Soil</a>
+            <a href="#" class="nav-link" data-go="space">Space</a>
+            <a href="#" class="nav-link" data-go="soul">Soul</a>
+        </nav>
+    </div>
 
     <script src="js/main.js" defer></script>
 </body>

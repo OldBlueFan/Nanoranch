@@ -1,0 +1,35 @@
+:root {
+  /* ---- Radii: near-square controls, gently rounded cards ---- */
+  --radius-control: 2px;
+  --radius-card: 6px;
+
+  /* ---- Gaps ---- */
+  --gap-buttons: 18px;      /* between SOIL / SPACE / SOUL */
+  --gap-cards: 18px;        /* between project cards */
+  --gap-links: 36px;        /* between text links */
+  --gap-nav: clamp(16px, 3vw, 36px);
+
+  /* ---- Padding ---- */
+  --pad-button: 12px 26px 11px;
+  --pad-card: 30px 28px 24px;
+  --pad-nav: 14px clamp(16px, 4vw, 44px);
+  --pad-page-x: 24px;
+
+  /* ---- Hit targets ---- */
+  --hit-min: 44px;
+
+  /* ---- Card sizing (100% width, 150px min-height below 700px) ---- */
+  --card-width: clamp(230px, 27vw, 330px);
+  --card-min-height: clamp(200px, 26vh, 280px);
+  --gap-cards-mobile: 16px;
+
+  /* ---- Navstone teaser strip (top of page when nav is hidden) ---- */
+  --strip-height: 10px;
+
+  /* ---- Mobile breakpoint: sections become a scrollable column ---- */
+  --breakpoint-narrow: 700px;
+
+  /* ---- Blur (glass surfaces) ---- */
+  --blur-card: 10px;
+  --blur-nav: 14px;
+}
