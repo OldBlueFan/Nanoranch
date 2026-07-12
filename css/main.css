@@ -154,6 +154,7 @@ button:focus-visible {
     font-size: var(--caps-size-hint);
     letter-spacing: var(--tracking-hint); text-indent: var(--tracking-hint);
     text-transform: uppercase; color: var(--text-dim);
+    text-align: center;
     animation: nrFadeUp 1.1s ease .85s both;
 }
 
