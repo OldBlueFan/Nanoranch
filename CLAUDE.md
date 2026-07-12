@@ -56,6 +56,12 @@ git stash pop
 
 Replace `describe change` with a real commit message. Both pushes target `main`.
 
+**Always verify the deploy actually reached production** (in July 2026 the domain's vhost silently served a stale directory for a month):
+
+```sh
+curl -s https://nanoranch.org/ | grep 'og:title'   # should match the just-deployed index.html
+```
+
 ## Design system
 
 **Fonts** — `Crimson Pro` (variable, incl. italic; display AND body) · `Outfit` (strictly tracked-uppercase labels, buttons, nav, card titles). Loaded from Google Fonts via `css/tokens/fonts.css`.
