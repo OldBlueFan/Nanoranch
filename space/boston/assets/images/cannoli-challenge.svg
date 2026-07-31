@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-cannoli-challenge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F3D9B8"/><stop offset=".55" stop-color="#F0E3CD"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-cannoli-challenge)"/>
+  <circle cx="432" cy="120" r="44" fill="#F3C77C" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F3C77C" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E7DCC6"/>  <g>
+    <rect x="150" y="240" width="300" height="110" rx="12" fill="#6B4B3E" opacity=".14"/>
+    <g transform="rotate(-8 240 260)">
+      <rect x="170" y="238" width="150" height="52" rx="26" fill="#C89A62"/>
+      <circle cx="176" cy="264" r="24" fill="#F6F1E7"/><circle cx="314" cy="264" r="24" fill="#F6F1E7"/>
+      <circle cx="168" cy="258" r="5" fill="#6B4B3E"/><circle cx="182" cy="270" r="4" fill="#6B4B3E"/><circle cx="320" cy="258" r="5" fill="#6B4B3E"/><circle cx="308" cy="272" r="4" fill="#6B4B3E"/>
+    </g>
+    <g transform="rotate(6 380 300)">
+      <rect x="290" y="286" width="150" height="52" rx="26" fill="#B78850"/>
+      <circle cx="296" cy="312" r="24" fill="#F6F1E7"/><circle cx="434" cy="312" r="24" fill="#F6F1E7"/>
+      <circle cx="290" cy="306" r="5" fill="#6B4B3E"/><circle cx="302" cy="318" r="4" fill="#6B4B3E"/><circle cx="440" cy="306" r="5" fill="#6B4B3E"/><circle cx="428" cy="320" r="4" fill="#6B4B3E"/>
+    </g>
+    <g fill="#6B4B3E" opacity=".5"><circle cx="230" cy="196" r="4"/><circle cx="260" cy="184" r="3"/><circle cx="292" cy="196" r="4"/><circle cx="322" cy="186" r="3"/><circle cx="352" cy="196" r="4"/></g>
+  </g></svg>

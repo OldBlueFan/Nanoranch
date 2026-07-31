@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img">  <defs>
+    <linearGradient id="sky-cluster-seaport" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22364C"/><stop offset=".55" stop-color="#314962"/><stop offset="1" stop-color="#435970"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky-cluster-seaport)"/>
+  <circle cx="576" cy="135" r="49.5" fill="#F1E2A8" opacity=".9"/>
+  <circle cx="576" cy="135" r="49.5" fill="none" stroke="#F1E2A8" stroke-opacity=".35" stroke-width="10"/><path d="M0 369 q 200 -14 400 0 t 400 0 V 450 H0 Z" fill="#3A4E63"/><g transform="translate(62.5 0) scale(1.125)">  <g fill="#16222F">
+    <rect x="150" y="160" width="70" height="172" rx="3" opacity=".85"/>
+    <rect x="236" y="120" width="80" height="212" rx="3"/>
+    <rect x="332" y="180" width="60" height="152" rx="3" opacity=".9"/>
+    <rect x="406" y="146" width="66" height="186" rx="3" opacity=".8"/>
+    <g stroke="#F6F1E7" stroke-opacity=".35" stroke-width="4">
+      <path d="M160 180 h50 M160 208 h50 M160 236 h50 M160 264 h50 M160 292 h50"/>
+      <path d="M246 144 h60 M246 172 h60 M246 200 h60 M246 228 h60 M246 256 h60 M246 284 h60"/>
+      <path d="M340 202 h44 M340 230 h44 M340 258 h44 M340 286 h44"/>
+      <path d="M414 168 h50 M414 196 h50 M414 224 h50 M414 252 h50 M414 280 h50"/>
+    </g>
+  </g></g></svg>

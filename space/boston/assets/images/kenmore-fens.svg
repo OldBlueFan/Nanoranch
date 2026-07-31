@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-kenmore-fens" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FA8C9"/><stop offset=".55" stop-color="#D9C9C0"/><stop offset="1" stop-color="#F0E4D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-kenmore-fens)"/>
+  <circle cx="432" cy="120" r="44" fill="#EDB35F" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#EDB35F" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#D9CDB9"/>  <g fill="#3A4A66">
+    <rect x="238" y="130" width="124" height="116" rx="10"/>
+    <rect x="250" y="142" width="100" height="92" rx="6" fill="#F6F1E7" opacity=".92"/>
+    <path d="M300 158 L340 218 H260 Z" fill="#9B4A3F"/>
+    <rect x="292" y="246" width="16" height="84"/>
+    <g opacity=".85"><rect x="150" y="282" width="90" height="50" rx="4"/><rect x="360" y="272" width="96" height="60" rx="4"/></g>
+    <g fill="#F6F1E7" opacity=".55"><rect x="166" y="294" width="14" height="20" rx="2"/><rect x="196" y="294" width="14" height="20" rx="2"/><rect x="376" y="286" width="14" height="20" rx="2"/><rect x="406" y="286" width="14" height="20" rx="2"/></g>
+  </g></svg>

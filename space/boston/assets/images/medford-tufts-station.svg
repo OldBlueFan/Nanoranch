@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-medford-tufts-station" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBDCF4"/><stop offset=".55" stop-color="#DDEBF7"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-medford-tufts-station)"/>
+  <circle cx="432" cy="120" r="44" fill="#F9E9C8" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F9E9C8" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E9E0CE"/>  <g fill="#2E5D86">
+    <rect x="150" y="196" width="300" height="120" rx="18"/>
+    <rect x="150" y="252" width="300" height="10" fill="#F6F1E7" opacity=".55"/>
+    <g fill="#F6F1E7" opacity=".8"><rect x="172" y="214" width="48" height="34" rx="7"/><rect x="234" y="214" width="48" height="34" rx="7"/><rect x="296" y="214" width="48" height="34" rx="7"/><rect x="358" y="214" width="48" height="34" rx="7"/></g>
+    <circle cx="216" cy="330" r="18"/><circle cx="384" cy="330" r="18"/>
+    <path d="M290 196 l24 -34 m0 0 h-40" stroke="#2E5D86" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <rect x="120" y="348" width="360" height="8" rx="4" opacity=".7"/>
+  </g></svg>

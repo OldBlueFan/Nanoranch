@@ -1,5 +1,7 @@
 _site/
 node_modules/
+space/boston/private/codes/
+space/boston/private/secret.key
 .env
 .DS_Store
 .claude/

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-harbor-cruise" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BFE0E2"/><stop offset=".55" stop-color="#DFEEEA"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-harbor-cruise)"/>
+  <circle cx="432" cy="120" r="44" fill="#F6E3AF" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F6E3AF" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E4DECB"/>  <g fill="#3F7F83">
+    <path d="M150 296 h300 l-34 44 h-232 Z"/>
+    <rect x="196" y="150" width="8" height="146"/><rect x="292" y="122" width="8" height="174"/><rect x="388" y="150" width="8" height="146"/>
+    <g opacity=".85"><path d="M204 160 q46 26 0 58 Z"/><path d="M300 132 q54 30 0 66 Z"/><path d="M396 160 q46 26 0 58 Z"/></g>
+    <path d="M120 348 q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="#3F7F83" stroke-width="8" stroke-linecap="round" opacity=".5"/>
+  </g></svg>

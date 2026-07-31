@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img">  <defs>
+    <linearGradient id="sky-cluster-fenway-backbay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CFE4CE"/><stop offset=".55" stop-color="#E6EFDD"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky-cluster-fenway-backbay)"/>
+  <circle cx="576" cy="135" r="49.5" fill="#F7E6B5" opacity=".9"/>
+  <circle cx="576" cy="135" r="49.5" fill="none" stroke="#F7E6B5" stroke-opacity=".35" stroke-width="10"/><path d="M0 369 q 200 -14 400 0 t 400 0 V 450 H0 Z" fill="#E4E0C8"/><g transform="translate(62.5 0) scale(1.125)">  <g>
+    <rect x="130" y="180" width="240" height="150" rx="6" fill="#386641"/>
+    <g fill="#F6F1E7" opacity=".85"><rect x="150" y="204" width="52" height="12" rx="2"/><rect x="150" y="228" width="52" height="12" rx="2"/><rect x="222" y="204" width="52" height="12" rx="2"/><rect x="222" y="228" width="52" height="12" rx="2"/><rect x="150" y="258" width="124" height="10" rx="2"/></g>
+    <g fill="#386641"><rect x="398" y="140" width="10" height="190"/><path d="M368 118 h70 l8 26 h-86 Z"/><g fill="#F3C77C"><circle cx="380" cy="131" r="6"/><circle cx="403" cy="131" r="6"/><circle cx="426" cy="131" r="6"/></g></g>
+    <path d="M110 342 h380" stroke="#386641" stroke-width="10" stroke-linecap="round" opacity=".6"/>
+  </g></g></svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-harvard-book-store" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FA8C9"/><stop offset=".55" stop-color="#D9C9C0"/><stop offset="1" stop-color="#F0E4D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-harvard-book-store)"/>
+  <circle cx="432" cy="120" r="44" fill="#EDB35F" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#EDB35F" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#D9CDB9"/>  <g fill="#3A4A66">
+    <rect x="170" y="150" width="34" height="180" rx="5"/>
+    <rect x="212" y="168" width="30" height="162" rx="5" opacity=".85"/>
+    <rect x="250" y="140" width="38" height="190" rx="5"/>
+    <rect x="296" y="176" width="28" height="154" rx="5" opacity=".8"/>
+    <rect x="332" y="158" width="34" height="172" rx="5" opacity=".92"/>
+    <g transform="rotate(9 400 300)"><rect x="374" y="176" width="34" height="154" rx="5" opacity=".7"/></g>
+    <rect x="140" y="330" width="320" height="12" rx="6"/>
+  </g></svg>

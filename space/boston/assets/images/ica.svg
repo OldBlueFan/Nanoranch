@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-ica" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BFE0E2"/><stop offset=".55" stop-color="#DFEEEA"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-ica)"/>
+  <circle cx="432" cy="120" r="44" fill="#F6E3AF" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F6E3AF" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E4DECB"/>  <g fill="#3F7F83">
+    <rect x="150" y="236" width="200" height="76" opacity=".9"/>
+    <g fill="#F6F1E7" opacity=".55"><rect x="168" y="254" width="26" height="40" rx="3"/><rect x="210" y="254" width="26" height="40" rx="3"/><rect x="252" y="254" width="26" height="40" rx="3"/></g>
+    <rect x="176" y="164" width="288" height="72" rx="4"/>
+    <g stroke="#7DB7E8" stroke-opacity=".75" stroke-width="6"><path d="M190 200 h260"/></g>
+    <g stroke="#F6F1E7" stroke-opacity=".35" stroke-width="4"><path d="M190 182 h260 M190 218 h260"/></g>
+    <rect x="140" y="312" width="240" height="8" rx="4" opacity=".7"/>
+    <path d="M120 340 q40 -16 80 0 t80 0 t80 0 t80 0 t80 0" fill="none" stroke="#3F7F83" stroke-width="9" stroke-linecap="round" opacity=".45"/>
+  </g></svg>

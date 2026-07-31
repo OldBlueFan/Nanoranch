@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-bunker-hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBDCF4"/><stop offset=".55" stop-color="#DDEBF7"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-bunker-hill)"/>
+  <circle cx="432" cy="120" r="44" fill="#F9E9C8" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F9E9C8" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E9E0CE"/>  <g fill="#2E5D86">
+    <path d="M282 330 L292 120 h16 l10 210 Z"/>
+    <path d="M292 120 L300 96 308 120 Z"/>
+    <path d="M180 330 q60 -26 120 -26 t120 26 Z" opacity=".8"/>
+    <g opacity=".7"><rect x="150" y="296" width="52" height="36" rx="3"/><rect x="404" y="290" width="56" height="42" rx="3"/></g>
+  </g></svg>

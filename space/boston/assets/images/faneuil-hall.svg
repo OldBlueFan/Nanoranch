@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-faneuil-hall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBDCF4"/><stop offset=".55" stop-color="#DDEBF7"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-faneuil-hall)"/>
+  <circle cx="432" cy="120" r="44" fill="#F9E9C8" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F9E9C8" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E9E0CE"/>  <g fill="#2E5D86">
+    <path d="M160 232 h280 v100 h-280 Z"/>
+    <path d="M150 232 L300 170 450 232 Z" opacity=".92"/>
+    <rect x="284" y="150" width="32" height="34" rx="4"/>
+    <path d="M300 118 q20 14 0 34 q-20 -20 0 -34" fill="#D7A84B"/>
+    <g fill="#F6F1E7" opacity=".7"><rect x="184" y="256" width="30" height="48" rx="4"/><rect x="238" y="256" width="30" height="48" rx="4"/><rect x="292" y="256" width="30" height="48" rx="4"/><rect x="346" y="256" width="30" height="48" rx="4"/><rect x="400" y="256" width="30" height="48" rx="4"/></g>
+    <path d="M120 344 h360" stroke="#9B4A3F" stroke-width="10" stroke-dasharray="26 16" fill="none"/>
+  </g></svg>
