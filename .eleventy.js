@@ -9,6 +9,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("favicon.svg");
   eleventyConfig.addPassthroughCopy("nanoranch-opengraph.png");
   eleventyConfig.addPassthroughCopy("seed/dist"); // compiled React assets → _site/seed/dist/
+  eleventyConfig.addPassthroughCopy("space");     // Boston Begins (PHP-gated guide) ships verbatim
 
   // ── Ignore files that aren't 11ty-managed templates ──────────────────────
   eleventyConfig.ignores.add("index.html");       // replaced by index.njk
@@ -21,6 +22,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("seed/node_modules/**");
   eleventyConfig.ignores.add("seed/public/**");
   eleventyConfig.ignores.add("seed/dist/**");     // passthrough handles copying
+  eleventyConfig.ignores.add("space/**");         // PHP app — passthrough handles copying
   eleventyConfig.ignores.add(".claude/**");       // Claude Code worktrees
   eleventyConfig.ignores.add("CLAUDE.md");
   eleventyConfig.ignores.add("_partials/**");     // legacy copy-paste partials

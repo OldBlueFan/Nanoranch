@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-jumbo-statue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F3D9B8"/><stop offset=".55" stop-color="#F0E3CD"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-jumbo-statue)"/>
+  <circle cx="432" cy="120" r="44" fill="#F3C77C" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F3C77C" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E7DCC6"/>  <g transform="translate(180 96) scale(2.1)">
+    <path fill="#6B4B3E" fill-rule="evenodd" d="M14 70 C10 66 9 58 11 50 C12 44 14 38 14 32 C15 20 24 10 38 8 C48 6 52 8 58 8 C74 6 94 10 100 24 C105 32 105 44 99 52 L99 73 L86 73 L86 60 C76 63 60 63 52 60 L52 73 L39 73 L39 56 C32 52 28 46 27 38 C25 46 23 56 20 64 C18 70 16 72 14 70 Z M46 19 C58 13 69 21 68 32 C67 43 57 49 48 44 C40 39 39 25 46 19 Z M29 21 a2.7 2.7 0 1 0 .01 0 Z"/>
+  </g>
+  <rect x="170" y="250" width="260" height="18" rx="6" fill="#6B4B3E" opacity=".85"/>
+  <rect x="186" y="268" width="228" height="62" rx="8" fill="#6B4B3E" opacity=".6"/></svg>

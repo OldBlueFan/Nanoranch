@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-boston-common" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBDCF4"/><stop offset=".55" stop-color="#DDEBF7"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-boston-common)"/>
+  <circle cx="432" cy="120" r="44" fill="#F9E9C8" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#F9E9C8" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#E9E0CE"/>  <g fill="#2E5D86">
+    <rect x="292" y="180" width="10" height="150"/>
+    <path d="M280 180 h34 l-6 -30 h-22 Z" opacity=".9"/>
+    <circle cx="297" cy="140" r="12" fill="#F3C77C"/>
+    <circle cx="297" cy="140" r="18" fill="none" stroke="#F3C77C" stroke-opacity=".4" stroke-width="6"/>
+    <path d="M170 330 q60 -22 127 -22 t133 22 Z" opacity=".85"/>
+    <g opacity=".7"><ellipse cx="192" cy="308" rx="34" ry="18"/><ellipse cx="404" cy="304" rx="38" ry="20"/></g>
+  </g></svg>

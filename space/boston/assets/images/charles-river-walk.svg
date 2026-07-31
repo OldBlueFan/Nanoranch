@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">  <defs>
+    <linearGradient id="sky-charles-river-walk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FA8C9"/><stop offset=".55" stop-color="#D9C9C0"/><stop offset="1" stop-color="#F0E4D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#sky-charles-river-walk)"/>
+  <circle cx="432" cy="120" r="44" fill="#EDB35F" opacity=".9"/>
+  <circle cx="432" cy="120" r="44" fill="none" stroke="#EDB35F" stroke-opacity=".35" stroke-width="10"/><path d="M0 328 q 150 -14 300 0 t 300 0 V 400 H0 Z" fill="#D9CDB9"/>  <g fill="#3A4A66">
+    <g opacity=".55"><rect x="128" y="182" width="26" height="96"/><rect x="164" y="150" width="34" height="128"/><rect x="208" y="196" width="24" height="82"/><rect x="242" y="168" width="30" height="110"/><rect x="282" y="204" width="22" height="74"/></g>
+    <path d="M356 276 h136 l-18 30 h-100 Z"/>
+    <path d="M420 148 v122 M420 156 q56 44 8 108 M414 172 q-44 40 -6 96" fill="none" stroke="#3A4A66" stroke-width="7" stroke-linecap="round"/>
+    <path d="M100 330 q40 -16 80 0 t80 0 t80 0 t80 0 t80 0" fill="none" stroke="#3A4A66" stroke-width="9" stroke-linecap="round" opacity=".45"/>
+  </g></svg>

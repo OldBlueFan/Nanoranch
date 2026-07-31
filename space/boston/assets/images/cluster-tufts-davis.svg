@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img">  <defs>
+    <linearGradient id="sky-cluster-tufts-davis" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBDCF4"/><stop offset=".55" stop-color="#DDEBF7"/><stop offset="1" stop-color="#F6F1E7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky-cluster-tufts-davis)"/>
+  <circle cx="576" cy="135" r="49.5" fill="#F9E9C8" opacity=".9"/>
+  <circle cx="576" cy="135" r="49.5" fill="none" stroke="#F9E9C8" stroke-opacity=".35" stroke-width="10"/><path d="M0 369 q 200 -14 400 0 t 400 0 V 450 H0 Z" fill="#E9E0CE"/><g transform="translate(62.5 0) scale(1.125)">  <g fill="#2E5D86">
+    <path d="M120 330 h60 V190 l-30-34 -30 34 Z"/>
+    <rect x="143" y="128" width="14" height="40"/>
+    <path d="M136 132 h28 l-14 -26 Z"/>
+    <rect x="196" y="240" width="190" height="90" rx="4"/>
+    <path d="M196 240 h190 l-20 -30 h-150 Z" opacity=".85"/>
+    <g fill="#F6F1E7" opacity=".75"><rect x="220" y="262" width="22" height="42" rx="10"/><rect x="262" y="262" width="22" height="42" rx="10"/><rect x="304" y="262" width="22" height="42" rx="10"/><rect x="346" y="262" width="22" height="42" rx="10"/></g>
+    <circle cx="150" cy="205" r="10" fill="none" stroke="#F6F1E7" stroke-opacity=".7" stroke-width="3"/>
+    <g opacity=".85"><rect x="464" y="292" width="12" height="40"/><ellipse cx="470" cy="272" rx="46" ry="34"/></g>
+  </g></g></svg>
