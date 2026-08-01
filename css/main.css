@@ -259,6 +259,7 @@ button:focus-visible {
     background: transparent; border: none; margin: 0; padding: 0;
     color: var(--text-primary); font: inherit; font-family: var(--font-display);
     text-align: center; cursor: pointer; border-radius: 2px;
+    text-decoration: none;   /* direct-link cards render as <a> */
 }
 .card-hairline {
     width: 34px; height: 1px;

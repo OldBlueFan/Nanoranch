@@ -22,7 +22,7 @@
         space: {
             label: 'Space',
             intro: 'A modest one-story three bedroom house in the Woods of Brushy Creek neighborhood of Austin. Rewilded via talavera decor, reflective surfaces, and memorial celebration.',
-            cards: ['Screen Porch', 'Reflection Hall', "'Being Lori' Ofrenda"]
+            cards: ['Boston Begins', 'Reflection Hall', "'Being Lori' Ofrenda"]
         },
         soul: {
             label: 'Soul',
@@ -39,6 +39,11 @@
         }
     };
     var DEFAULT_NOTE = 'In development — check back.';
+
+    /* Cards that navigate directly (same window) instead of toggling a note */
+    var CARD_HREFS = {
+        'Boston Begins': '/space/boston/'
+    };
 
     var ARROW_SVG = '<svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 1.5 H10.5 V7.5"></path><path d="M10.5 1.5 L3 9"></path></svg>';
 
@@ -192,21 +197,32 @@
             card.className = 'card nr-glass';
             card.style.animationDelay = (0.15 + i * 0.13).toFixed(2) + 's';
 
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'card-toggle';
-            btn.setAttribute('aria-expanded', 'false');
-            btn.innerHTML = '<span class="card-hairline" aria-hidden="true"></span>' +
-                '<span class="card-title"></span>' +
-                '<span class="card-note" aria-live="polite"></span>' +
-                '<span class="card-hint">Learn more</span>';
-            btn.querySelector('.card-title').textContent = title;
-            btn.addEventListener('click', function () {
-                noted = (noted === title) ? null : title;
-                syncCards();
-            });
+            var tile;
+            if (CARD_HREFS[title]) {
+                tile = document.createElement('a');
+                tile.className = 'card-toggle';
+                tile.href = CARD_HREFS[title];
+                tile.innerHTML = '<span class="card-hairline" aria-hidden="true"></span>' +
+                    '<span class="card-title"></span>' +
+                    '<span class="card-note"></span>' +
+                    '<span class="card-hint">Visit</span>';
+            } else {
+                tile = document.createElement('button');
+                tile.type = 'button';
+                tile.className = 'card-toggle';
+                tile.setAttribute('aria-expanded', 'false');
+                tile.innerHTML = '<span class="card-hairline" aria-hidden="true"></span>' +
+                    '<span class="card-title"></span>' +
+                    '<span class="card-note" aria-live="polite"></span>' +
+                    '<span class="card-hint">Learn more</span>';
+                tile.addEventListener('click', function () {
+                    noted = (noted === title) ? null : title;
+                    syncCards();
+                });
+            }
+            tile.querySelector('.card-title').textContent = title;
 
-            card.appendChild(btn);
+            card.appendChild(tile);
             card._title = title;
             els.cardsRow.appendChild(card);
         });
@@ -217,6 +233,7 @@
     function syncCards() {
         Array.prototype.forEach.call(els.cardsRow.children, function (card) {
             var title = card._title;
+            if (CARD_HREFS[title]) return;   /* direct-link cards have no open state */
             var open = noted === title;
             var detail = CARD_DETAILS[title];
             card.classList.toggle('is-open', open);
