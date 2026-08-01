@@ -617,7 +617,7 @@ function bb_render_app(string $user): void
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="topbar">
-  <a class="brand" href="#home"><?= bb_jumbo_mark('jumbo-mark brand-mark') ?><span class="brand-name"><?= bb_e($meta['title']) ?></span></a>
+  <a class="brand" href="#home"><span class="nr-wordmark">nano<span class="nr-glyph">};{</span>ranch</span><?= bb_jumbo_mark('jumbo-mark brand-mark') ?><span class="brand-name">Boston</span></a>
   <div class="topbar-tools">
     <button type="button" class="btn print-btn" onclick="window.print()"><span class="print-label-long">Print or Save as PDF</span><span class="print-label-short" aria-hidden="true">Print / PDF</span></button>
     <form method="post" action="" class="signout-form"><input type="hidden" name="action" value="signout">
