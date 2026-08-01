@@ -22,12 +22,12 @@
         space: {
             label: 'Space',
             intro: 'A modest one-story three bedroom house in the Woods of Brushy Creek neighborhood of Austin. Rewilded via talavera decor, reflective surfaces, and memorial celebration.',
-            cards: ['Screen Porch', 'Reflection Hall', "'Being Lori' Ofrenda"]
+            cards: ['Boston Begins', 'Reflection Hall', "'Being Lori' Ofrenda"]
         },
         soul: {
             label: 'Soul',
             intro: 'A life more than mid-way in an unexpected chapter. Rewilded through reflection, refraction, and resonance in frequencies of work, memory, and craft.',
-            cards: ['The Bronco Benny Show', 'Boston Begins', 'MaxMalloy.com']
+            cards: ['The Bronco Benny Show', 'Immersive Memories', 'MaxMalloy.com']
         }
     };
 
