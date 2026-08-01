@@ -150,6 +150,9 @@ function bb_render_login(string $state, string $message, bool $ok, string $email
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Boston Begins · Private guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,450;1,480&display=swap" rel="stylesheet">
 <style>
   :root {
     --sky: #7DB7E8; --blue: #2E5D86; --ink: #263238; --parchment: #F6F1E7;
@@ -174,6 +177,14 @@ function bb_render_login(string $state, string $message, bool $ok, string $email
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
   }
   main { width: 100%; max-width: 420px; }
+  /* Parent-site wordmark, rendered as in the guide's top nav: live type,
+     Crimson Pro, weight 450, the };{ mark in italic. */
+  .nr-wordmark {
+    display: block; text-align: center; margin-bottom: 14px;
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.18rem; font-weight: 450; letter-spacing: .01em;
+  }
+  .nr-glyph { font-style: italic; font-weight: 480; }
   .mark { display: block; margin: 0 auto 18px; width: 72px; height: auto; }
   h1 {
     font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -212,6 +223,7 @@ function bb_render_login(string $state, string $message, bool $ok, string $email
 </head>
 <body>
 <main>
+  <p class="nr-wordmark">nano<span class="nr-glyph">};{</span>ranch</p>
   <svg class="mark" viewBox="0 0 120 84" role="img" aria-label="Small elephant emblem" style="color:var(--blue)">
     <path fill="currentColor" fill-rule="evenodd" d="M14 70 C10 66 9 58 11 50 C12 44 14 38 14 32 C15 20 24 10 38 8 C48 6 52 8 58 8 C74 6 94 10 100 24 C105 32 105 44 99 52 L99 73 L86 73 L86 60 C76 63 60 63 52 60 L52 73 L39 73 L39 56 C32 52 28 46 27 38 C25 46 23 56 20 64 C18 70 16 72 14 70 Z M46 19 C58 13 69 21 68 32 C67 43 57 49 48 44 C40 39 39 25 46 19 Z M29 21 a2.7 2.7 0 1 0 .01 0 Z"/>
   </svg>
