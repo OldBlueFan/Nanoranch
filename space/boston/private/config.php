@@ -25,6 +25,28 @@ return [
     // Shown to visitors whose address is not on the list.
     'contact'        => 'max@nanoranch.org',
 
+    // Authenticated SMTP submission for the code emails (recommended: Proton).
+    // Without this, codes go out via PHP mail() from the web server, which
+    // fails the domain's SPF/DKIM/DMARC checks and gets warning-labeled.
+    //
+    // Setup (Proton paid plans): Settings → All settings → Proton Mail →
+    // IMAP/SMTP → SMTP tokens → Generate token, paired with the sending
+    // address. 'mail_from' above must match the token's address. Use the
+    // token, never a mailbox password — and put the real credentials in
+    // private/config.local.php (see below), NOT in this file.
+    //
+    // 'smtp' => [
+    //     'host'     => 'smtp.protonmail.ch',
+    //     'port'     => 587,
+    //     'starttls' => true,
+    //     'username' => 'noreply@nanoranch.org',
+    //     'token'    => 'PASTE-SMTP-TOKEN-HERE',
+    // ],
+
+    // NOTE — server-only settings: anything set in private/config.local.php
+    // (gitignored, same array shape as this file) overrides this file and
+    // survives deploys. Put whitelist additions and the SMTP token there.
+
     // Session + code policy.
     'session_days'      => 30,   // how long a verified device stays signed in
     'code_ttl_minutes'  => 10,   // access codes expire after this

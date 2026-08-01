@@ -2,6 +2,7 @@ _site/
 node_modules/
 space/boston/private/codes/
 space/boston/private/secret.key
+space/boston/private/config.local.php
 .env
 .DS_Store
 .claude/

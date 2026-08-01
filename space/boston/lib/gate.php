@@ -21,6 +21,15 @@ function gate_config(): array
     static $config = null;
     if ($config === null) {
         $config = require gate_root() . '/private/config.php';
+        // Server-only overrides (whitelist additions, SMTP token, …) live in
+        // config.local.php — gitignored, so deploys never overwrite them.
+        $local = gate_root() . '/private/config.local.php';
+        if (is_file($local)) {
+            $overrides = require $local;
+            if (is_array($overrides)) {
+                $config = array_replace_recursive($config, $overrides);
+            }
+        }
     }
     return $config;
 }
@@ -224,7 +233,118 @@ function gate_send_code_email(string $email, string $code): bool
         error_log("[boston-begins] access code for {$email}: {$code}");
         return true;
     }
+
+    // Preferred: authenticated SMTP submission (e.g. Proton), so the mail
+    // passes SPF/DKIM/DMARC instead of going out unauthenticated from the
+    // web server. Falls back to mail() so codes still arrive if SMTP is
+    // unconfigured or unreachable.
+    $smtp = $cfg['smtp'] ?? null;
+    if (is_array($smtp) && !empty($smtp['username']) && !empty($smtp['token'])) {
+        if (gate_smtp_send($smtp, $cfg['mail_from'], $cfg['mail_from_name'], $email, $subject, $body)) {
+            return true;
+        }
+        error_log('[boston-begins] SMTP send failed; falling back to mail()');
+    }
     return @mail($email, $subject, $body, $headers, '-f' . $cfg['mail_from']);
+}
+
+/**
+ * Minimal dependency-free SMTP submission client (STARTTLS + AUTH LOGIN).
+ * Designed for Proton (smtp.protonmail.ch:587) but works with any
+ * standards-following relay. Returns false (and error_logs why) on any
+ * unexpected server reply.
+ */
+function gate_smtp_send(array $smtp, string $from, string $fromName, string $to, string $subject, string $body): bool
+{
+    $host     = $smtp['host'] ?? 'smtp.protonmail.ch';
+    $port     = (int) ($smtp['port'] ?? 587);
+    $starttls = $smtp['starttls'] ?? true;
+
+    $errno = 0;
+    $errstr = '';
+    $fp = @stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, 10);
+    if (!$fp) {
+        error_log("[boston-begins] SMTP connect to {$host}:{$port} failed: {$errstr}");
+        return false;
+    }
+    stream_set_timeout($fp, 10);
+
+    $read = static function () use ($fp): array {
+        $text = '';
+        while (($line = fgets($fp, 1024)) !== false) {
+            $text .= $line;
+            if (strlen($line) < 4 || $line[3] !== '-') {
+                break; // final line of a (possibly multiline) reply
+            }
+        }
+        return [(int) substr($text, 0, 3), trim($text)];
+    };
+    $cmd = static function (string $c, array $okCodes, bool $secret = false) use ($fp, $read): bool {
+        fwrite($fp, $c . "\r\n");
+        [$code, $text] = $read();
+        if (!in_array($code, $okCodes, true)) {
+            error_log('[boston-begins] SMTP rejected ' . ($secret ? '<credential>' : "'{$c}'") . ": {$text}");
+            return false;
+        }
+        return true;
+    };
+    $fail = static function () use ($fp): bool {
+        @fwrite($fp, "QUIT\r\n");
+        @fclose($fp);
+        return false;
+    };
+
+    [$code] = $read();
+    if ($code !== 220) {
+        return $fail();
+    }
+    $hello = 'EHLO ' . ($_SERVER['SERVER_NAME'] ?? 'localhost');
+    if (!$cmd($hello, [250])) {
+        return $fail();
+    }
+    if ($starttls) {
+        if (!$cmd('STARTTLS', [220])) {
+            return $fail();
+        }
+        if (!@stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            error_log('[boston-begins] SMTP STARTTLS negotiation failed');
+            return $fail();
+        }
+        if (!$cmd($hello, [250])) {
+            return $fail();
+        }
+    }
+    if (!$cmd('AUTH LOGIN', [334])
+        || !$cmd(base64_encode($smtp['username']), [334], true)
+        || !$cmd(base64_encode($smtp['token']), [235], true)) {
+        return $fail();
+    }
+    if (!$cmd("MAIL FROM:<{$from}>", [250]) || !$cmd("RCPT TO:<{$to}>", [250, 251]) || !$cmd('DATA', [354])) {
+        return $fail();
+    }
+
+    $domain = substr(strrchr($from, '@') ?: '@localhost', 1);
+    $data = "From: {$fromName} <{$from}>\r\n"
+          . "To: <{$to}>\r\n"
+          . "Subject: {$subject}\r\n"
+          . 'Date: ' . date(DATE_RFC2822) . "\r\n"
+          . 'Message-ID: <' . bin2hex(random_bytes(12)) . "@{$domain}>\r\n"
+          . "MIME-Version: 1.0\r\n"
+          . "Content-Type: text/plain; charset=UTF-8\r\n"
+          . "Content-Transfer-Encoding: 8bit\r\n"
+          . "\r\n" . $body;
+    $data = preg_replace('/\r?\n/', "\r\n", $data);
+    $data = preg_replace('/^\./m', '..', $data); // dot-stuffing
+
+    fwrite($fp, $data . "\r\n.\r\n");
+    [$code, $text] = $read();
+    if ($code !== 250) {
+        error_log("[boston-begins] SMTP rejected message: {$text}");
+        return $fail();
+    }
+    @fwrite($fp, "QUIT\r\n");
+    @fclose($fp);
+    return true;
 }
 
 // ── Verifying a code ────────────────────────────────────────────────────────
