@@ -113,10 +113,27 @@ function bb_serve_asset(string $path, bool $authed): void
         return;
     }
 
+    // CSS/JS/data must pick up new deploys immediately, so they revalidate on
+    // every load (cheap 304s via ETag). Images and vendor files change rarely
+    // and may cache for an hour.
+    $mtime    = (int) filemtime($full);
+    $etag     = '"' . $mtime . '-' . filesize($full) . '"';
+    $volatile = in_array($ext, ['css', 'js', 'mjs', 'json', 'geojson', 'map', 'webmanifest'], true);
+
+    header('ETag: ' . $etag);
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $mtime) . ' GMT');
+    header('Cache-Control: private, ' . ($volatile ? 'no-cache' : 'max-age=3600'));
+    header('X-Content-Type-Options: nosniff');
+
+    $ifNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'] ?? '';
+    $ifModSince  = $_SERVER['HTTP_IF_MODIFIED_SINCE'] ?? '';
+    if ($ifNoneMatch === $etag || ($ifNoneMatch === '' && $ifModSince !== '' && strtotime($ifModSince) >= $mtime)) {
+        http_response_code(304);
+        return;
+    }
+
     header('Content-Type: ' . $mime[$ext]);
     header('Content-Length: ' . (string) filesize($full));
-    header('Cache-Control: private, max-age=3600');
-    header('X-Content-Type-Options: nosniff');
     readfile($full);
 }
 
