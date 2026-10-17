@@ -1,0 +1,569 @@
+{
+  "_note": "Geocoded 2026-10-17 with OpenStreetMap Nominatim (© OpenStreetMap contributors, ODbL). 'approximate' and 'unresolved' pins must be fixed before launch. Origin AUS still needs geocoding. No route geometry included — see master brief §7.",
+  "pins": {
+    "bisbee-kartchner": [
+      {
+        "kind": "airport",
+        "name": "Tucson International Airport (TUS)",
+        "lat": 32.11265,
+        "lon": -110.93464,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "cave",
+        "name": "Kartchner Caverns State Park",
+        "lat": 31.83995,
+        "lon": -110.35047,
+        "source": "OSM relation/5822969 (park centroid)",
+        "confidence": "verified-centroid"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Guindani Trailhead",
+        "lat": 31.83549,
+        "lon": -110.35643,
+        "source": "OSM highway=trailhead",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Old Bisbee",
+        "lat": 31.44172,
+        "lon": -109.91599,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "lodging",
+        "name": "Copper Queen Hotel",
+        "lat": 31.44236,
+        "lon": -109.91437,
+        "source": "OSM tourism=hotel",
+        "confidence": "verified"
+      },
+      {
+        "kind": "culture",
+        "name": "Queen Mine Tour (approx.)",
+        "lat": 31.43955,
+        "lon": -109.91201,
+        "source": "OSM matched adjacent Queen Mine RV Park — move to tour building",
+        "confidence": "approximate"
+      },
+      {
+        "kind": "trail",
+        "name": "Echo Canyon Trail, Chiricahua NM",
+        "lat": 32.00805,
+        "lon": -109.32177,
+        "source": "OSM way/182115793 (point on trail, not trailhead parking)",
+        "confidence": "approximate"
+      }
+    ],
+    "durango-silverton": [
+      {
+        "kind": "airport",
+        "name": "Durango–La Plata County Airport (DRO)",
+        "lat": 37.15284,
+        "lon": -107.75861,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "rail",
+        "name": "Durango & Silverton depot",
+        "lat": 37.26905,
+        "lon": -107.88249,
+        "source": "OSM railway=station, 479 Main Ave",
+        "confidence": "verified"
+      },
+      {
+        "kind": "lodging",
+        "name": "Strater Hotel",
+        "lat": 37.27112,
+        "lon": -107.88186,
+        "source": "OSM tourism=hotel",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Silverton",
+        "lat": 37.81153,
+        "lon": -107.66436,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Junction Creek Trailhead (Colorado Trail)",
+        "lat": 37.33132,
+        "lon": -107.90282,
+        "source": "OSM parking way/264795726",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trail",
+        "name": "Animas River Trail (approx.)",
+        "lat": 37.22843,
+        "lon": -107.86648,
+        "source": "OSM feature named Animas River Trail (wood polygon) — snap to a real access point",
+        "confidence": "approximate"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Andrews Lake",
+        "lat": 37.72788,
+        "lon": -107.70934,
+        "source": "OSM natural=water (lake centroid)",
+        "confidence": "verified-centroid"
+      }
+    ],
+    "seattle-rainier": [
+      {
+        "kind": "airport",
+        "name": "Seattle–Tacoma International Airport (SEA)",
+        "lat": 47.44757,
+        "lon": -122.30802,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "culture",
+        "name": "Museum of Pop Culture (MoPOP)",
+        "lat": 47.62149,
+        "lon": -122.34823,
+        "source": "OSM tourism=museum",
+        "confidence": "verified"
+      },
+      {
+        "kind": "lodging",
+        "name": "Ashford",
+        "lat": 46.75441,
+        "lon": -122.01093,
+        "source": "OSM census place",
+        "confidence": "verified"
+      },
+      {
+        "kind": "lodging",
+        "name": "National Park Inn, Longmire",
+        "lat": 46.74929,
+        "lon": -121.81329,
+        "source": "OSM tourism=hotel",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Jackson Visitor Center, Paradise (Nisqually Vista, Skyline, Myrtle Falls)",
+        "lat": 46.78587,
+        "lon": -121.73676,
+        "source": "OSM way/180649580",
+        "confidence": "verified"
+      },
+      {
+        "kind": "viewpoint",
+        "name": "Myrtle Falls",
+        "lat": 46.79137,
+        "lon": -121.73249,
+        "source": "OSM waterway=waterfall",
+        "confidence": "verified"
+      },
+      {
+        "kind": "viewpoint",
+        "name": "Reflection Lakes",
+        "lat": 46.76958,
+        "lon": -121.73021,
+        "source": "OSM water=lake",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Snow and Bench Lake Trailhead",
+        "lat": 46.76779,
+        "lon": -121.70815,
+        "source": "OSM highway=trailhead, Stevens Canyon Rd",
+        "confidence": "verified"
+      }
+    ],
+    "fort-davis-mcdonald": [
+      {
+        "kind": "airport",
+        "name": "Midland International Air & Space Port (MAF)",
+        "lat": 31.94603,
+        "lon": -102.21062,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Fort Davis",
+        "lat": 30.58916,
+        "lon": -103.89496,
+        "source": "OSM place=town",
+        "confidence": "verified"
+      },
+      {
+        "kind": "observatory",
+        "name": "McDonald Observatory",
+        "lat": 30.67582,
+        "lon": -104.02058,
+        "source": "OSM landuse=observatory (centroid) — snap to Frank N. Bash Visitors Center",
+        "confidence": "verified-centroid"
+      },
+      {
+        "kind": "park",
+        "name": "Davis Mountains State Park",
+        "lat": 30.60649,
+        "lon": -103.92936,
+        "source": "OSM leisure=park",
+        "confidence": "verified"
+      },
+      {
+        "kind": "lodging",
+        "name": "Indian Lodge",
+        "lat": 30.59289,
+        "lon": -103.94345,
+        "source": "OSM feature in Jeff Davis Co.",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trail",
+        "name": "Indian Lodge Trail",
+        "lat": 30.59773,
+        "lon": -103.94458,
+        "source": "OSM highway=path",
+        "confidence": "verified"
+      },
+      {
+        "kind": "culture",
+        "name": "Fort Davis National Historic Site",
+        "lat": 30.59843,
+        "lon": -103.89482,
+        "source": "OSM protected_area",
+        "confidence": "verified"
+      }
+    ],
+    "mont-megantic": [
+      {
+        "kind": "airport",
+        "name": "Montréal–Trudeau International Airport (YUL)",
+        "lat": 45.46873,
+        "lon": -73.74249,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "park",
+        "name": "Parc national du Mont-Mégantic",
+        "lat": 45.44773,
+        "lon": -71.15231,
+        "source": "OSM nature_reserve centroid",
+        "confidence": "verified-centroid"
+      },
+      {
+        "kind": "observatory",
+        "name": "ASTROLab",
+        "lat": 45.4233,
+        "lon": -71.126,
+        "source": "OSM amenity=planetarium, Notre-Dame-des-Bois",
+        "confidence": "verified"
+      },
+      {
+        "kind": "observatory",
+        "name": "Observatoire du Mont-Mégantic (summit)",
+        "lat": 45.45579,
+        "lon": -71.15271,
+        "source": "OSM building",
+        "confidence": "verified"
+      },
+      {
+        "kind": "summit",
+        "name": "Mont Saint-Joseph",
+        "lat": 45.44768,
+        "lon": -71.12039,
+        "source": "OSM natural=peak, Le Granit",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Notre-Dame-des-Bois",
+        "lat": 45.39459,
+        "lon": -71.0733,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      }
+    ],
+    "lower-florida-keys": [
+      {
+        "kind": "airport",
+        "name": "Key West International Airport (EYW)",
+        "lat": 24.55548,
+        "lon": -81.75962,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Big Pine Key",
+        "lat": 24.66987,
+        "lon": -81.35397,
+        "source": "OSM census place",
+        "confidence": "verified"
+      },
+      {
+        "kind": "viewpoint",
+        "name": "Blue Hole",
+        "lat": 24.70585,
+        "lon": -81.38073,
+        "source": "OSM natural=water",
+        "confidence": "verified"
+      },
+      {
+        "kind": "park",
+        "name": "National Key Deer Refuge (Watson Trail is near Blue Hole — place exact trailhead)",
+        "lat": 24.73791,
+        "lon": -81.40417,
+        "source": "OSM nature_reserve centroid",
+        "confidence": "approximate"
+      },
+      {
+        "kind": "park",
+        "name": "Bahia Honda State Park",
+        "lat": 24.66473,
+        "lon": -81.26152,
+        "source": "OSM leisure=park",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trail",
+        "name": "Upper Sugarloaf Key (place exact trailhead)",
+        "lat": 24.66181,
+        "lon": -81.52974,
+        "source": "OSM island centroid for Sugarloaf Key",
+        "confidence": "approximate"
+      }
+    ],
+    "rincon-guanacaste": [
+      {
+        "kind": "airport",
+        "name": "Daniel Oduber Quirós International Airport (LIR)",
+        "lat": 10.59401,
+        "lon": -85.54184,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "park",
+        "name": "Rincón de la Vieja National Park",
+        "lat": 10.77933,
+        "lon": -85.32371,
+        "source": "OSM national_park centroid",
+        "confidence": "verified-centroid"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Las Pailas sector (approx.)",
+        "lat": 10.76032,
+        "lon": -85.35875,
+        "source": "OSM road point in Las Pailas — snap to ranger station",
+        "confidence": "approximate"
+      },
+      {
+        "kind": "lodging",
+        "name": "Hacienda Guachipelín",
+        "lat": 10.75208,
+        "lon": -85.37965,
+        "source": "OSM tourism=hotel",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Santa María sector",
+        "lat": null,
+        "lon": null,
+        "source": "UNRESOLVED — geocode from SINAC/ACG sources",
+        "confidence": "unresolved"
+      }
+    ],
+    "iceland-south-coast": [
+      {
+        "kind": "airport",
+        "name": "Keflavík International Airport (KEF)",
+        "lat": 63.98501,
+        "lon": -22.6267,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Reykjavík",
+        "lat": 64.14598,
+        "lon": -21.94224,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Reykjadalur trailhead parking, Hveragerði",
+        "lat": 64.02116,
+        "lon": -21.21116,
+        "source": "OSM amenity=parking",
+        "confidence": "verified"
+      },
+      {
+        "kind": "waterfall",
+        "name": "Skógafoss",
+        "lat": 63.5321,
+        "lon": -19.51129,
+        "source": "OSM waterway=waterfall",
+        "confidence": "verified"
+      },
+      {
+        "kind": "beach",
+        "name": "Reynisfjara",
+        "lat": 63.40443,
+        "lon": -19.0588,
+        "source": "OSM natural=beach",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Skaftafell Visitor Centre",
+        "lat": 64.01667,
+        "lon": -16.96633,
+        "source": "OSM, Skaftafellsvegur 1B",
+        "confidence": "verified"
+      },
+      {
+        "kind": "waterfall",
+        "name": "Svartifoss",
+        "lat": 64.02772,
+        "lon": -16.97529,
+        "source": "OSM waterway=waterfall",
+        "confidence": "verified"
+      }
+    ],
+    "atitlan-antigua": [
+      {
+        "kind": "airport",
+        "name": "La Aurora International Airport (GUA)",
+        "lat": 14.5832,
+        "lon": -90.52715,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Antigua Guatemala",
+        "lat": 14.55678,
+        "lon": -90.73373,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Panajachel",
+        "lat": 14.74217,
+        "lon": -91.15598,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "San Marcos La Laguna",
+        "lat": 14.7355,
+        "lon": -91.25937,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "San Juan La Laguna",
+        "lat": 14.67099,
+        "lon": -91.30514,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "viewpoint",
+        "name": "Indian Nose (upper viewpoint)",
+        "lat": 14.70664,
+        "lon": -91.29873,
+        "source": "OSM tourism=viewpoint, Santa Clara La Laguna",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Cerro Tzankujil (entrance)",
+        "lat": 14.72107,
+        "lon": -91.26001,
+        "source": "OSM entrance node",
+        "confidence": "verified"
+      }
+    ],
+    "sao-miguel-azores": [
+      {
+        "kind": "airport",
+        "name": "João Paulo II Airport (PDL)",
+        "lat": 37.74315,
+        "lon": -25.70127,
+        "source": "OSM aerodrome",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Ponta Delgada",
+        "lat": 37.73934,
+        "lon": -25.66895,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Miradouro da Vista do Rei (start, Vista do Rei → Sete Cidades)",
+        "lat": 37.83935,
+        "lon": -25.79487,
+        "source": "OSM tourism=viewpoint",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Sete Cidades",
+        "lat": 37.85891,
+        "lon": -25.78756,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Lagoa do Canário (Serra Devassa area)",
+        "lat": 37.83618,
+        "lon": -25.75961,
+        "source": "OSM water=pond",
+        "confidence": "verified"
+      },
+      {
+        "kind": "viewpoint",
+        "name": "Lagoa do Fogo",
+        "lat": 37.76215,
+        "lon": -25.47637,
+        "source": "OSM water=lake",
+        "confidence": "verified"
+      },
+      {
+        "kind": "trailhead",
+        "name": "Lagoa das Furnas",
+        "lat": 37.75968,
+        "lon": -25.33383,
+        "source": "OSM water=lake",
+        "confidence": "verified"
+      },
+      {
+        "kind": "town",
+        "name": "Furnas",
+        "lat": 37.77247,
+        "lon": -25.31331,
+        "source": "OSM admin centroid",
+        "confidence": "verified"
+      }
+    ]
+  }
+}

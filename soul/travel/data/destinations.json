@@ -1,0 +1,1136 @@
+{
+  "_note": "Earth & Cosmos v0 content, from the master brief §10–§11 (Oct 17, 2026). Distances approximate — verify with park authorities.",
+  "themeLabels": {
+    "caves": "Caves",
+    "steam-train": "Steam train",
+    "alpine": "Alpine",
+    "cosmos": "Cosmos",
+    "birding": "Birding",
+    "volcanoes": "Volcanoes",
+    "aurora": "Aurora",
+    "island": "Island",
+    "culture": "Culture"
+  },
+  "fitLabels": {
+    "green": "Weekend: GREEN",
+    "amber": "Weekend: AMBER",
+    "red": "Weekend: RED",
+    "green-amber": "Weekend: GREEN/AMBER",
+    "not-applicable": "Longer journey"
+  },
+  "calendar": [
+    {
+      "season": "Fall 2026",
+      "month": "2026-11",
+      "id": "bisbee-kartchner",
+      "note": "Pleasant desert weather; avoid Thanksgiving and town event weekends."
+    },
+    {
+      "season": "Winter 2026–27",
+      "month": "2027-01",
+      "id": "lower-florida-keys",
+      "note": "Comfortable temperatures; avoid the New Year rush and February holiday peaks."
+    },
+    {
+      "season": "Winter 2026–27",
+      "month": "2027-02",
+      "id": "atitlan-antigua",
+      "note": "Dry-season hiking and volcano views; avoid major holidays."
+    },
+    {
+      "season": "Spring 2027",
+      "month": "2027-03",
+      "id": "rincon-guanacaste",
+      "note": "Drier volcanic trails; Easter week 2027 falls in late March — avoid it."
+    },
+    {
+      "season": "Spring 2027",
+      "month": "2027-04",
+      "id": "fort-davis-mcdonald",
+      "note": "Mild mountain hiking; pick clear, dark-sky Star Party dates."
+    },
+    {
+      "season": "Summer 2027",
+      "month": "2027-07",
+      "id": "mont-megantic",
+      "note": "Public astronomy season and forest trails; plan four days, not two."
+    },
+    {
+      "season": "Summer 2027",
+      "month": "2027-08",
+      "id": "seattle-rainier",
+      "note": "High-country access; arrive at trailheads early."
+    },
+    {
+      "season": "Fall 2027",
+      "month": "2027-09",
+      "id": "durango-silverton",
+      "note": "Alpine hiking and rail before peak fall-color demand."
+    },
+    {
+      "season": "Fall 2027",
+      "month": "2027-10",
+      "id": "iceland-south-coast",
+      "note": "Aurora darkness with some hiking; storms possible."
+    },
+    {
+      "season": "Late fall 2027",
+      "month": "2027-11",
+      "id": "sao-miguel-azores",
+      "note": "Holiday leave efficiency and fewer crowds; wetter than the ideal hiking season."
+    }
+  ],
+  "calendarOpenMonths": [
+    "2026-12",
+    "2027-05",
+    "2027-06"
+  ],
+  "calendarCaption": "An aspirational menu, not an expectation of ten trips in thirteen months.",
+  "destinations": [
+    {
+      "id": "bisbee-kartchner",
+      "number": 1,
+      "title": "The Hidden World",
+      "place": "Bisbee + Kartchner Caverns, Arizona",
+      "group": "weekend",
+      "themes": [
+        "caves",
+        "culture"
+      ],
+      "earthCosmos": 0.1,
+      "preferredMonth": "2026-11",
+      "bestWeatherMonths": [
+        "Mar",
+        "Nov"
+      ],
+      "tripDays": "2 nights",
+      "weekendFit": "amber",
+      "weekendFitNote": "Flight arrival and cave reservations decide the itinerary; move the cave tour to Saturday if needed.",
+      "flightGateway": "Tucson (TUS) — usually a connection from Austin",
+      "groundTransfer": "Rental car, about 1–2 hours to the area",
+      "logisticsNote": "Book the cave tour before anything else; it sets the shape of the weekend.",
+      "why": "A quirky historic mining town perched above one of America's carefully protected living caves — color-washed hillsides by day, a hidden world of still-growing formations underground.",
+      "hikes": [
+        {
+          "name": "Guindani Trail",
+          "distance": "~4.2 mi loop",
+          "difficulty": "Moderate",
+          "kind": "hike"
+        },
+        {
+          "name": "Foothills Loop",
+          "distance": "~2.5 mi",
+          "difficulty": "Easy–moderate",
+          "kind": "hike"
+        },
+        {
+          "name": "Rotunda/Throne cave tour",
+          "distance": "~0.5 mi",
+          "difficulty": "Easy",
+          "kind": "tour",
+          "duration": "~90 min total",
+          "caveat": "A guided tour, not a wilderness hike."
+        },
+        {
+          "name": "Echo Canyon Loop, Chiricahua NM",
+          "distance": "~3.3 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "A separate, substantial drive — not a quick add-on."
+        }
+      ],
+      "lodging": {
+        "type": "Historic hotel, Victorian inn or hillside casita",
+        "examples": [
+          "Copper Queen Hotel (1902)",
+          "Victorian inn in Old Bisbee",
+          "Hillside casita"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Queen Mine Tour",
+        "Galleries and antiques in Old Bisbee",
+        "Southwestern cafés",
+        "Lavender Pit overlook"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Fly AUS→TUS, pick up the car, drive south. Cave tour if arrival time and reservation allow; dinner in Bisbee."
+        },
+        {
+          "day": "Sat",
+          "plan": "Guindani Trail in the morning, Queen Mine Tour, then wander Old Bisbee."
+        },
+        {
+          "day": "Sun",
+          "plan": "Slow breakfast, drive back to Tucson, fly home."
+        }
+      ],
+      "cautions": [
+        "Cave tours require advance reservations.",
+        "Connection timing into Tucson can compress Friday."
+      ],
+      "sources": [
+        {
+          "label": "Kartchner Caverns State Park",
+          "url": "https://azstateparks.com/kartchner/"
+        },
+        {
+          "label": "Discover Bisbee",
+          "url": "https://www.discoverbisbee.com/"
+        }
+      ],
+      "photos": [
+        "bisbee-kartchner-01",
+        "bisbee-kartchner-02",
+        "bisbee-kartchner-03",
+        "bisbee-kartchner-04",
+        "bisbee-kartchner-05",
+        "bisbee-kartchner-06"
+      ],
+      "pins": "bisbee-kartchner",
+      "verifiedOn": null
+    },
+    {
+      "id": "durango-silverton",
+      "number": 2,
+      "title": "The Iron Horse",
+      "place": "Durango + Silverton, Colorado",
+      "group": "weekend",
+      "themes": [
+        "steam-train",
+        "alpine",
+        "culture"
+      ],
+      "earthCosmos": 0.2,
+      "preferredMonth": "2027-09",
+      "bestWeatherMonths": [
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "tripDays": "2–3 nights",
+      "weekendFit": "amber",
+      "weekendFitNote": "Works if the train departure and return flight line up; Thursday–Sunday or Friday–Monday makes the hiking worthwhile.",
+      "flightGateway": "Durango (DRO) — usually a connection from Austin",
+      "groundTransfer": "Short drive into town",
+      "logisticsNote": "The full-day rail round trip leaves no room for a substantial Saturday hike.",
+      "why": "A historic narrow-gauge steam train winding through the Animas Canyon into the San Juan Mountains — the journey is the destination.",
+      "hikes": [
+        {
+          "name": "Animas River Trail",
+          "distance": "choose 2–4 mi",
+          "difficulty": "Easy",
+          "kind": "hike"
+        },
+        {
+          "name": "Colorado Trail from Junction Creek",
+          "distance": "customizable 2–5 mi",
+          "difficulty": "Moderate",
+          "kind": "hike"
+        },
+        {
+          "name": "Andrews Lake area",
+          "distance": "short walks",
+          "difficulty": "Easy–moderate",
+          "kind": "hike",
+          "caveat": "Alpine scenery near Molas Pass; high elevation."
+        }
+      ],
+      "lodging": {
+        "type": "Historic hotel, riverside cabin or Victorian inn",
+        "examples": [
+          "Strater Hotel",
+          "Riverside cabin",
+          "Downtown Victorian inn"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Durango railroad museum",
+        "Main Avenue",
+        "Silverton's historic streets during the layover"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Fly AUS→DRO; short Animas River walk and dinner downtown."
+        },
+        {
+          "day": "Sat",
+          "plan": "Full-day train round trip to Silverton, with lunch during the layover."
+        },
+        {
+          "day": "Sun",
+          "plan": "Short walk, breakfast, fly home."
+        }
+      ],
+      "cautions": [
+        "Verify steam vs. diesel service on your date.",
+        "Check the seasonal schedule and any track or fire restrictions."
+      ],
+      "sources": [
+        {
+          "label": "Durango & Silverton Narrow Gauge Railroad",
+          "url": "https://www.durangotrain.com/"
+        }
+      ],
+      "photos": [
+        "durango-silverton-01",
+        "durango-silverton-02",
+        "durango-silverton-03",
+        "durango-silverton-04",
+        "durango-silverton-05",
+        "durango-silverton-06"
+      ],
+      "pins": "durango-silverton",
+      "verifiedOn": null
+    },
+    {
+      "id": "seattle-rainier",
+      "number": 3,
+      "title": "The Mountain Calls",
+      "place": "Seattle + Mount Rainier, Washington",
+      "group": "weekend",
+      "themes": [
+        "alpine",
+        "culture"
+      ],
+      "earthCosmos": 0.2,
+      "preferredMonth": "2027-08",
+      "bestWeatherMonths": [
+        "Aug",
+        "early Sep"
+      ],
+      "tripDays": "2 nights",
+      "weekendFit": "green-amber",
+      "weekendFitNote": "Workable with an early Friday arrival and a late Sunday flight; summer crowds and road access are the variables.",
+      "flightGateway": "Seattle–Tacoma (SEA) — nonstop from Austin may be available",
+      "groundTransfer": "About 2.5–3 hours to Ashford",
+      "logisticsNote": "Arrive at Paradise early on Saturday to beat weekend congestion.",
+      "why": "Friday in Seattle's pop-culture orbit, Saturday on a glacier-covered volcano with wildflower meadows at its feet.",
+      "hikes": [
+        {
+          "name": "Nisqually Vista",
+          "distance": "~1.2 mi loop",
+          "difficulty": "Easy",
+          "kind": "hike"
+        },
+        {
+          "name": "Myrtle Falls via Skyline Trail",
+          "distance": "~1 mi",
+          "difficulty": "Easy",
+          "kind": "hike"
+        },
+        {
+          "name": "Bench & Snow Lakes",
+          "distance": "~2.5 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "When snow-free."
+        },
+        {
+          "name": "Skyline Trail toward Panorama Point",
+          "distance": "longer",
+          "difficulty": "Strenuous",
+          "kind": "hike",
+          "caveat": "Optional harder alternative; longer and steeper."
+        }
+      ],
+      "lodging": {
+        "type": "Cedar cabin or park lodge",
+        "examples": [
+          "Cedar cabin near Ashford",
+          "National Park Inn, Longmire",
+          "Mountain lodge"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Museum of Pop Culture (MoPOP)",
+        "Seattle Center",
+        "Seattle coffee",
+        "Tacoma Museum of Glass, if time allows"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Early AUS→SEA; MoPOP for 2–3 hours; drive toward Ashford."
+        },
+        {
+          "day": "Sat",
+          "plan": "Early hike at Paradise, then lakes and overlooks; cabin evening."
+        },
+        {
+          "day": "Sun",
+          "plan": "Short walk, drive back, late flight from SEA."
+        }
+      ],
+      "cautions": [
+        "Verify 2027 park entry and timed-entry rules.",
+        "Higher trails may hold snow into summer."
+      ],
+      "sources": [
+        {
+          "label": "Mount Rainier National Park",
+          "url": "https://www.nps.gov/mora/"
+        }
+      ],
+      "photos": [
+        "seattle-rainier-01",
+        "seattle-rainier-02",
+        "seattle-rainier-03",
+        "seattle-rainier-04",
+        "seattle-rainier-05",
+        "seattle-rainier-06"
+      ],
+      "pins": "seattle-rainier",
+      "verifiedOn": null
+    },
+    {
+      "id": "fort-davis-mcdonald",
+      "number": 4,
+      "title": "A Night Among the Stars",
+      "place": "Fort Davis + McDonald Observatory, Texas",
+      "group": "weekend",
+      "themes": [
+        "cosmos"
+      ],
+      "earthCosmos": 0.9,
+      "preferredMonth": "2027-04",
+      "bestWeatherMonths": [
+        "Mar",
+        "Apr",
+        "Oct",
+        "Nov"
+      ],
+      "tripDays": "2–3 nights",
+      "weekendFit": "amber",
+      "weekendFitNote": "A long transfer both ways; three nights is better.",
+      "flightGateway": "Drive ~7–8 hours from Austin, or fly to Midland (MAF)",
+      "groundTransfer": "About 2.5–3 hours from Midland",
+      "logisticsNote": "Book the Star Party before lodging, ideally near a new moon.",
+      "why": "Research telescopes and some of the darkest skies in the continental U.S., in the cool high country of West Texas.",
+      "hikes": [
+        {
+          "name": "Indian Lodge Trail",
+          "distance": "~1.5 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Includes climbing."
+        },
+        {
+          "name": "Skyline Drive trail segments",
+          "distance": "~2–4 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Depends on route — confirm before going."
+        },
+        {
+          "name": "Fort Davis NHS overlook paths",
+          "distance": "~1–3 mi",
+          "difficulty": "Easy–moderate",
+          "kind": "hike"
+        }
+      ],
+      "lodging": {
+        "type": "Historic lodge, ranch cottage or adobe casita",
+        "examples": [
+          "Indian Lodge (reopened May 2025 after renovation)",
+          "Ranch cottage",
+          "Adobe casita"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Fort Davis National Historic Site",
+        "Local cafés"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Drive west from Austin, or fly to Midland and drive."
+        },
+        {
+          "day": "Sat",
+          "plan": "Mountain hike, downtime, prebooked Star Party at the observatory."
+        },
+        {
+          "day": "Sun",
+          "plan": "Drive or fly home."
+        }
+      ],
+      "cautions": [
+        "Star Party tickets sell out; book first.",
+        "Cloud cover affects observing."
+      ],
+      "sources": [
+        {
+          "label": "McDonald Observatory tickets",
+          "url": "https://mcdonaldobservatory.org/visit/tickets/"
+        }
+      ],
+      "photos": [
+        "fort-davis-mcdonald-01",
+        "fort-davis-mcdonald-02",
+        "fort-davis-mcdonald-03",
+        "fort-davis-mcdonald-04",
+        "fort-davis-mcdonald-05",
+        "fort-davis-mcdonald-06"
+      ],
+      "pins": "fort-davis-mcdonald",
+      "verifiedOn": null
+    },
+    {
+      "id": "mont-megantic",
+      "number": 5,
+      "title": "The Mountain Observatory",
+      "place": "Mont-Mégantic, Québec",
+      "group": "weekend",
+      "themes": [
+        "cosmos"
+      ],
+      "earthCosmos": 0.85,
+      "preferredMonth": "2027-07",
+      "bestWeatherMonths": [
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "tripDays": "4 days",
+      "weekendFit": "red",
+      "weekendFitNote": "Not a satisfying Friday–Sunday trip. Plan four days minimum.",
+      "flightGateway": "Montréal (YUL) — likely a connection from Austin",
+      "groundTransfer": "About 3 hours by car",
+      "logisticsNote": "Public tours are primarily in French; English interpretation is limited.",
+      "why": "A forested Québec mountain crowned by a working astronomical observatory, at the heart of a dark-sky reserve.",
+      "hikes": [
+        {
+          "name": "Forest / summit-sector route",
+          "distance": "choose 2–5 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Summit climbs can have significant elevation gain — check the current Sépaq trail profile."
+        },
+        {
+          "name": "Interpretive forest walk",
+          "distance": "short",
+          "difficulty": "Easy",
+          "kind": "hike"
+        }
+      ],
+      "lodging": {
+        "type": "Park chalet, small auberge or rustic cabin",
+        "examples": [
+          "Sépaq chalet",
+          "Small auberge",
+          "Rustic cabin"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Eastern Townships villages",
+        "Québec food",
+        "ASTROLab"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Fly AUS→YUL, drive to the park."
+        },
+        {
+          "day": "Sat",
+          "plan": "Hike, then an astronomy evening."
+        },
+        {
+          "day": "Sun",
+          "plan": "ASTROLab and observatory visit; explore nearby villages."
+        },
+        {
+          "day": "Mon",
+          "plan": "Return to Montréal and fly home."
+        }
+      ],
+      "cautions": [
+        "The Popular Observatory evening is listed as returning in summer 2027 — confirm the program."
+      ],
+      "sources": [
+        {
+          "label": "ASTROLab daily visits",
+          "url": "https://www.astrolab.qc.ca/en/activity/daily-visits-astrolab-observatory/"
+        },
+        {
+          "label": "Popular Observatory evening",
+          "url": "https://www.astrolab.qc.ca/en/activity/popular-observatory-evening/"
+        }
+      ],
+      "photos": [
+        "mont-megantic-01",
+        "mont-megantic-02",
+        "mont-megantic-03",
+        "mont-megantic-04",
+        "mont-megantic-05",
+        "mont-megantic-06"
+      ],
+      "pins": "mont-megantic",
+      "verifiedOn": null
+    },
+    {
+      "id": "lower-florida-keys",
+      "number": 6,
+      "title": "Islands at the End of the Road",
+      "place": "Lower Florida Keys",
+      "group": "weekend",
+      "themes": [
+        "birding",
+        "island"
+      ],
+      "earthCosmos": 0.15,
+      "preferredMonth": "2027-01",
+      "bestWeatherMonths": [
+        "Jan",
+        "Feb"
+      ],
+      "tripDays": "2 nights",
+      "weekendFit": "amber",
+      "weekendFitNote": "Key West connection timing matters; flying into Miami adds 3–4 hours of driving and weakens a two-night trip.",
+      "flightGateway": "Key West (EYW) — usually a connection from Austin",
+      "groundTransfer": "About 45–60 minutes to Big Pine Key",
+      "logisticsNote": "This is ecology and paddling, not elevation hiking.",
+      "why": "Mangroves, pine rockland, tiny Key deer, wading birds and turquoise water at the far end of the Overseas Highway.",
+      "hikes": [
+        {
+          "name": "Watson Trail",
+          "distance": "~0.7 mi loop",
+          "difficulty": "Easy",
+          "kind": "walk"
+        },
+        {
+          "name": "Upper Sugarloaf Trail",
+          "distance": "~3 mi out-and-back",
+          "difficulty": "Easy",
+          "kind": "walk"
+        },
+        {
+          "name": "Blue Hole observation area",
+          "distance": "short",
+          "difficulty": "Easy",
+          "kind": "walk"
+        },
+        {
+          "name": "Guided mangrove kayak",
+          "distance": "2–3 hours",
+          "difficulty": "Easy–moderate",
+          "kind": "paddle"
+        }
+      ],
+      "lodging": {
+        "type": "Waterfront cottage, island inn or state-park camping",
+        "examples": [
+          "Waterfront cottage",
+          "Independent island inn",
+          "State-park camping where available"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Key West galleries",
+        "Seafood",
+        "Overseas Railroad history",
+        "Sunset"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Fly AUS→EYW, drive up to Big Pine Key."
+        },
+        {
+          "day": "Sat",
+          "plan": "Refuge walks, mangrove kayak, Bahia Honda."
+        },
+        {
+          "day": "Sun",
+          "plan": "Sunrise birding, fly home."
+        }
+      ],
+      "cautions": [
+        "Don't approach or feed Key deer."
+      ],
+      "sources": [
+        {
+          "label": "National Key Deer Refuge trails",
+          "url": "https://www.fws.gov/refuge/national-key-deer/visit-us/trails"
+        }
+      ],
+      "photos": [
+        "lower-florida-keys-01",
+        "lower-florida-keys-02",
+        "lower-florida-keys-03",
+        "lower-florida-keys-04",
+        "lower-florida-keys-05",
+        "lower-florida-keys-06"
+      ],
+      "pins": "lower-florida-keys",
+      "verifiedOn": null
+    },
+    {
+      "id": "rincon-guanacaste",
+      "number": 7,
+      "title": "Into the Living Rainforest",
+      "place": "Rincón de la Vieja, Costa Rica",
+      "group": "weekend",
+      "themes": [
+        "volcanoes",
+        "birding"
+      ],
+      "earthCosmos": 0.1,
+      "preferredMonth": "2027-03",
+      "bestWeatherMonths": [
+        "Feb",
+        "Mar"
+      ],
+      "tripDays": "3–4 nights",
+      "weekendFit": "red",
+      "weekendFitNote": "Not a satisfying Friday–Sunday trip. Three to four nights strongly recommended.",
+      "flightGateway": "Liberia (LIR) — a connection in the dry season",
+      "groundTransfer": "About 45–90 minutes to the lodge zone",
+      "logisticsNote": "Southwest's Austin–Liberia nonstop runs only Saturdays and Sundays, June 3 – August 2, 2027. It doesn't help a March trip or a Friday departure, and June isn't peak dry season.",
+      "why": "Steaming fumaroles, bubbling mud pots, tropical birds and hot springs in the dry forest of an active volcano.",
+      "hikes": [
+        {
+          "name": "Las Pailas circuit",
+          "distance": "3 km",
+          "difficulty": "Easy–moderate",
+          "kind": "hike",
+          "duration": "~2 hours"
+        },
+        {
+          "name": "Santa María sector forest trails",
+          "distance": "varies",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Hummingbird and forest trails."
+        },
+        {
+          "name": "Waterfall hikes",
+          "distance": "longer",
+          "difficulty": "Strenuous",
+          "kind": "hike",
+          "caveat": "Optional; can be strenuous."
+        },
+        {
+          "name": "Guided early birding walk",
+          "distance": "2–3 hours",
+          "difficulty": "Easy",
+          "kind": "walk"
+        }
+      ],
+      "lodging": {
+        "type": "Hacienda, eco-bungalow or thermal-spring lodge",
+        "examples": [
+          "Hacienda Guachipelín",
+          "Forest eco-bungalow",
+          "Rustic thermal-spring lodge"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Guanacaste food",
+        "Hacienda heritage"
+      ],
+      "itinerary": [
+        {
+          "day": "Fri",
+          "plan": "Fly AUS→LIR, transfer to the lodge."
+        },
+        {
+          "day": "Sat",
+          "plan": "Las Pailas circuit, birding, hot springs."
+        },
+        {
+          "day": "Sun",
+          "plan": "Limited morning, then the international airport buffer."
+        }
+      ],
+      "cautions": [
+        "Las Pailas and Santa María sectors open on different days — verify both.",
+        "Summit and crater access has been restricted in recent years; verify before planning."
+      ],
+      "sources": [
+        {
+          "label": "Austin–Bergstrom: Southwest international announcement (Oct 2, 2026)",
+          "url": "https://www.flyaustin.com/news/southwest-airlines-announces-nonstop-international-destinations-austin-bergstrom-international"
+        },
+        {
+          "label": "SINAC — Rincón de la Vieja",
+          "url": "https://sinac.go.cr/ES/ac/acg/pnrv/Paginas/default.aspx"
+        }
+      ],
+      "photos": [
+        "rincon-guanacaste-01",
+        "rincon-guanacaste-02",
+        "rincon-guanacaste-03",
+        "rincon-guanacaste-04",
+        "rincon-guanacaste-05",
+        "rincon-guanacaste-06"
+      ],
+      "pins": "rincon-guanacaste",
+      "verifiedOn": null
+    },
+    {
+      "id": "iceland-south-coast",
+      "number": 8,
+      "title": "Under the Northern Lights",
+      "place": "Iceland South Coast",
+      "group": "extended",
+      "themes": [
+        "aurora",
+        "volcanoes"
+      ],
+      "earthCosmos": 0.75,
+      "preferredMonth": "2027-10",
+      "bestWeatherMonths": [
+        "Sep",
+        "Oct"
+      ],
+      "tripDays": "6 days",
+      "weekendFit": "not-applicable",
+      "weekendFitNote": "A six-day journey. Allow several evenings for aurora; it's never guaranteed.",
+      "flightGateway": "Keflavík (KEF) via a hub",
+      "groundTransfer": "Rental car along the Ring Road",
+      "logisticsNote": "An overnight flight may shift your arrival day.",
+      "why": "Aurora chances above a black volcanic coast, with waterfalls, basalt columns and outlet glaciers by day.",
+      "hikes": [
+        {
+          "name": "Reykjadalur geothermal valley",
+          "distance": "~5 mi round trip",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Weather-dependent."
+        },
+        {
+          "name": "Skógafoss stairs + Waterfall Way",
+          "distance": "customizable 2–5 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Steep at the start."
+        },
+        {
+          "name": "Skaftafell to Svartifoss",
+          "distance": "~2 mi round trip",
+          "difficulty": "Moderate",
+          "kind": "hike"
+        },
+        {
+          "name": "Glacier walk",
+          "distance": "varies",
+          "difficulty": "Guided only",
+          "kind": "tour",
+          "caveat": "Requires a professional guide and suitable conditions."
+        }
+      ],
+      "lodging": {
+        "type": "Countryside cottage, farm guesthouse or cabin",
+        "examples": [
+          "Turf-roof-inspired cottage",
+          "Farm guesthouse",
+          "Cabin away from city lights"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Reykjavík museums",
+        "Geothermal bathing",
+        "Icelandic seafood",
+        "Local design"
+      ],
+      "itinerary": [
+        {
+          "day": "Day 1",
+          "plan": "Fly AUS→KEF via a hub."
+        },
+        {
+          "day": "Day 2",
+          "plan": "Reykjavík and a geothermal soak."
+        },
+        {
+          "day": "Day 3",
+          "plan": "South Coast waterfalls and a short hike."
+        },
+        {
+          "day": "Day 4",
+          "plan": "Black-sand beach and glacier-area trails."
+        },
+        {
+          "day": "Day 5",
+          "plan": "Flexible weather day and an aurora attempt."
+        },
+        {
+          "day": "Day 6",
+          "plan": "Return."
+        }
+      ],
+      "cautions": [
+        "Early October storms and short days are real constraints.",
+        "Never plan around a guaranteed aurora."
+      ],
+      "sources": [
+        {
+          "label": "Visit Iceland",
+          "url": "https://www.visiticeland.com/"
+        }
+      ],
+      "photos": [
+        "iceland-south-coast-01",
+        "iceland-south-coast-02",
+        "iceland-south-coast-03",
+        "iceland-south-coast-04",
+        "iceland-south-coast-05",
+        "iceland-south-coast-06"
+      ],
+      "pins": "iceland-south-coast",
+      "verifiedOn": null
+    },
+    {
+      "id": "atitlan-antigua",
+      "number": 9,
+      "title": "The Lake of Volcanoes",
+      "place": "Lake Atitlán + Antigua, Guatemala",
+      "group": "extended",
+      "themes": [
+        "volcanoes",
+        "culture",
+        "birding"
+      ],
+      "earthCosmos": 0.2,
+      "preferredMonth": "2027-02",
+      "bestWeatherMonths": [
+        "Jan",
+        "Feb"
+      ],
+      "tripDays": "5–6 days",
+      "weekendFit": "not-applicable",
+      "weekendFitNote": "A five-to-six-day journey; the road transfer alone can take 3–4+ hours.",
+      "flightGateway": "Guatemala City (GUA)",
+      "groundTransfer": "Road transfer to the lake, often 3–4+ hours",
+      "logisticsNote": "The January–February dry season usually brings clearer volcano views.",
+      "why": "A vast lake ringed by volcanoes and Maya communities, paired with the colonial streets of Antigua.",
+      "hikes": [
+        {
+          "name": "Indian Nose sunrise",
+          "distance": "~2–3 mi",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "caveat": "Guided, early start, steep sections."
+        },
+        {
+          "name": "Lakeside village footpaths",
+          "distance": "varies",
+          "difficulty": "Easy",
+          "kind": "walk"
+        },
+        {
+          "name": "Cerro Tzankujil nature trails",
+          "distance": "short",
+          "difficulty": "Easy",
+          "kind": "walk"
+        },
+        {
+          "name": "Coffee-farm and birding walks",
+          "distance": "varies",
+          "difficulty": "Easy",
+          "kind": "walk",
+          "caveat": "Guided."
+        }
+      ],
+      "lodging": {
+        "type": "Eco-lodge, boat-access inn or courtyard hotel",
+        "examples": [
+          "Lakeside eco-lodge",
+          "Small boat-access boutique inn",
+          "Garden courtyard hotel in Antigua"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Maya weaving cooperatives",
+        "Local markets",
+        "Coffee farms",
+        "Antigua architecture and food"
+      ],
+      "itinerary": [
+        {
+          "day": "Day 1",
+          "plan": "Fly AUS→GUA; transfer to Antigua or the lake depending on arrival."
+        },
+        {
+          "day": "Days 2–4",
+          "plan": "Lake villages, one guided hike, one relaxation or boat day."
+        },
+        {
+          "day": "Day 5",
+          "plan": "Antigua culture and cafés."
+        },
+        {
+          "day": "Day 6",
+          "plan": "Return."
+        }
+      ],
+      "cautions": [
+        "Don't take unescorted remote village-to-village trails without checking current local conditions.",
+        "Verify tour operators independently."
+      ],
+      "sources": [
+        {
+          "label": "Visit Guatemala",
+          "url": "https://visitguatemala.gt/"
+        }
+      ],
+      "photos": [
+        "atitlan-antigua-01",
+        "atitlan-antigua-02",
+        "atitlan-antigua-03",
+        "atitlan-antigua-04",
+        "atitlan-antigua-05",
+        "atitlan-antigua-06"
+      ],
+      "pins": "atitlan-antigua",
+      "verifiedOn": null
+    },
+    {
+      "id": "sao-miguel-azores",
+      "number": 10,
+      "title": "Somewhere Beyond the Horizon",
+      "place": "São Miguel, Azores",
+      "group": "extended",
+      "themes": [
+        "island",
+        "volcanoes",
+        "culture"
+      ],
+      "earthCosmos": 0.35,
+      "preferredMonth": "2027-11",
+      "bestWeatherMonths": [
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "tripDays": "6 days",
+      "weekendFit": "not-applicable",
+      "weekendFitNote": "A six-day journey; if flights are inefficient, six nights may be materially better.",
+      "flightGateway": "Ponta Delgada (PDL) via the U.S. East Coast or Lisbon",
+      "groundTransfer": "Rental car around the island",
+      "logisticsNote": "November is a scheduling preference, not a weather claim: cooler, wetter and windier, with shorter days and fewer crowds.",
+      "why": "Green volcanic crater lakes, drifting mist, thermal water and Atlantic cliffs in the middle of the ocean.",
+      "hikes": [
+        {
+          "name": "Vista do Rei → Sete Cidades",
+          "distance": "~7.5 km linear",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "duration": "2–3 hours",
+          "caveat": "Arrange transport back from the end.",
+          "officialMapUrl": "https://trails.visitazores.com/en/find-a-trail"
+        },
+        {
+          "name": "Lagoa das Furnas loop",
+          "distance": "~9.4 km",
+          "difficulty": "Easy–moderate",
+          "kind": "hike",
+          "duration": "~3 hours"
+        },
+        {
+          "name": "Serra Devassa",
+          "distance": "~9.1 km",
+          "difficulty": "Moderate",
+          "kind": "hike",
+          "duration": "~3.5 hours",
+          "officialMapUrl": "https://trails.visitazores.com/en/trails-azores/sao-miguel/serra-devassa"
+        },
+        {
+          "name": "Short scenic walks",
+          "distance": "varies",
+          "difficulty": "Easy",
+          "kind": "walk",
+          "caveat": "For days when rain or wind makes ridgelines unpleasant."
+        }
+      ],
+      "lodging": {
+        "type": "Stone cottage, rural eco-lodge, thermal hotel or guesthouse",
+        "examples": [
+          "Restored stone cottage",
+          "Secluded rural eco-lodge",
+          "Furnas thermal hotel",
+          "Ocean-view guesthouse"
+        ],
+        "verificationRequired": true
+      },
+      "culture": [
+        "Cozido cooked with volcanic heat",
+        "Pineapple plantations",
+        "Tea estates",
+        "Ponta Delgada's historic center",
+        "Thermal bathing"
+      ],
+      "itinerary": [
+        {
+          "day": "Day 1",
+          "plan": "International transit AUS→PDL; an overnight routing may consume a day."
+        },
+        {
+          "day": "Day 2",
+          "plan": "Sete Cidades if the weather clears."
+        },
+        {
+          "day": "Day 3",
+          "plan": "Serra Devassa and Lagoa do Fogo."
+        },
+        {
+          "day": "Day 4",
+          "plan": "Furnas lake hike and a thermal bath."
+        },
+        {
+          "day": "Day 5",
+          "plan": "Island culture and flexible rain-day plans."
+        },
+        {
+          "day": "Day 6",
+          "plan": "Return."
+        }
+      ],
+      "cautions": [
+        "Verify trail closures before setting out.",
+        "Crater views aren't promised; keep the itinerary weather-flexible."
+      ],
+      "sources": [
+        {
+          "label": "Azores trails directory",
+          "url": "https://trails.visitazores.com/en/find-a-trail"
+        },
+        {
+          "label": "Serra Devassa trail",
+          "url": "https://trails.visitazores.com/en/trails-azores/sao-miguel/serra-devassa"
+        },
+        {
+          "label": "Azores natural parks trails",
+          "url": "https://parquesnaturais.azores.gov.pt/en/parques/9/trilhos"
+        }
+      ],
+      "photos": [
+        "sao-miguel-azores-01",
+        "sao-miguel-azores-02",
+        "sao-miguel-azores-03",
+        "sao-miguel-azores-04",
+        "sao-miguel-azores-05",
+        "sao-miguel-azores-06",
+        "sao-miguel-azores-07"
+      ],
+      "pins": "sao-miguel-azores",
+      "verifiedOn": null
+    }
+  ]
+}
