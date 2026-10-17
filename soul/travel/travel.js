@@ -20,7 +20,7 @@
     var starOnly = false;
     var openId = null;
     var openedByUs = false; // whether we pushed the current #d- history entry
-    var state = { v: 1, fav: [], vote: {}, t: 0 };
+    var state = { v: 1, fav: [], vote: {}, t: 0 }; // vote kept empty: cookie shape stays per brief §8
     var cookiesWork = true;
 
     var $ = function (id) { return document.getElementById(id); };
@@ -105,10 +105,6 @@
             var obj = JSON.parse(b64urlDecode(raw));
             if (obj && obj.v === 1) {
                 state.fav = Array.isArray(obj.fav) ? obj.fav.filter(function (id) { return byId[id]; }) : [];
-                state.vote = {};
-                Object.keys(obj.vote || {}).forEach(function (id) {
-                    if (byId[id] && /^(yes|maybe|pass)$/.test(obj.vote[id])) state.vote[id] = obj.vote[id];
-                });
                 state.t = obj.t || 0;
             }
         } catch (e) { /* unreadable cookie: start fresh */ }
@@ -134,13 +130,6 @@
         if (starOnly) applyFilters();
     }
 
-    function setVote(id, choice) {
-        if (state.vote[id] === choice) delete state.vote[id];
-        else state.vote[id] = choice;
-        savePicks();
-        syncPicks(id);
-    }
-
     function syncPicks(id) {
         var card = $('d-' + id);
         if (!card) return;
@@ -148,9 +137,6 @@
         var star = card.querySelector('.ec-star-btn');
         star.setAttribute('aria-pressed', String(fav));
         star.querySelector('.ec-star-btn__glyph').textContent = fav ? '★' : '☆';
-        Array.prototype.forEach.call(card.querySelectorAll('.ec-vote__btn'), function (b) {
-            b.setAttribute('aria-pressed', String(state.vote[id] === b.dataset.vote));
-        });
     }
 
     function resetPicks() {
@@ -191,12 +177,6 @@
                 '<div class="ec-card__actions">' +
                     '<button type="button" class="ec-star-btn" aria-pressed="false" aria-label="Star ' + title + '">' +
                         '<span class="ec-star-btn__glyph" aria-hidden="true">☆</span></button>' +
-                    '<div class="ec-vote" role="group" aria-label="Your vote for ' + title + '">' +
-                        ['yes', 'maybe', 'pass'].map(function (v) {
-                            return '<button type="button" class="ec-vote__btn" data-vote="' + v + '" aria-pressed="false">' +
-                                v.charAt(0).toUpperCase() + v.slice(1) + '</button>';
-                        }).join('') +
-                    '</div>' +
                 '</div>' +
             '</div>' +
             '<button type="button" class="ec-card__expand" aria-expanded="false" aria-controls="ch-' + esc(d.id) + '">' +
@@ -283,7 +263,6 @@
             if (!t) return;
             var card = t.closest('.ec-card');
             if (t.classList.contains('ec-star-btn')) toggleFav(card.dataset.id);
-            else if (t.classList.contains('ec-vote__btn')) setVote(card.dataset.id, t.dataset.vote);
             else if (t.classList.contains('ec-card__expand')) {
                 if (openId === card.dataset.id) closeChapter(true);
                 else openChapter(card.dataset.id, true);

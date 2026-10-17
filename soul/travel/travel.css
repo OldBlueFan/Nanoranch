@@ -354,43 +354,6 @@ img { display: block; max-width: 100%; height: auto; }
   outline-offset: 3px;
 }
 
-/* Vote group */
-.ec-vote {
-  display: flex;
-  gap: 0;
-}
-.ec-vote__btn {
-  font-family: var(--font-caps);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: none;
-  border: 1px solid var(--border-control);
-  color: var(--text-dim);
-  padding: 6px 12px;
-  min-height: 44px;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.ec-vote__btn:first-child { border-radius: 2px 0 0 2px; }
-.ec-vote__btn:last-child { border-radius: 0 2px 2px 0; }
-.ec-vote__btn + .ec-vote__btn { border-left: 0; }
-.ec-vote__btn:hover {
-  border-color: var(--border-hover);
-  color: var(--text-primary);
-}
-.ec-vote__btn[aria-pressed="true"] {
-  border-color: var(--accent-gold-border);
-  color: var(--accent-gold);
-  background: rgba(240, 200, 120, 0.08);
-}
-.ec-vote__btn:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: 3px;
-  z-index: 1;
-  position: relative;
-}
-
 /* Expand button */
 .ec-card__expand {
   display: block;
@@ -859,7 +822,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .ec-star { animation: none; }
-  .ec-card, .ec-chip, .ec-star-btn, .ec-vote__btn, .ec-card__expand, .ec-chapter__map-btn, .ec-picks__reset {
+  .ec-card, .ec-chip, .ec-star-btn, .ec-card__expand, .ec-chapter__map-btn, .ec-picks__reset {
     transition: none;
   }
 }
@@ -870,7 +833,7 @@ img { display: block; max-width: 100%; height: auto; }
 .ec-card__img-wrap img { background: var(--sky-1); }
 .ec-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.ec-vote__btn, .ec-card__expand, .ec-chapter__map-btn, .ec-picks__reset { text-indent: 0.12em; }
+.ec-card__expand, .ec-chapter__map-btn, .ec-picks__reset { text-indent: 0.12em; }
 
 .ec-chapter__header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
 .ec-chapter__header .ec-chapter__place { margin-bottom: 0; }
