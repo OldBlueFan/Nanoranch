@@ -42,16 +42,17 @@
   <section class="ec-filters" aria-label="Filter destinations">
     <div class="ec-filters__chips" id="ec-filter-chips"></div>
     <p class="ec-filters__count" id="ec-filter-count" aria-live="polite"></p>
+    <p class="ec-filters__empty" id="ec-filter-empty" hidden>Nothing matches — clear a filter.</p>
   </section>
 
   <!-- Index: weekend -->
-  <section class="ec-group" aria-labelledby="ec-group-weekend">
+  <section class="ec-group" id="ec-section-weekend" aria-labelledby="ec-group-weekend">
     <h2 class="ec-group__heading" id="ec-group-weekend">Seven weekend possibilities</h2>
     <div class="ec-cards" id="ec-cards-weekend"></div>
   </section>
 
   <!-- Index: extended -->
-  <section class="ec-group" aria-labelledby="ec-group-extended">
+  <section class="ec-group" id="ec-section-extended" aria-labelledby="ec-group-extended">
     <h2 class="ec-group__heading" id="ec-group-extended">Three longer journeys</h2>
     <div class="ec-cards" id="ec-cards-extended"></div>
   </section>
@@ -59,8 +60,8 @@
   <!-- Map -->
   <section class="ec-map-section" aria-labelledby="ec-map-heading">
     <h2 class="ec-section-heading" id="ec-map-heading">The map</h2>
-    <div class="ec-map" id="ec-map"></div>
-    <div class="ec-map-list" id="ec-map-list" aria-label="Map pin list"></div>
+    <div class="ec-map" id="ec-map" role="region" aria-label="Map of all ten journeys"></div>
+    <nav class="ec-map-list" id="ec-map-list" aria-label="Map pins"></nav>
   </section>
 
   <!-- Season calendar -->
@@ -86,7 +87,7 @@
   </section>
 
   <noscript>
-    <p style="color:#fff;padding:2rem;text-align:center;">This page requires JavaScript to load its content from data files.</p>
+    <p class="ec-noscript">This page requires JavaScript to load its content from data files.</p>
   </noscript>
 
   <script src="travel.js"></script>
