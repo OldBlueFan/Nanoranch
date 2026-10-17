@@ -355,4 +355,11 @@
         }
     }, { passive: true });
 
+    /* Deep links from subpages (e.g. /#soul): enter that section once fonts settle */
+    var deep = /^#(soil|space|soul)$/.exec(location.hash);
+    if (deep) {
+        history.replaceState(null, '', location.pathname + location.search);
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { go(deep[1]); });
+    }
+
 })();

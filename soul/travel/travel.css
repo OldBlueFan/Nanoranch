@@ -57,8 +57,8 @@ img { display: block; max-width: 100%; height: auto; }
 /* ── Hero ──────────────────────────────────────────────────────────────── */
 .ec-hero {
   position: relative;
-  min-height: 80vh;
-  min-height: 80svh;
+  min-height: 55vh;
+  min-height: clamp(360px, 55svh, 600px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -209,6 +209,7 @@ img { display: block; max-width: 100%; height: auto; }
   transition: border-color 0.25s var(--ease-organic);
 }
 .ec-card[hidden], .ec-group[hidden] { display: none; }
+.ec-card { scroll-margin-top: 76px; } /* clear the fixed nav bar */
 .ec-card--open { grid-column: 1 / -1; border-color: var(--accent-gold-border); }
 .ec-card:hover { border-color: var(--border-hover); }
 
@@ -661,6 +662,8 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1px solid var(--border-card);
   overflow: hidden;
   background: var(--sky-1);
+  position: relative;
+  z-index: 0; /* contain Leaflet's pane z-indexes below the fixed nav */
 }
 .ec-map-list {
   margin-top: 16px;
@@ -802,7 +805,7 @@ img { display: block; max-width: 100%; height: auto; }
 .ec-credits-section {
   max-width: var(--ec-page-max);
   margin: 60px auto 0;
-  padding: 0 var(--ec-page-px) 80px;
+  padding: 0 var(--ec-page-px);
   position: relative;
   z-index: 1;
 }
@@ -898,3 +901,27 @@ img { display: block; max-width: 100%; height: auto; }
 .ec-calendar__dest a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--accent-gold-dim); }
 .ec-calendar__dest a:hover { color: var(--accent-gold); }
 .ec-calendar__season { display: block; font-family: var(--font-caps); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 2px; }
+
+/* ── Nav & footer (homepage chrome; .site-nav styles come from /css/main.css) ── */
+.site-nav .nav-link[aria-current] { color: var(--accent-gold); }
+.ec-footer {
+  position: relative;
+  z-index: 1;
+  max-width: var(--ec-page-max);
+  margin: 60px auto 0;
+  padding: 28px var(--ec-page-px) 48px;
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+}
+.ec-footer__mark {
+  font-family: var(--font-display);
+  font-size: var(--wordmark-size-nav);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.ec-footer__copy {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
