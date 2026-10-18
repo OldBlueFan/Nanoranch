@@ -29,6 +29,8 @@ The live site is hosted on **Dreamhost** and serves the `main` branch. Deploying
 - `origin` — GitHub (`git@github.com:OldBlueFan/Nanoranch.git`)
 - `dreamhost` — the live host (`ssh://malloy@pdx1-shared-a2-06.dreamhost.com/~/nanoranch.org.git`)
 
+**Automatic deploy:** `.github/workflows/deploy-dreamhost.yml` pushes every push to GitHub `main` on to the `dreamhost` repo (using the `DREAMHOST_SSH_KEY` repo secret), then fails if production's `index.html` / `js/main.js` / `css/main.css` don't match the commit. So pushing `main` to `origin` is enough; the manual `git push dreamhost main` below still works and is harmless alongside it. Check the run in GitHub's Actions tab.
+
 **If you're working directly on `main` with a clean tree**, the quick path is:
 
 ```sh

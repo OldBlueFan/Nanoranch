@@ -1,0 +1,56 @@
+# Deploy: every push to main is pushed on to the Dreamhost bare repo, whose
+# existing hook publishes it — the same thing `git push dreamhost main` does
+# from a laptop. Then it checks that production serves the new files.
+#
+# One-time setup (repo Settings → Secrets and variables → Actions):
+#   DREAMHOST_SSH_KEY   private key whose public half is in ~/.ssh/authorized_keys
+#                       for the malloy user on Dreamhost
+name: Deploy to Dreamhost
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dreamhost
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DH_HOST: pdx1-shared-a2-06.dreamhost.com
+      DH_REPO: ssh://malloy@pdx1-shared-a2-06.dreamhost.com/~/nanoranch.org.git
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Load SSH key
+        env:
+          DREAMHOST_SSH_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
+        run: |
+          if [ -z "$DREAMHOST_SSH_KEY" ]; then
+            echo "::error::DREAMHOST_SSH_KEY secret is not set — see the setup note at the top of this file"
+            exit 1
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DREAMHOST_SSH_KEY" > ~/.ssh/id_dreamhost
+          chmod 600 ~/.ssh/id_dreamhost
+          ssh-keyscan -H "$DH_HOST" >> ~/.ssh/known_hosts
+          printf 'Host %s\n  IdentityFile ~/.ssh/id_dreamhost\n  IdentitiesOnly yes\n' "$DH_HOST" > ~/.ssh/config
+
+      # Not a force push: if Dreamhost has commits main doesn't, this fails loudly
+      - name: Push main to Dreamhost
+        run: git push "$DH_REPO" HEAD:refs/heads/main
+
+      - name: Verify production serves this commit
+        run: |
+          sleep 5
+          for f in index.html js/main.js css/main.css; do
+            live=$(curl -fsSL "https://nanoranch.org/$f?v=$GITHUB_SHA" | sha256sum | cut -d' ' -f1)
+            repo=$(sha256sum "$f" | cut -d' ' -f1)
+            if [ "$live" = "$repo" ]; then echo "ok    $f"; else echo "STALE $f"; fail=1; fi
+          done
+          exit ${fail:-0}
