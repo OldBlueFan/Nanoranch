@@ -45,7 +45,6 @@ button:focus-visible {
     outline: var(--focus-ring);
     outline-offset: 3px;
 }
-.card-toggle:focus-visible { outline-offset: 8px; }
 
 /* ── Backdrop layers ── */
 .backdrop-sky {
@@ -208,16 +207,18 @@ button:focus-visible {
 .fly-dot { display: block; border-radius: 50%; background: #fff; }
 
 /* ── Section view (SOIL / SPACE / SOUL) ── */
+/* A flowing column: intro on top, cards pinned to the bottom while they fit,
+   and the layer scrolls once an open card's content block outgrows the view */
 .section-layer {
     position: fixed; inset: 0; z-index: 20;
+    display: flex; flex-direction: column;
     overflow-y: auto; pointer-events: auto;
 }
 .section-layer[hidden] { display: none; }
 .section-intro {
-    position: absolute; left: 50%; top: 21vh; transform: translateX(-50%);
-    width: min(640px, 86vw); text-align: center;
+    margin: 21vh auto 0; width: min(640px, 86vw); text-align: center;
 }
-.section-layer[data-mode="space"] .section-intro { top: 27vh; }
+.section-layer[data-mode="space"] .section-intro { margin-top: 27vh; }
 .section-intro-inner { animation: nrFadeUp .9s ease .1s both; }
 .section-label {
     margin: 0 0 16px;
@@ -236,64 +237,125 @@ button:focus-visible {
 }
 
 .cards-row {
-    position: absolute; left: 0; right: 0; bottom: 0;
+    margin-top: auto; box-sizing: border-box;
     display: flex; gap: 22px; justify-content: center; align-items: stretch;
-    padding: 0 24px 12vh; flex-wrap: wrap; pointer-events: auto;
+    padding: 48px 24px 12vh; flex-wrap: wrap; pointer-events: auto;
 }
 
-/* ── Project cards ── */
+/* ── Project cards (travel-card pattern from /soul/travel): thumbnail + title,
+      expanding in place into a full-width content block ── */
 .card {
-    width: var(--card-width); min-height: var(--card-min-height);
+    width: var(--card-width);
     box-sizing: border-box; display: flex; flex-direction: column;
     background: var(--surface-card-gradient);
     backdrop-filter: blur(var(--blur-card)); -webkit-backdrop-filter: blur(var(--blur-card));
     border: 1px solid var(--border-card); border-radius: var(--radius-card);
-    padding: var(--pad-card); box-shadow: none;
+    overflow: hidden; scroll-margin-top: 76px;   /* clear the fixed nav bar */
     transition: border-color .35s, transform .3s, box-shadow .35s;
     animation: nrCardUp var(--dur-card-rise) var(--ease-organic) both;
 }
-.card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
-.card.is-open { border-color: var(--accent-gold-border); box-shadow: var(--glow-gold); }
-.card-toggle {
-    display: flex; flex-direction: column; flex: 1; width: 100%;
-    background: transparent; border: none; margin: 0; padding: 0;
-    color: var(--text-primary); font: inherit; font-family: var(--font-display);
-    text-align: center; cursor: pointer; border-radius: 2px;
-    text-decoration: none;   /* direct-link cards render as <a> */
+.card:hover { border-color: var(--border-hover); }
+.card:not(.is-open):hover { transform: translateY(-4px); }
+.card.is-open {
+    flex-basis: 100%; width: 100%; max-width: 1040px;
+    border-color: var(--accent-gold-border); box-shadow: var(--glow-gold);
 }
+
+/* Thumbnail (grey placeholder until real photos land) */
+.card-img { aspect-ratio: 3 / 2; overflow: hidden; }
+.card.is-open .card-img { display: none; }   /* the photo strip takes over */
+.card-ph, .filmstrip-ph {
+    display: block; width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--underline-link), var(--surface-control-hover));
+}
+
+.card-body { flex: 1; padding: 18px 20px 16px; text-align: center; }
 .card-hairline {
-    width: 34px; height: 1px;
+    display: block; width: 34px; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(240,200,120,.75), transparent);
-    margin: 0 auto 18px;
+    margin: 0 auto 14px;
 }
 .card-title {
-    width: 100%; font-family: var(--font-caps); text-align: center;
-    font-size: var(--text-size-card-title); font-weight: var(--weight-card-title);
-    line-height: 1.3;
+    margin: 0; font-family: var(--font-display); font-weight: 400;
+    font-size: var(--text-size-card-title); line-height: 1.25;
+    color: var(--text-primary);
 }
-.card-note {
-    width: 100%; flex: 1; min-height: 1.6em; margin-top: 14px;
-    text-align: center; font-style: italic;
-    font-size: var(--text-size-card-note); line-height: 1.45;
-    color: var(--text-note);
+.card-status {
+    margin: 6px 0 0; font-style: italic;
+    font-size: var(--text-size-card-note); color: var(--text-note);
 }
-.card-hint {
-    width: 100%; font-family: var(--font-caps); text-align: center;
-    font-size: 10px; letter-spacing: .32em; text-indent: .32em;
-    text-transform: uppercase; color: var(--text-hint); margin-top: 16px;
+
+/* Expand toggle — full-width footer row of the card */
+.card-expand {
+    display: block; width: 100%; min-height: 44px; margin: 0; padding: 12px;
+    background: none; border: none; border-top: 1px solid var(--border-soft);
+    color: var(--accent-gold); cursor: pointer;
+    font-family: var(--font-caps); font-size: 10px;
+    letter-spacing: .32em; text-indent: .32em; text-transform: uppercase;
+    transition: color .3s, background .3s;
+}
+.card-expand:hover { background: var(--surface-control-hover); color: var(--text-primary); }
+.card-expand:focus-visible { outline-offset: -3px; }
+.card-expand[aria-expanded="false"] .card-expand-text::after { content: " +"; }
+.card-expand[aria-expanded="true"] .card-expand-text::after { content: " \2212"; }
+
+/* Expanded content block: hero photo strip, then body copy */
+.card-chapter { min-width: 0; border-top: 1px solid var(--border-soft); padding: 24px 20px 28px; }
+.card-chapter[hidden] { display: none; }
+.filmstrip {
+    display: flex; gap: 12px; overflow-x: auto;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px; border-radius: 4px;
+}
+.filmstrip:focus-visible { outline-offset: 3px; }
+.filmstrip::-webkit-scrollbar { height: 4px; }
+.filmstrip::-webkit-scrollbar-track { background: var(--border-soft); border-radius: 2px; }
+.filmstrip::-webkit-scrollbar-thumb { background: var(--accent-gold-dim); border-radius: 2px; }
+.filmstrip-item { flex: 0 0 auto; width: min(80vw, 560px); margin: 0; scroll-snap-align: start; }
+.filmstrip-ph { aspect-ratio: 3 / 2; height: auto; border-radius: 4px; }
+.filmstrip-controls {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 10px 0 20px;
+}
+.filmstrip-btn {
+    min-width: 44px; min-height: 44px; padding: 0 12px;
+    background: none; border: 1px solid var(--border-control); border-radius: var(--radius-control);
+    color: var(--text-soft); cursor: pointer;
+    font-family: var(--font-caps); font-size: 10px;
+    letter-spacing: .24em; text-indent: .24em; text-transform: uppercase;
+    transition: color .3s, border-color .3s;
+}
+.filmstrip-btn:hover:not(:disabled) { color: var(--text-primary); border-color: var(--border-control-hover); }
+.filmstrip-btn:disabled { opacity: .45; cursor: default; }
+.filmstrip-count {
+    font-family: var(--font-caps); font-size: 11px; letter-spacing: .2em;
+    color: var(--text-dim); min-width: 4em; text-align: center;
+}
+.chapter-body { max-width: 640px; margin: 0 auto; text-align: center; }
+.chapter-text {
+    margin: 0; font-style: italic;
+    font-size: var(--text-size-card-note); line-height: 1.5; color: var(--text-body);
 }
 .card-link {
-    display: inline-flex; align-items: center; gap: 7px; align-self: center;
+    display: inline-flex; align-items: center; gap: 7px;
     font-family: var(--font-caps); font-weight: 400;
     color: var(--accent-gold); font-size: 11px;
     letter-spacing: var(--tracking-link); text-indent: var(--tracking-link);
     text-transform: uppercase; text-decoration: none;
     border-bottom: 1px solid var(--accent-gold-dim);
-    padding-bottom: 3px; margin-top: 10px;
+    padding-bottom: 3px; margin-top: 18px;
     transition: color .3s, border-color .3s;
 }
 .card-link:hover { color: rgba(250,220,150,1); border-color: rgba(240,200,120,.7); }
 .card-link svg { flex: none; }
+
+/* While a content block is open, the flown mark drops behind the section layer */
+.is-reading .fly { z-index: 15; }
+
+.sr-only {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+}
 
 /* ── Navstone teaser strip ── */
 .nav-strip {
@@ -343,19 +405,21 @@ button:focus-visible {
     .fly { z-index: 15; }
 
     .section-intro {
-        position: relative; left: auto; top: auto; transform: none;
         margin: 0 auto; width: auto; max-width: 640px;
         padding: 15vh 24px 0; box-sizing: border-box;
     }
-    .section-layer[data-mode="space"] .section-intro { top: auto; padding-top: 22vh; }
+    .section-layer[data-mode="space"] .section-intro { margin-top: 0; padding-top: 22vh; }
 
     .cards-row {
-        position: relative; left: auto; right: auto; bottom: auto;
+        margin-top: 0;
         flex-direction: column; align-items: stretch;
         gap: var(--gap-cards-mobile); padding: 28px 20px 10vh;
     }
     /* Extra bottom room in SOIL so the settled comma stays visible */
     .section-layer[data-mode="soil"] .cards-row { padding-bottom: 24vh; }
 
-    .card { width: 100%; min-height: 150px; }
+    .card { width: 100%; }
+    .card.is-open { flex-basis: auto; }
+    .card-chapter { padding: 20px 14px 24px; }
+    .filmstrip-item { width: 88%; }   /* a peek of the next photo says "swipe" */
 }

@@ -17,33 +17,38 @@
         soil: {
             label: 'Soil',
             intro: 'A suburban yard in Austin, Texas. Rewilded via native flora, pollinators, host species, and the ecosystems being called back through intentional planting.',
-            cards: ["'Being Lori' Memorial Pollinator Garden", "'Ranchland' Pollinator Beds", 'Drip Line Irrigation Effort']
+            cards: [
+                { id: 'being-lori-garden', title: "'Being Lori' Memorial Pollinator Garden" },
+                { id: 'ranchland-beds', title: "'Ranchland' Pollinator Beds" },
+                { id: 'drip-line', title: 'Drip Line Irrigation Effort' }
+            ]
         },
         space: {
             label: 'Space',
             intro: 'A modest one-story three bedroom house in the Woods of Brushy Creek neighborhood of Austin. Rewilded via talavera decor, reflective surfaces, and memorial celebration.',
-            cards: ['Boston Begins', 'Reflection Hall', "'Being Lori' Ofrenda"]
+            cards: [
+                { id: 'boston-begins', title: 'Boston Begins', link: { label: 'Visit Boston Begins', href: '/space/boston/' } },
+                { id: 'reflection-hall', title: 'Reflection Hall' },
+                { id: 'being-lori-ofrenda', title: "'Being Lori' Ofrenda" }
+            ]
         },
         soul: {
             label: 'Soul',
             intro: 'A life more than mid-way in an unexpected chapter. Rewilded through reflection, refraction, and resonance in frequencies of work, memory, and craft.',
-            cards: ['The Bronco Benny Show', 'Immersive Memories', 'MaxMalloy.com']
+            cards: [
+                { id: 'bronco-benny-show', title: 'The Bronco Benny Show' },
+                { id: 'immersive-memories', title: 'Immersive Memories' },
+                { id: 'maxmalloy', title: 'MaxMalloy.com',
+                  note: 'My hybrid professional online presence that explores the philosophy I work to bring to my work',
+                  link: { label: 'Visit Now', href: 'https://maxmalloy.com', external: true } }
+            ]
         }
     };
 
-    var CARD_DETAILS = {
-        'MaxMalloy.com': {
-            note: 'My hybrid professional online presence that explores the philosophy I work to bring to my work',
-            linkLabel: 'Visit Now',
-            linkHref: 'https://maxmalloy.com'
-        }
-    };
+    /* Card content blocks (travel-card pattern from /soul/travel). Until real
+       content lands, every block shows grey photo placeholders and DEFAULT_NOTE. */
     var DEFAULT_NOTE = 'In development — check back.';
-
-    /* Cards that navigate directly (same window) instead of toggling a note */
-    var CARD_HREFS = {
-        'Boston Begins': '/space/boston/'
-    };
+    var PLACEHOLDER_PHOTOS = 3;
 
     var ARROW_SVG = '<svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 1.5 H10.5 V7.5"></path><path d="M10.5 1.5 L3 9"></path></svg>';
 
@@ -69,7 +74,9 @@
     };
 
     var mode = 'home';
-    var noted = null;       /* title of the open card, or null */
+    var openId = null;      /* id of the open card, or null */
+    var openedByUs = false; /* whether we pushed the current #<mode>/<id> history entry */
+    var pendingCard = null; /* card to open once a deep-linked section reveals */
     var scrolled = false;
     var revealT = null, clearT = null;
     var reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -189,76 +196,154 @@
         els.flightLayer.innerHTML = '';
     }
 
-    /* ── Section content ── */
-    function buildCards(section) {
-        els.cardsRow.innerHTML = '';
-        section.cards.forEach(function (title, i) {
-            var card = document.createElement('div');
-            card.className = 'card nr-glass';
-            card.style.animationDelay = (0.15 + i * 0.13).toFixed(2) + 's';
-
-            var tile;
-            if (CARD_HREFS[title]) {
-                tile = document.createElement('a');
-                tile.className = 'card-toggle';
-                tile.href = CARD_HREFS[title];
-                tile.innerHTML = '<span class="card-hairline" aria-hidden="true"></span>' +
-                    '<span class="card-title"></span>' +
-                    '<span class="card-note"></span>' +
-                    '<span class="card-hint">Visit</span>';
-            } else {
-                tile = document.createElement('button');
-                tile.type = 'button';
-                tile.className = 'card-toggle';
-                tile.setAttribute('aria-expanded', 'false');
-                tile.innerHTML = '<span class="card-hairline" aria-hidden="true"></span>' +
-                    '<span class="card-title"></span>' +
-                    '<span class="card-note" aria-live="polite"></span>' +
-                    '<span class="card-hint">Learn more</span>';
-                tile.addEventListener('click', function () {
-                    noted = (noted === title) ? null : title;
-                    syncCards();
-                });
-            }
-            tile.querySelector('.card-title').textContent = title;
-
-            card.appendChild(tile);
-            card._title = title;
-            els.cardsRow.appendChild(card);
-        });
-        syncCards();
+    /* ── Section content: travel-style cards that expand into content blocks ── */
+    function esc(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    /* Update open/closed state in place so the rise animation never restarts */
-    function syncCards() {
-        Array.prototype.forEach.call(els.cardsRow.children, function (card) {
-            var title = card._title;
-            if (CARD_HREFS[title]) return;   /* direct-link cards have no open state */
-            var open = noted === title;
-            var detail = CARD_DETAILS[title];
-            card.classList.toggle('is-open', open);
-            var btn = card.querySelector('.card-toggle');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            card.querySelector('.card-note').textContent = open ? (detail ? detail.note : DEFAULT_NOTE) : '';
-            card.querySelector('.card-hint').textContent = open ? '' : 'Learn more';
+    function findCard(id) {
+        var cards = mode !== 'home' ? SECTIONS[mode].cards : [];
+        for (var i = 0; i < cards.length; i++) if (cards[i].id === id) return cards[i];
+        return null;
+    }
 
-            var link = card.querySelector('.card-link');
-            if (open && detail && detail.linkHref) {
-                if (!link) {
-                    link = document.createElement('a');
-                    link.className = 'card-link';
-                    link.href = detail.linkHref;
-                    link.target = '_blank';
-                    link.rel = 'noopener';
-                    link.setAttribute('aria-label', detail.linkLabel + ': ' + title + ' (opens in new window)');
-                    link.innerHTML = '<span></span>' + ARROW_SVG;
-                    link.querySelector('span').textContent = detail.linkLabel;
-                    card.appendChild(link);
-                }
-            } else if (link) {
-                card.removeChild(link);
-            }
-        });
+    function cardHTML(c, i) {
+        return '<article class="card nr-glass" id="c-' + esc(c.id) + '" data-id="' + esc(c.id) + '"' +
+                ' style="animation-delay:' + (0.15 + i * 0.13).toFixed(2) + 's">' +
+            '<div class="card-img" aria-hidden="true"><span class="card-ph"></span></div>' +
+            '<div class="card-body">' +
+                '<span class="card-hairline" aria-hidden="true"></span>' +
+                '<h3 class="card-title">' + esc(c.title) + '</h3>' +
+                (c.link ? '' : '<p class="card-status">In development</p>') +
+            '</div>' +
+            '<button type="button" class="card-expand" aria-expanded="false" aria-controls="ch-' + esc(c.id) + '">' +
+                '<span class="card-expand-text">Learn more</span><span class="sr-only"> about ' + esc(c.title) + '</span></button>' +
+            '<div class="card-chapter" id="ch-' + esc(c.id) + '" hidden></div>' +
+        '</article>';
+    }
+
+    /* Hero photo strip (grey placeholders for now) + body copy + optional link */
+    function chapterHTML(c) {
+        var slides = '';
+        for (var i = 0; i < PLACEHOLDER_PHOTOS; i++) {
+            slides += '<figure class="filmstrip-item"><span class="filmstrip-ph" role="img" aria-label="Photo ' + (i + 1) + ' of ' + PLACEHOLDER_PHOTOS + ' (coming soon)"></span></figure>';
+        }
+        var link = '';
+        if (c.link) {
+            link = c.link.external
+                ? '<a class="card-link" href="' + esc(c.link.href) + '" target="_blank" rel="noopener" aria-label="' + esc(c.link.label + ': ' + c.title) + ' (opens in new window)"><span>' + esc(c.link.label) + '</span>' + ARROW_SVG + '</a>'
+                : '<a class="card-link" href="' + esc(c.link.href) + '"><span>' + esc(c.link.label) + '</span></a>';
+        }
+        return '<div class="filmstrip" role="region" aria-label="Photographs of ' + esc(c.title) + '" tabindex="0">' + slides + '</div>' +
+            '<div class="filmstrip-controls">' +
+                '<button type="button" class="filmstrip-btn" data-step="-1" aria-label="Previous photo">Prev</button>' +
+                '<span class="filmstrip-count" aria-hidden="true">1 / ' + PLACEHOLDER_PHOTOS + '</span>' +
+                '<button type="button" class="filmstrip-btn" data-step="1" aria-label="Next photo">Next</button>' +
+            '</div>' +
+            '<div class="chapter-body"><p class="chapter-text">' + esc(c.note || DEFAULT_NOTE) + '</p>' + link + '</div>';
+    }
+
+    function buildCards(section) {
+        els.cardsRow.innerHTML = section.cards.map(cardHTML).join('');
+    }
+
+    function stepFilmstrip(chapter, step) {
+        var strip = chapter.querySelector('.filmstrip');
+        var item = strip.firstElementChild;
+        var w = item.getBoundingClientRect().width + parseFloat(getComputedStyle(strip).columnGap || 0);
+        strip.scrollBy({ left: step * w, behavior: reduced() ? 'auto' : 'smooth' });
+    }
+
+    function syncFilmstrip(strip) {
+        var item = strip.firstElementChild;
+        var w = item.getBoundingClientRect().width + parseFloat(getComputedStyle(strip).columnGap || 0);
+        var n = strip.children.length;
+        var at = Math.min(n - 1, Math.round(strip.scrollLeft / w));
+        var chapter = strip.parentNode;
+        chapter.querySelector('.filmstrip-count').textContent = (at + 1) + ' / ' + n;
+        chapter.querySelector('[data-step="-1"]').disabled = at === 0;
+        chapter.querySelector('[data-step="1"]').disabled = at === n - 1;
+    }
+
+    function setOpen(id, open) {
+        var card = document.getElementById('c-' + id);
+        if (!card) return;
+        var ch = document.getElementById('ch-' + id);
+        if (open && !ch.innerHTML) {
+            ch.innerHTML = chapterHTML(findCard(id));
+            var strip = ch.querySelector('.filmstrip');
+            strip.addEventListener('scroll', function () { syncFilmstrip(strip); }, { passive: true });
+        }
+        ch.hidden = !open;
+        card.classList.toggle('is-open', open);
+        var btn = card.querySelector('.card-expand');
+        btn.setAttribute('aria-expanded', String(open));
+        btn.querySelector('.card-expand-text').textContent = open ? 'Close' : 'Learn more';
+        if (open) syncFilmstrip(ch.querySelector('.filmstrip'));
+    }
+
+    /* Open cards live in the URL (#soil/<id>) so Back closes them and blocks are linkable */
+    function openCard(id, push) {
+        if (!findCard(id)) return;
+        if (openId && openId !== id) setOpen(openId, false);
+        openId = id;
+        setOpen(id, true);
+        document.body.classList.add('is-reading');
+        if (push && openedByUs) {
+            /* switching cards: one history entry, so Back never reopens the previous card */
+            history.replaceState(null, '', '#' + mode + '/' + id);
+        } else if (push) {
+            history.pushState(null, '', '#' + mode + '/' + id);
+            openedByUs = true;
+        }
+        /* A deep-linked card may still be rising in; measure once it lands */
+        var card = document.getElementById('c-' + id);
+        var scroll = function () { card.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' }); };
+        if (card.getAnimations && card.getAnimations().length) card.addEventListener('animationend', scroll, { once: true });
+        else scroll();
+    }
+
+    function closeCard(fromUser) {
+        if (!openId) return;
+        var id = openId;
+        openId = null;
+        setOpen(id, false);
+        document.body.classList.remove('is-reading');
+        if (fromUser) {
+            if (openedByUs) history.back();
+            else history.replaceState(null, '', location.pathname + location.search);
+            document.getElementById('c-' + id).querySelector('.card-expand').focus();
+        }
+        openedByUs = false;
+    }
+
+    /* Changing mode: drop any open card and its hash without animating
+       (pendingCard survives so a deep link can still open its card) */
+    function resetCards() {
+        openId = null;
+        openedByUs = false;
+        document.body.classList.remove('is-reading');
+        if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    }
+
+    function parseHash() {
+        var m = /^#(soil|space|soul)(?:\/([\w-]+))?$/.exec(location.hash);
+        return m ? { mode: m[1], card: m[2] || null } : null;
+    }
+
+    function syncFromHash() {
+        var h = parseHash();
+        if (h && h.mode !== mode) {
+            pendingCard = h.card;
+            go(h.mode);
+        } else if (h && h.card && h.card !== openId) {
+            openCard(h.card, false);
+            openedByUs = false;
+        } else if ((!h || !h.card) && openId) {
+            closeCard(false);
+        }
     }
 
     function revealSection(target) {
@@ -274,6 +359,14 @@
         inner.style.animation = '';
         els.sectionLayer.hidden = false;
         focusHeading();
+        if (pendingCard) {
+            var id = pendingCard;
+            pendingCard = null;
+            if (findCard(id)) {
+                history.replaceState(null, '', '#' + target + '/' + id);
+                openCard(id, false);
+            }
+        }
     }
 
     function focusHeading() {
@@ -290,7 +383,7 @@
         var items = flyItems(target);
         window.scrollTo(0, 0);
         mode = target;
-        noted = null;
+        resetCards();
 
         els.hero.classList.add('is-hidden');
         els.below.classList.add('is-hidden');
@@ -320,7 +413,8 @@
             return;
         }
         mode = 'home';
-        noted = null;
+        pendingCard = null;
+        resetCards();
         els.sectionLayer.hidden = true;
         els.hero.classList.remove('is-hidden');
         els.below.classList.remove('is-hidden');
@@ -355,11 +449,32 @@
         }
     }, { passive: true });
 
-    /* Deep links from subpages (e.g. /#soul): enter that section once fonts settle */
-    var deep = /^#(soil|space|soul)$/.exec(location.hash);
+    /* Card clicks: expand toggles, photo strip steps */
+    els.cardsRow.addEventListener('click', function (e) {
+        var t = e.target.closest('button');
+        if (!t) return;
+        var card = t.closest('.card');
+        if (t.classList.contains('card-expand')) {
+            if (openId === card.dataset.id) closeCard(true);
+            else openCard(card.dataset.id, true);
+        } else if (t.dataset.step) {
+            stepFilmstrip(t.closest('.card-chapter'), parseInt(t.dataset.step, 10));
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && openId) closeCard(true);
+    });
+    window.addEventListener('popstate', syncFromHash);
+
+    /* Deep links from subpages (e.g. /#soul, /#soil/drip-line): enter that section
+       once fonts settle (so the mark flight measures correctly), then open the card */
+    var deep = parseHash();
     if (deep) {
         history.replaceState(null, '', location.pathname + location.search);
-        (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { go(deep[1]); });
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+            pendingCard = deep.card;
+            go(deep.mode);
+        });
     }
 
 })();
