@@ -18,21 +18,34 @@
 }
 
 /* ---- iridescent shimmer — static, CSS-only -------------------
-   Four low-alpha nebula washes, one per accent hue, drifting off
-   the edges of the viewport. Alphas 4–6%: present on a good
-   panel, subliminal on a bad one, never competing with text.    */
+   Nebula washes, one per accent hue, blooming in from the edges
+   at 12–18% alpha so the iridescence reads as coloured light on
+   a real display, plus two softer washes (lavender/turquoise)
+   overlapping near centre where their mix does the shimmering.
+   The Milky Way smear is the final layer: a soft starlight band
+   on the 115° diagonal, echoed by the dense star band below.   */
 .hero__shimmer {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 50% at 12% 18%,
-      color-mix(in srgb, var(--accent-lavender) 6%, transparent), transparent 70%),
-    radial-gradient(55% 45% at 88% 12%,
-      color-mix(in srgb, var(--accent-turquoise) 5%, transparent), transparent 70%),
-    radial-gradient(50% 60% at 82% 88%,
-      color-mix(in srgb, var(--accent-coral) 5%, transparent), transparent 70%),
-    radial-gradient(45% 40% at 15% 92%,
-      color-mix(in srgb, var(--accent-gold) 4%, transparent), transparent 70%);
+    radial-gradient(75% 65% at 10% 12%,
+      color-mix(in srgb, var(--accent-lavender) 18%, transparent), transparent 72%),
+    radial-gradient(70% 60% at 90% 8%,
+      color-mix(in srgb, var(--accent-turquoise) 15%, transparent), transparent 70%),
+    radial-gradient(70% 75% at 85% 90%,
+      color-mix(in srgb, var(--accent-coral) 18%, transparent), transparent 70%),
+    radial-gradient(60% 55% at 12% 94%,
+      color-mix(in srgb, var(--accent-gold) 16%, transparent), transparent 70%),
+    radial-gradient(55% 48% at 42% 56%,
+      color-mix(in srgb, var(--accent-lavender) 9%, transparent), transparent 70%),
+    radial-gradient(52% 45% at 60% 44%,
+      color-mix(in srgb, var(--accent-turquoise) 7%, transparent), transparent 70%),
+    linear-gradient(115deg,
+      transparent 34%,
+      color-mix(in srgb, var(--ink) 4%, transparent) 46%,
+      color-mix(in srgb, var(--ink) 7%, transparent) 50%,
+      color-mix(in srgb, var(--ink) 4%, transparent) 54%,
+      transparent 66%);
 }
 
 /* ---- starfield — static, two depths ---------------------------
@@ -54,14 +67,26 @@
 .hero__stars--far {
   width: 1px;
   height: 1px;
-  opacity: 0.45;
+  opacity: 0.35;
   box-shadow:
      4vw  8vh,  11vw 31vh,  17vw 64vh,  23vw 12vh,  29vw 83vh,
     34vw 42vh,  39vw  6vh,  44vw 57vh,  51vw 27vh,  56vw 74vh,
     61vw 15vh,  66vw 48vh,  71vw 88vh,  76vw 33vh,  81vw  9vh,
     86vw 61vh,  91vw 24vh,  96vw 79vh,   8vw 51vh,  19vw 93vh,
     47vw 91vh,  59vw 96vh,  74vw 70vh,  89vw 44vh,  14vw 76vh,
-    27vw 22vh,  93vw 58vh,  37vw 68vh;
+    27vw 22vh,  93vw 58vh,  37vw 68vh,   2vw 44vh,  33vw 97vh,
+    52vw  3vh,  68vw 27vh,  83vw 92vh,  97vw 15vh,  22vw 58vh;
+}
+
+.hero__stars--mid {
+  width: 1.5px;
+  height: 1.5px;
+  opacity: 0.6;
+  box-shadow:
+     7vw 63vh,  18vw 19vh,  28vw 71vh,  38vw 33vh,  48vw  9vh,
+    57vw 61vh,  67vw 92vh,  77vw 21vh,  87vw 73vh,  95vw 49vh,
+    12vw 41vh,  32vw 87vh,  62vw 39vh,  82vw 53vh,  45vw 76vh,
+    24vw  2vh,  71vw 12vh,   3vw 79vh;
 }
 
 .hero__stars--near {
@@ -74,6 +99,42 @@
     41vw 94vh,  91vw  5vh;
 }
 
+/* a handful of hero stars: bigger, full-bright, each with a soft
+   blurred twin at the same coordinates for a glow */
+.hero__stars--bright {
+  width: 3px;
+  height: 3px;
+  opacity: 1;
+  box-shadow:
+    16vw 26vh,        16vw 26vh 7px 1px,
+    72vw 16vh,        72vw 16vh 8px 1px,
+    87vw 64vh,        87vw 64vh 7px 1px,
+    30vw 80vh,        30vw 80vh 8px 1px,
+    55vw  8vh,        55vw  8vh 6px 1px,
+     6vw 56vh,         6vw 56vh 7px 1px,
+    94vw 89vh,        94vw 89vh 7px 1px;
+}
+
+/* dense small stars along the same 115° diagonal as the smear in
+   .hero__shimmer — together they read as a faint Milky Way band
+   from lower-left to upper-right */
+.hero__stars--band {
+  width: 1px;
+  height: 1px;
+  opacity: 0.55;
+  box-shadow:
+     2vw 92vh,   5vw 95vh,   7vw 84vh,  10vw 89vh,  12vw 78vh,
+    15vw 83vh,  17vw 71vh,  20vw 76vh,  22vw 66vh,  25vw 70vh,
+    27vw 60vh,  30vw 64vh,  33vw 55vh,  35vw 59vh,  38vw 49vh,
+    40vw 53vh,  43vw 44vh,  45vw 48vh,  48vw 38vh,  50vw 42vh,
+    53vw 33vh,  55vw 37vh,  58vw 28vh,  60vw 32vh,  63vw 23vh,
+    65vw 27vh,  68vw 18vh,  70vw 22vh,  73vw 13vh,  75vw 17vh,
+    78vw  9vh,  80vw 12vh,  83vw  5vh,  85vw  8vh,  88vw  2vh,
+     4vw 88vh,  13vw 74vh,  24vw 62vh,  34vw 51vh,  44vw 40vh,
+    54vw 30vh,  64vw 20vh,  74vw 11vh,  84vw  3vh,  19vw 68vh,
+    29vw 57vh,  39vw 46vh,  49vw 35vh,  59vw 25vh,  69vw 15vh;
+}
+
 /* ---- mark placeholder -----------------------------------------
    The mark is ALWAYS monochrome: every glyph and the wordmark
    inherit this one colour. --ink resolves white on the night
@@ -84,12 +145,28 @@
   position: relative;
   display: grid;
   justify-items: center;
-  gap: var(--space-3);
+  gap: var(--space-4);
   /* fixed-size slot the real mark will occupy */
-  width: min(20rem, 70vw);
-  padding: var(--space-6) 0;
+  width: min(28rem, 84vw);
+  padding: var(--space-7) 0;
   text-align: center;
   color: var(--ink);
+}
+
+/* soft radial halo behind the mark — starlight with a faint
+   lavender cast — so it sits IN the space rather than floating
+   on it. Static gradient, not a shadow, so it never animates.  */
+.mark::before {
+  content: '';
+  position: absolute;
+  inset: -55% -45%;
+  z-index: -1;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    color-mix(in srgb, var(--ink) 13%, transparent) 0%,
+    color-mix(in srgb, var(--accent-lavender) 7%, transparent) 45%,
+    transparent 72%
+  );
 }
 
 .mark__glyph {
@@ -99,7 +176,8 @@
   /* the };{ glyphs are always presented in italic — true italic face
      loaded in main.jsx, never a synthesized oblique */
   font-style: italic;
-  font-size: var(--text-hero);
+  /* larger than --text-hero: the mark anchors the whole viewport */
+  font-size: clamp(4.5rem, 3.25rem + 6.5vw, 9rem);
   font-weight: 400;
   line-height: 1;
 }
@@ -117,7 +195,7 @@
 
 .mark__wordmark {
   font-family: var(--font-display);
-  font-size: var(--text-lg);
+  font-size: clamp(1.5rem, 1.25rem + 1.2vw, 2.4rem);
   font-weight: 500;
   letter-spacing: 0.04em;
 }
