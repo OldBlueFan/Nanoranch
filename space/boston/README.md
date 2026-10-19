@@ -28,15 +28,61 @@ Medford, Cambridge & Boston, August 12–14, 2026. Lives at
 3. Anyone not on the list is told the guide is private and to contact
    **max@nanoranch.org**.
 
-**To grant or revoke access:** edit `allowed_emails` in
-`private/config.php` and upload it. Revoking an address also kills its
-existing sessions (the cookie re-checks the whitelist on every request).
-Session length, code expiry, attempt limits, and sender address are all in
-that same file.
+**To grant or revoke access:** add the address to `allowed_emails` — best
+done in **`private/config.local.php`** on the server (create it if missing;
+same array shape as `config.php`; it's gitignored, so deploys never
+overwrite it):
+
+```php
+<?php
+return [
+    'allowed_emails' => [
+        'max@nanoranch.org',
+        'luna@example.com',
+        'liam@example.com',
+    ],
+];
+```
+
+Revoking an address also kills its existing sessions (the cookie re-checks
+the whitelist on every request). Session length, code expiry, attempt
+limits, and sender address all follow the same pattern: defaults in
+`config.php`, server overrides in `config.local.php`.
 
 `private/secret.key` (cookie-signing secret) is generated automatically on
 first use. Deleting it signs everyone out. `private/codes/` is runtime
 scratch — safe to empty at any time.
+
+## Email authentication (fixing the "failed authentication" warning)
+
+Mail providers (Proton included) flag the code emails if they're sent by PHP
+`mail()` from the web server: nanoranch.org's DNS authorizes *Proton's* mail
+servers, not Dreamhost's web machines, so SPF/DKIM/DMARC fail.
+
+**The reliable fix — send through Proton's SMTP submission** (paid-plan
+feature):
+
+1. In Proton: **Settings → All settings → Proton Mail → IMAP/SMTP →
+   SMTP tokens → Generate token.** Pair it with the sending address
+   (`noreply@nanoranch.org` if that exists as an address in your Proton
+   account; otherwise use `max@nanoranch.org` and set `mail_from` to match).
+   Copy the token immediately — it's shown once.
+2. On the server, add to `private/config.local.php`:
+   ```php
+   'mail_from' => 'noreply@nanoranch.org',   // must match the token's address
+   'smtp' => [
+       'username' => 'noreply@nanoranch.org',
+       'token'    => 'the-token-you-copied',
+   ],
+   ```
+   (host/port default to `smtp.protonmail.ch:587` with STARTTLS.)
+3. Request a code and confirm the warning is gone. If SMTP ever fails, the
+   gate logs the reason and falls back to `mail()` so codes still arrive.
+
+*Lighter alternative:* adding Dreamhost's outbound servers to the domain's
+SPF record helps some providers, but the mail still isn't DKIM-signed, so
+strict receivers (Proton, Gmail) may keep flagging it. The SMTP route is the
+one that fully clears it.
 
 ## Uploading to Dreamhost
 
