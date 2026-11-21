@@ -23,7 +23,7 @@ jobs:
       DH_HOST: pdx1-shared-a2-06.dreamhost.com
       DH_REPO: ssh://malloy@pdx1-shared-a2-06.dreamhost.com/~/nanoranch.org.git
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -36,8 +36,17 @@ jobs:
             exit 1
           fi
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$DREAMHOST_SSH_KEY" > ~/.ssh/id_dreamhost
+          # Strip Windows line endings a copy/paste can carry in
+          printf '%s\n' "$DREAMHOST_SSH_KEY" | tr -d '\r' > ~/.ssh/id_dreamhost
           chmod 600 ~/.ssh/id_dreamhost
+          # Fail clearly on a damaged secret; the fingerprint should match
+          # `ssh-keygen -lf ~/.ssh/nanoranch_deploy.pub` on the Mac that made the key
+          if ! ssh-keygen -y -f ~/.ssh/id_dreamhost > /dev/null 2>&1; then
+            echo "::error::DREAMHOST_SSH_KEY is not a readable private key. Re-copy the PRIVATE key (no .pub), including its BEGIN and END lines, and save the secret again."
+            exit 1
+          fi
+          echo "Deploy key fingerprint:"
+          ssh-keygen -lf ~/.ssh/id_dreamhost
           ssh-keyscan -H "$DH_HOST" >> ~/.ssh/known_hosts
           printf 'Host %s\n  IdentityFile ~/.ssh/id_dreamhost\n  IdentitiesOnly yes\n' "$DH_HOST" > ~/.ssh/config
 
