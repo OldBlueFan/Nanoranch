@@ -1,0 +1,32 @@
+{
+  "intro": "A suburban yard in Austin, Texas. Rewilded via native flora, pollinators, host species, and the ecosystems being called back through intentional planting.",
+  "cards": [
+    {
+      "id": "being-lori-garden",
+      "title": "'Being Lori' Memorial Pollinator Garden",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    },
+    {
+      "id": "ranchland-beds",
+      "title": "'Ranchland' Pollinator Beds",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    },
+    {
+      "id": "drip-line",
+      "title": "Drip Line Irrigation Effort",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    }
+  ]
+}

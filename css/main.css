@@ -262,7 +262,8 @@ button:focus-visible {
 }
 
 /* Thumbnail (grey placeholder until real photos land) */
-.card-img { aspect-ratio: 3 / 2; overflow: hidden; }
+.card-img { aspect-ratio: 3 / 2; overflow: hidden; background: var(--sky-1); }
+.card-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card.is-open .card-img { display: none; }   /* the photo strip takes over */
 .card-ph, .filmstrip-ph {
     display: block; width: 100%; height: 100%;
@@ -313,6 +314,15 @@ button:focus-visible {
 .filmstrip::-webkit-scrollbar-thumb { background: var(--accent-gold-dim); border-radius: 2px; }
 .filmstrip-item { flex: 0 0 auto; width: min(80vw, 560px); margin: 0; scroll-snap-align: start; }
 .filmstrip-ph { aspect-ratio: 3 / 2; height: auto; border-radius: 4px; }
+/* Whole photo, never cropped (phone shots are often portrait); video fills the frame */
+.filmstrip-media {
+    display: block; width: 100%; aspect-ratio: 3 / 2; height: auto;
+    border: 0; border-radius: 4px; background: var(--sky-1); object-fit: contain;
+}
+.filmstrip-caption {
+    margin-top: 6px; font-style: italic;
+    font-size: 13px; line-height: 1.4; color: var(--text-dim);
+}
 .filmstrip-controls {
     display: flex; align-items: center; justify-content: center; gap: 16px;
     margin: 10px 0 20px;
@@ -331,11 +341,33 @@ button:focus-visible {
     font-family: var(--font-caps); font-size: 11px; letter-spacing: .2em;
     color: var(--text-dim); min-width: 4em; text-align: center;
 }
-.chapter-body { max-width: 640px; margin: 0 auto; text-align: center; }
-.chapter-text {
-    margin: 0; font-style: italic;
-    font-size: var(--text-size-card-note); line-height: 1.5; color: var(--text-body);
+.chapter-body { max-width: 640px; margin: 20px auto 0; }
+/* Formatted post text (rendered from the CMS's Markdown) */
+.chapter-body > :first-child { margin-top: 0; }
+.chapter-body p, .chapter-body li {
+    font-size: 17px; line-height: 1.6; color: var(--text-body);
 }
+.chapter-body p { margin: 0 0 14px; }
+.chapter-body h4, .chapter-body h5, .chapter-body h6 {
+    margin: 26px 0 10px; font-family: var(--font-caps); font-weight: 400;
+    font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--text-soft);
+}
+.chapter-body ul, .chapter-body ol { margin: 0 0 14px; padding-left: 1.3em; }
+.chapter-body li + li { margin-top: 4px; }
+.chapter-body blockquote {
+    margin: 0 0 14px; padding: 2px 0 2px 16px;
+    border-left: 2px solid var(--accent-gold-dim);
+}
+.chapter-body blockquote p { font-style: italic; color: var(--text-intro); }
+.chapter-body strong { color: var(--text-primary); font-weight: 600; }
+.chapter-body code { font-size: .9em; background: var(--surface-control-hover); border-radius: 2px; padding: 0 4px; }
+.chapter-body a:not(.card-link) {
+    color: var(--accent-gold); text-decoration: underline;
+    text-decoration-color: var(--accent-gold-dim); text-underline-offset: 3px;
+}
+.chapter-body a:not(.card-link):hover { color: var(--text-primary); }
+.chapter-body a svg { margin-left: 4px; vertical-align: baseline; }
+.chapter-body .card-link { display: flex; width: fit-content; margin: 18px auto 0; }
 .card-link {
     display: inline-flex; align-items: center; gap: 7px;
     font-family: var(--font-caps); font-weight: 400;

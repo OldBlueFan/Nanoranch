@@ -1,0 +1,35 @@
+{
+  "intro": "A modest one-story three bedroom house in the Woods of Brushy Creek neighborhood of Austin. Rewilded via talavera decor, reflective surfaces, and memorial celebration.",
+  "cards": [
+    {
+      "id": "boston-begins",
+      "title": "Boston Begins",
+      "published": true,
+      "thumbnail": "",
+      "media": [],
+      "body": "",
+      "link": {
+        "label": "Visit Boston Begins",
+        "href": "/space/boston/"
+      }
+    },
+    {
+      "id": "reflection-hall",
+      "title": "Reflection Hall",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    },
+    {
+      "id": "being-lori-ofrenda",
+      "title": "'Being Lori' Ofrenda",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    }
+  ]
+}

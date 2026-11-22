@@ -13,42 +13,30 @@
     var REVEAL_MS = 950;    /* section content reveals mid-flight */
     var CLEAR_MS = 700;     /* flight clones removed after fade-out */
 
-    var SECTIONS = {
-        soil: {
-            label: 'Soil',
-            intro: 'A suburban yard in Austin, Texas. Rewilded via native flora, pollinators, host species, and the ecosystems being called back through intentional planting.',
-            cards: [
-                { id: 'being-lori-garden', title: "'Being Lori' Memorial Pollinator Garden" },
-                { id: 'ranchland-beds', title: "'Ranchland' Pollinator Beds" },
-                { id: 'drip-line', title: 'Drip Line Irrigation Effort' }
-            ]
-        },
-        space: {
-            label: 'Space',
-            intro: 'A modest one-story three bedroom house in the Woods of Brushy Creek neighborhood of Austin. Rewilded via talavera decor, reflective surfaces, and memorial celebration.',
-            cards: [
-                { id: 'boston-begins', title: 'Boston Begins', link: { label: 'Visit Boston Begins', href: '/space/boston/' } },
-                { id: 'reflection-hall', title: 'Reflection Hall' },
-                { id: 'being-lori-ofrenda', title: "'Being Lori' Ofrenda" }
-            ]
-        },
-        soul: {
-            label: 'Soul',
-            intro: 'A life more than mid-way in an unexpected chapter. Rewilded through reflection, refraction, and resonance in frequencies of work, memory, and craft.',
-            cards: [
-                { id: 'bronco-benny-show', title: 'The Bronco Benny Show' },
-                { id: 'immersive-memories', title: 'Immersive Memories' },
-                { id: 'maxmalloy', title: 'MaxMalloy.com',
-                  note: 'My hybrid professional online presence that explores the philosophy I work to bring to my work',
-                  link: { label: 'Visit Now', href: 'https://maxmalloy.com', external: true } }
-            ]
-        }
-    };
+    /* Wayfinding labels are fixed; each section's intro and cards live in
+       content/<section>.json, edited through the CMS at /admin/. */
+    var SECTION_LABELS = { soil: 'Soil', space: 'Space', soul: 'Soul' };
+    var CONTENT = {};       /* section → { intro, cards } once loaded */
 
-    /* Card content blocks (travel-card pattern from /soul/travel). Until real
-       content lands, every block shows grey photo placeholders and DEFAULT_NOTE. */
+    /* A card with no body yet shows DEFAULT_NOTE; one with no media shows
+       grey photo placeholders. */
     var DEFAULT_NOTE = 'In development — check back.';
     var PLACEHOLDER_PHOTOS = 3;
+
+    var contentReady = Promise.all(Object.keys(SECTION_LABELS).map(function (key) {
+        /* no-cache revalidates, so an edit shows up on the next visit */
+        return fetch('content/' + key + '.json', { cache: 'no-cache' })
+            .then(function (r) {
+                if (!r.ok) throw new Error(key + '.json ' + r.status);
+                return r.json();
+            })
+            .then(function (data) {
+                CONTENT[key] = {
+                    intro: data.intro || '',
+                    cards: (data.cards || []).filter(function (c) { return c.published !== false && c.id && c.title; })
+                };
+            });
+    }));
 
     var ARROW_SVG = '<svg aria-hidden="true" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 1.5 H10.5 V7.5"></path><path d="M10.5 1.5 L3 9"></path></svg>';
 
@@ -204,19 +192,147 @@
     }
 
     function findCard(id) {
-        var cards = mode !== 'home' ? SECTIONS[mode].cards : [];
+        var cards = CONTENT[mode] ? CONTENT[mode].cards : [];
         for (var i = 0; i < cards.length; i++) if (cards[i].id === id) return cards[i];
         return null;
     }
 
+    function isExternal(href) {
+        return /^https?:\/\//i.test(href) && !/^https?:\/\/(www\.)?nanoranch\.org(\/|$)/i.test(href);
+    }
+
+    /* Only these URL shapes may become links or media sources */
+    function safeUrl(url) {
+        url = String(url || '').trim();
+        return /^(https?:\/\/|mailto:|tel:|\/(?!\/)|#)/i.test(url) ? url : '';
+    }
+
+    function linkHTML(href, inner, plain, cls) {
+        var c = cls ? ' class="' + cls + '"' : '';
+        if (!isExternal(href)) return '<a' + c + ' href="' + esc(href) + '">' + inner + '</a>';
+        return '<a' + c + ' href="' + esc(href) + '" target="_blank" rel="noopener" aria-label="' + esc(plain) + ' (opens in new window)">' +
+            inner + ARROW_SVG + '</a>';
+    }
+
+    /* ── Markdown (the subset the CMS editor produces: headings, bold, italic,
+          links, quotes, lists, line breaks). Text is HTML-escaped before any
+          markup is added, so a post can never inject its own HTML. ── */
+    function inlineMd(src) {
+        var stash = [];
+        function keep(html) { stash.push(html); return '\u0000' + (stash.length - 1) + '\u0000'; }
+        function emphasis(t) {
+            return t.replace(/\*\*(?=\S)([\s\S]*?\S)\*\*|__(?=\S)([\s\S]*?\S)__/g, function (m, a, b) { return '<strong>' + (a || b) + '</strong>'; })
+                .replace(/\*(?=\S)([\s\S]*?\S)\*|(^|\W)_(?=\S)([\s\S]*?\S)_(?=\W|$)/g, function (m, a, pre, b) {
+                    return a !== undefined ? '<em>' + a + '</em>' : pre + '<em>' + b + '</em>';
+                })
+                .replace(/~~(?=\S)([\s\S]*?\S)~~/g, '<del>$1</del>');
+        }
+        var t = src.replace(/\\([\\`*_{}\[\]()#+\-.!>~|])/g, function (m, ch) { return keep(esc(ch)); });
+        t = esc(t);
+        t = t.replace(/`([^`]+)`/g, function (m, code) { return keep('<code>' + code + '</code>'); });
+        t = t.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+&quot;[^&]*&quot;)?\)/g, function (m, text, href) {
+            var url = safeUrl(href.replace(/&amp;/g, '&'));
+            var inner = emphasis(text);
+            return url ? keep(linkHTML(url, inner, plainText(inner))) : inner;
+        });
+        t = emphasis(t).replace(/(?: {2,}|\\)\n/g, '<br>').replace(/\n/g, ' ');
+        return restore(t);
+
+        /* Stashed links can hold stashed escapes, so restore until none are left */
+        function restore(html) {
+            var out = html.replace(/\u0000(\d+)\u0000/g, function (m, i) { return stash[+i]; });
+            return out === html ? out : restore(out);
+        }
+        /* Tag-free, unescaped text for an aria-label (linkHTML escapes it again) */
+        function plainText(html) {
+            return restore(html).replace(/<[^>]+>/g, '')
+                .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+        }
+    }
+
+    function renderMd(src) {
+        var lines = String(src || '').replace(/\r\n?/g, '\n').split('\n');
+        var html = '', para = [], list = null, quote = [];
+        function flushPara() { if (para.length) { html += '<p>' + inlineMd(para.join('\n')) + '</p>'; para = []; } }
+        function flushList() {
+            if (list) { html += '<' + list.tag + '>' + list.items.map(function (it) { return '<li>' + inlineMd(it) + '</li>'; }).join('') + '</' + list.tag + '>'; list = null; }
+        }
+        function flushQuote() { if (quote.length) { html += '<blockquote>' + renderMd(quote.join('\n')) + '</blockquote>'; quote = []; } }
+        function flushAll() { flushPara(); flushList(); flushQuote(); }
+        lines.forEach(function (line) {
+            var m;
+            if (/^>/.test(line)) { flushPara(); flushList(); quote.push(line.replace(/^> ?/, '')); return; }
+            flushQuote();
+            if (!line.trim()) { flushPara(); flushList(); return; }
+            if ((m = /^(#{1,6})\s+(.*?)\s*#*\s*$/.exec(line))) {
+                flushAll();
+                /* Card titles are <h3>, so post headings start at <h4> */
+                var level = Math.min(6, Math.max(4, m[1].length + 1));
+                html += '<h' + level + '>' + inlineMd(m[2]) + '</h' + level + '>';
+                return;
+            }
+            if ((m = /^\s*([-*+]|\d+[.)])\s+(.*)$/.exec(line))) {
+                flushPara();
+                var tag = /\d/.test(m[1]) ? 'ol' : 'ul';
+                if (list && list.tag !== tag) flushList();
+                if (!list) list = { tag: tag, items: [] };
+                list.items.push(m[2]);
+                return;
+            }
+            if (list && /^\s+\S/.test(line)) { list.items[list.items.length - 1] += '\n' + line.trim(); return; }
+            flushList();
+            para.push(line);
+        });
+        flushAll();
+        return html;
+    }
+
+    /* ── Media: images, YouTube/Vimeo (privacy-enhanced embeds), or video files ── */
+    function videoEmbed(url) {
+        var m;
+        if ((m = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/.exec(url))) {
+            return 'https://www.youtube-nocookie.com/embed/' + m[1];
+        }
+        if ((m = /vimeo\.com\/(?:video\/)?(\d+)/.exec(url))) return 'https://player.vimeo.com/video/' + m[1] + '?dnt=1';
+        return '';
+    }
+
+    function slideHTML(item, i, n, title) {
+        var label = (item.type === 'video' ? 'Video ' : 'Photo ') + (i + 1) + ' of ' + n;
+        var caption = item.caption ? '<figcaption class="filmstrip-caption">' + esc(item.caption) + '</figcaption>' : '';
+        var url = safeUrl(item.type === 'video' ? item.url : item.src);
+        var frame;
+        if (item.type === 'video') {
+            var embed = videoEmbed(url);
+            var name = esc(item.title || title) + ' (' + label.toLowerCase() + ')';
+            if (embed) frame = '<iframe class="filmstrip-media" src="' + esc(embed) + '" title="' + name + '" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>';
+            else if (url) frame = '<video class="filmstrip-media" src="' + esc(url) + '" controls playsinline preload="metadata" aria-label="' + name + '"></video>';
+        } else if (url) {
+            frame = '<img class="filmstrip-media" src="' + esc(url) + '" alt="' + esc(item.alt || '') + '" loading="lazy" decoding="async">';
+        }
+        if (!frame) return '';
+        return '<figure class="filmstrip-item">' + frame + caption + '</figure>';
+    }
+
+    function thumbFor(c) {
+        if (c.thumbnail) return safeUrl(c.thumbnail);
+        var media = c.media || [];
+        for (var i = 0; i < media.length; i++) if (media[i].type === 'image' && media[i].src) return safeUrl(media[i].src);
+        return '';
+    }
+
     function cardHTML(c, i) {
+        var thumb = thumbFor(c);
         return '<article class="card nr-glass" id="c-' + esc(c.id) + '" data-id="' + esc(c.id) + '"' +
                 ' style="animation-delay:' + (0.15 + i * 0.13).toFixed(2) + 's">' +
-            '<div class="card-img" aria-hidden="true"><span class="card-ph"></span></div>' +
+            /* The title names the card, so the thumbnail is decorative */
+            '<div class="card-img" aria-hidden="true">' +
+                (thumb ? '<img src="' + esc(thumb) + '" alt="" loading="lazy" decoding="async">' : '<span class="card-ph"></span>') +
+            '</div>' +
             '<div class="card-body">' +
                 '<span class="card-hairline" aria-hidden="true"></span>' +
                 '<h3 class="card-title">' + esc(c.title) + '</h3>' +
-                (c.link ? '' : '<p class="card-status">In development</p>') +
+                (c.status ? '<p class="card-status">' + esc(c.status) + '</p>' : '') +
             '</div>' +
             '<button type="button" class="card-expand" aria-expanded="false" aria-controls="ch-' + esc(c.id) + '">' +
                 '<span class="card-expand-text">Learn more</span><span class="sr-only"> about ' + esc(c.title) + '</span></button>' +
@@ -224,25 +340,29 @@
         '</article>';
     }
 
-    /* Hero photo strip (grey placeholders for now) + body copy + optional link */
+    /* Hero media strip (grey placeholders until media is added) + body + optional link */
     function chapterHTML(c) {
-        var slides = '';
-        for (var i = 0; i < PLACEHOLDER_PHOTOS; i++) {
-            slides += '<figure class="filmstrip-item"><span class="filmstrip-ph" role="img" aria-label="Photo ' + (i + 1) + ' of ' + PLACEHOLDER_PHOTOS + ' (coming soon)"></span></figure>';
+        var media = c.media || [];
+        var slides = media.map(function (item, i) { return slideHTML(item, i, media.length, c.title); }).join('');
+        var n = media.length;
+        if (!slides) {
+            n = PLACEHOLDER_PHOTOS;
+            for (var i = 0; i < n; i++) {
+                slides += '<figure class="filmstrip-item"><span class="filmstrip-ph" role="img" aria-label="Photo ' + (i + 1) + ' of ' + n + ' (coming soon)"></span></figure>';
+            }
         }
-        var link = '';
-        if (c.link) {
-            link = c.link.external
-                ? '<a class="card-link" href="' + esc(c.link.href) + '" target="_blank" rel="noopener" aria-label="' + esc(c.link.label + ': ' + c.title) + ' (opens in new window)"><span>' + esc(c.link.label) + '</span>' + ARROW_SVG + '</a>'
-                : '<a class="card-link" href="' + esc(c.link.href) + '"><span>' + esc(c.link.label) + '</span></a>';
-        }
-        return '<div class="filmstrip" role="region" aria-label="Photographs of ' + esc(c.title) + '" tabindex="0">' + slides + '</div>' +
-            '<div class="filmstrip-controls">' +
-                '<button type="button" class="filmstrip-btn" data-step="-1" aria-label="Previous photo">Prev</button>' +
-                '<span class="filmstrip-count" aria-hidden="true">1 / ' + PLACEHOLDER_PHOTOS + '</span>' +
-                '<button type="button" class="filmstrip-btn" data-step="1" aria-label="Next photo">Next</button>' +
-            '</div>' +
-            '<div class="chapter-body"><p class="chapter-text">' + esc(c.note || DEFAULT_NOTE) + '</p>' + link + '</div>';
+        var href = c.link && c.link.label && safeUrl(c.link.href);
+        var link = href ? linkHTML(href, '<span>' + esc(c.link.label) + '</span>', c.link.label + ': ' + c.title, 'card-link') : '';
+        var body = c.body && c.body.trim() ? renderMd(c.body) : '<p>' + esc(DEFAULT_NOTE) + '</p>';
+        return '<div class="filmstrip" role="region" aria-label="Media for ' + esc(c.title) + '" tabindex="0">' + slides + '</div>' +
+            (n > 1
+                ? '<div class="filmstrip-controls">' +
+                    '<button type="button" class="filmstrip-btn" data-step="-1" aria-label="Previous">Prev</button>' +
+                    '<span class="filmstrip-count" aria-hidden="true">1 / ' + n + '</span>' +
+                    '<button type="button" class="filmstrip-btn" data-step="1" aria-label="Next">Next</button>' +
+                  '</div>'
+                : '') +
+            '<div class="chapter-body">' + body + link + '</div>';
     }
 
     function buildCards(section) {
@@ -262,6 +382,7 @@
         var n = strip.children.length;
         var at = Math.min(n - 1, Math.round(strip.scrollLeft / w));
         var chapter = strip.parentNode;
+        if (!chapter.querySelector('.filmstrip-count')) return;   /* single item: no controls */
         chapter.querySelector('.filmstrip-count').textContent = (at + 1) + ' / ' + n;
         chapter.querySelector('[data-step="-1"]').disabled = at === 0;
         chapter.querySelector('[data-step="1"]').disabled = at === n - 1;
@@ -347,11 +468,27 @@
     }
 
     function revealSection(target) {
-        var section = SECTIONS[target];
         els.sectionLayer.setAttribute('data-mode', target);
-        els.sectionLabel.textContent = section.label;
-        els.sectionText.textContent = section.intro;
-        buildCards(section);
+        els.sectionLabel.textContent = SECTION_LABELS[target];
+        els.sectionText.textContent = '';
+        els.cardsRow.innerHTML = '';
+        /* Content normally arrives long before the 950ms reveal; wait if not */
+        contentReady.then(function () {
+            if (mode !== target) return;
+            var section = CONTENT[target];
+            els.sectionText.textContent = section.intro;
+            buildCards(section);
+            if (pendingCard) {
+                var id = pendingCard;
+                pendingCard = null;
+                if (findCard(id)) {
+                    history.replaceState(null, '', '#' + target + '/' + id);
+                    openCard(id, false);
+                }
+            }
+        }, function () {
+            if (mode === target) els.sectionText.textContent = 'This section could not load. Please try again in a moment.';
+        });
         /* Restart the intro's fade-up each time the section opens */
         var inner = els.sectionIntroInner;
         inner.style.animation = 'none';
@@ -359,14 +496,6 @@
         inner.style.animation = '';
         els.sectionLayer.hidden = false;
         focusHeading();
-        if (pendingCard) {
-            var id = pendingCard;
-            pendingCard = null;
-            if (findCard(id)) {
-                history.replaceState(null, '', '#' + target + '/' + id);
-                openCard(id, false);
-            }
-        }
     }
 
     function focusHeading() {

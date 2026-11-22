@@ -1,0 +1,35 @@
+{
+  "intro": "A life more than mid-way in an unexpected chapter. Rewilded through reflection, refraction, and resonance in frequencies of work, memory, and craft.",
+  "cards": [
+    {
+      "id": "bronco-benny-show",
+      "title": "The Bronco Benny Show",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    },
+    {
+      "id": "immersive-memories",
+      "title": "Immersive Memories",
+      "published": true,
+      "status": "In development",
+      "thumbnail": "",
+      "media": [],
+      "body": ""
+    },
+    {
+      "id": "maxmalloy",
+      "title": "MaxMalloy.com",
+      "published": true,
+      "thumbnail": "",
+      "media": [],
+      "body": "My hybrid professional online presence that explores the philosophy I work to bring to my work",
+      "link": {
+        "label": "Visit Now",
+        "href": "https://maxmalloy.com"
+      }
+    }
+  ]
+}
