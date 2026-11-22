@@ -10,7 +10,10 @@ The design source of truth is the handoff bundle at `~/Sites/nanoranch/design_ha
 index.html          Main (and only) page
 css/main.css        All component styles — imports css/tokens/
 css/tokens/         Design tokens (fonts, colors, typography, spacing, motion) — copied verbatim from the design handoff; edit upstream, not ad hoc
-js/main.js          All behavior — state machine (home|soil|space|soul), mark flight animations (FLIP), stars, focus management, scroll-in nav
+js/main.js          All behavior — state machine (home|soil|space|soul), mark flight animations (FLIP), stars, focus management, scroll-in nav, card rendering (incl. a small escape-first Markdown converter)
+content/            soil.json / space.json / soul.json — each section's intro and cards (title, status, media, Markdown body, link). Edited via the CMS.
+media/              Uploaded photos/video (CMS converts photos to WebP, max 2000px)
+admin/              Sveltia CMS at /admin/ (config.yml, pinned script + SRI hash) — see admin/README.md
 assets/             labradorite.svg (animated horizon stone), navstone.svg (nav iridescence), grass.svg — from the handoff, used as-is
 seed/               Reference/archived content (Being Lori memorial page)
 memory/             Linked assets from the previous site (kept for inbound links)
@@ -78,6 +81,8 @@ curl -s https://nanoranch.org/ | grep 'og:title'   # should match the just-deplo
 
 - State machine: `home | soil | space | soul`. Section buttons/nav links call `go(mode)`; the lockup calls `goHome()`.
 - Mark flights use FLIP: measure the glyph's live bounding rect, clone it fixed at that position, transition `transform: translate(...) scale(...)` to the section's home position (1.7s, `--ease-flight`), then loop an idle animation. Never hardcode flight positions.
+- Section intros and cards load from `content/*.json` at boot (`contentReady`); cards with `published: false` are skipped. Card bodies are Markdown rendered by `renderMd` — text is escaped before markup is added, links are limited to http(s)/mailto/tel/relative. Don't swap in innerHTML of raw content.
+- Open cards live in the URL (`#soil/<id>`): Back and Esc close them; deep links open them.
 - Section content reveals at 950ms mid-flight; nav shows when `scrollY > 60` or a section is active (cross-fading with the 10px navstone teaser strip).
 - Stars are generated with a seeded LCG (seed 42, 150 stars) so the field is stable and matches the design reference.
 

@@ -1,0 +1,141 @@
+# Sveltia CMS configuration — https://sveltiacms.app/en/docs
+# Saving in the editor commits to main; the deploy action then publishes
+# to nanoranch.org within about a minute.
+
+backend:
+  name: github
+  repo: OldBlueFan/Nanoranch
+  branch: main
+  # Sign in with a fine-grained GitHub token (see admin/README.md).
+  # OAuth would need a separate auth server, so it's switched off.
+  auth_methods: [token]
+  commit_messages:
+    update: "Content: update {{collection}}"
+    uploadMedia: "Media: upload {{path}}"
+    deleteMedia: "Media: delete {{path}}"
+
+app_title: "nano};{ranch editor"
+site_url: https://nanoranch.org
+display_url: https://nanoranch.org
+logo:
+  src: /favicon.svg
+
+# Uploads land in /media. Photos are converted to WebP and capped at
+# 2000px on the long side in the browser before upload, so phone shots
+# (4–8 MB) arrive at a few hundred KB.
+media_folder: media
+public_folder: /media
+media_libraries:
+  default:
+    config:
+      max_file_size: 26214400   # 25 MB (short video clips; longer video belongs on YouTube/Vimeo)
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2000
+          height: 2000
+
+# The field list is defined once under Soil (&section_fields)
+# and reused for Space and Soul.
+singletons:
+  - name: soil
+    label: Soil
+    file: content/soil.json
+    fields: &section_fields
+      - name: intro
+        label: Section introduction
+        widget: text
+      - name: cards
+        label: Cards
+        label_singular: card
+        widget: list
+        summary: "{{fields.title}}"
+        collapsed: true
+        fields:
+          - name: id
+            label: Link name
+            widget: string
+            hint: "Used in the card's web address, e.g. drip-line → nanoranch.org/#soil/drip-line. Lowercase letters, numbers and hyphens. Changing it breaks links people already have."
+            pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Lowercase letters, numbers and single hyphens only, e.g. drip-line']
+          - name: title
+            label: Title
+            widget: string
+          - name: published
+            label: Show on the site
+            widget: boolean
+            default: true
+            hint: Switch off to hide this card while you work on it.
+          - name: status
+            label: Status line
+            widget: string
+            required: false
+            hint: "Optional short line under the title, e.g. In development or Spring 2026."
+          - name: thumbnail
+            label: Card thumbnail
+            widget: image
+            required: false
+            hint: Optional. If empty, the first photo below is used.
+          - name: media
+            label: Photos and video
+            label_singular: item
+            widget: list
+            required: false
+            typeKey: type
+            hint: Shown as a swipeable strip at the top of the opened card, in this order.
+            types:
+              - name: image
+                label: Photo
+                summary: "{{fields.alt}}"
+                fields:
+                  - { name: src, label: Photo, widget: image }
+                  - name: alt
+                    label: Description for screen readers
+                    widget: string
+                    hint: "What the photo shows, in a short sentence, e.g. Milkweed seedlings along the new drip line."
+                  - { name: caption, label: Caption, widget: string, required: false }
+              - name: video
+                label: Video
+                summary: "{{fields.title}}"
+                fields:
+                  - name: url
+                    label: Video
+                    widget: file
+                    choose_url: true
+                    accept: video/*
+                    hint: Paste a YouTube or Vimeo link (best), or upload a short clip under 25 MB.
+                  - name: title
+                    label: Video title
+                    widget: string
+                    hint: Read out by screen readers.
+                  - { name: caption, label: Caption, widget: string, required: false }
+          - name: body
+            label: Text
+            widget: richtext
+            format: markdown
+            required: false
+            buttons: [bold, italic, link, heading-three, heading-four, quote, bulleted-list, numbered-list]
+            editor_components: []
+            hint: "If empty, the card says “In development — check back.”"
+          - name: link
+            label: Button link
+            widget: object
+            required: false
+            collapsed: true
+            hint: Optional button at the end of the card.
+            fields:
+              - { name: label, label: Button text, widget: string, required: false }
+              - name: href
+                label: Link
+                widget: string
+                required: false
+                hint: "A full web address (opens in a new window) or a page on this site, e.g. /space/boston/"
+  - name: space
+    label: Space
+    file: content/space.json
+    fields: *section_fields
+  - name: soul
+    label: Soul
+    file: content/soul.json
+    fields: *section_fields
