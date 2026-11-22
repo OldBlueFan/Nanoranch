@@ -381,6 +381,44 @@ button:focus-visible {
 .card-link:hover { color: rgba(250,220,150,1); border-color: rgba(240,200,120,.7); }
 .card-link svg { flex: none; }
 
+/* Direct message form (inside an open card) */
+.msg { max-width: 640px; margin: 28px auto 0; padding-top: 22px; border-top: 1px solid var(--border-soft); text-align: center; }
+.msg-toggle, .msg-send {
+    min-height: 44px; padding: 0 20px; cursor: pointer;
+    background: none; border: 1px solid var(--accent-gold-dim); border-radius: var(--radius-control);
+    color: var(--accent-gold); font-family: var(--font-caps); font-size: 11px;
+    letter-spacing: var(--tracking-link); text-indent: var(--tracking-link); text-transform: uppercase;
+    transition: color .3s, border-color .3s, background .3s;
+}
+.msg-toggle:hover, .msg-send:hover:not(:disabled) { color: var(--text-primary); border-color: var(--accent-gold-border); background: var(--surface-control-hover); }
+.msg-toggle[aria-expanded="true"] { border-color: var(--accent-gold-border); }
+.msg-send:disabled { opacity: .5; cursor: default; }
+.msg-form { margin-top: 18px; text-align: left; }
+.msg-form[hidden] { display: none; }
+.msg-intro { margin: 0 0 16px; font-style: italic; font-size: 15px; color: var(--text-soft); }
+.msg-field { margin-bottom: 14px; }
+.msg-label {
+    display: block; margin-bottom: 6px;
+    font-family: var(--font-caps); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim);
+}
+.msg-optional { text-transform: none; letter-spacing: 0; font-family: var(--font-display); font-style: italic; }
+.msg-input {
+    display: block; width: 100%; box-sizing: border-box; padding: 10px 12px;
+    background: var(--surface-card); border: 1px solid var(--border-control); border-radius: var(--radius-control);
+    color: var(--text-primary); font: inherit; font-size: 16px;   /* 16px stops iOS zooming in on focus */
+}
+.msg-input:hover { border-color: var(--border-control-hover); }
+.msg-input:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.msg-input[aria-invalid="true"] { border-color: var(--accent-gold-border); }
+textarea.msg-input { resize: vertical; min-height: 110px; }
+.msg-error { margin: 4px 0 0; font-size: 14px; color: var(--accent-gold); }
+.msg-error:empty { display: none; }
+.msg-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.msg-turnstile { margin-bottom: 12px; }
+.msg-send { display: block; margin: 0 auto; }
+.msg-status { min-height: 1.4em; margin: 12px 0 0; text-align: center; font-style: italic; font-size: 15px; color: var(--text-soft); }
+.msg-status.is-error { color: var(--accent-gold); }
+
 /* While a content block is open, the flown mark drops behind the section layer */
 .is-reading .fly { z-index: 15; }
 

@@ -14,6 +14,7 @@ js/main.js          All behavior — state machine (home|soil|space|soul), mark 
 content/            soil.json / space.json / soul.json — each section's intro and cards (title, status, media, Markdown body, link). Edited via the CMS.
 media/              Uploaded photos/video (CMS converts photos to WebP, max 2000px)
 admin/              Sveltia CMS at /admin/ (config.yml, pinned script + SRI hash) — see admin/README.md
+api/message.php    Direct-message endpoint (email + Pushover, Turnstile, rate limits); secrets in ~/nanoranch-private/ on Dreamhost, never in git — see api/README.md
 assets/             labradorite.svg (animated horizon stone), navstone.svg (nav iridescence), grass.svg — from the handoff, used as-is
 seed/               Reference/archived content (Being Lori memorial page)
 memory/             Linked assets from the previous site (kept for inbound links)

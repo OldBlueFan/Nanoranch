@@ -23,6 +23,9 @@
     var DEFAULT_NOTE = 'In development — check back.';
     var PLACEHOLDER_PHOTOS = 3;
 
+    /* Cloudflare Turnstile site key (public). Empty = message form hidden. */
+    var TURNSTILE_SITE_KEY = '';
+
     var contentReady = Promise.all(Object.keys(SECTION_LABELS).map(function (key) {
         /* no-cache revalidates, so an edit shows up on the next visit */
         return fetch('content/' + key + '.json', { cache: 'no-cache' })
@@ -362,7 +365,122 @@
                     '<button type="button" class="filmstrip-btn" data-step="1" aria-label="Next">Next</button>' +
                   '</div>'
                 : '') +
-            '<div class="chapter-body">' + body + link + '</div>';
+            '<div class="chapter-body">' + body + link + '</div>' +
+            messageHTML(c);
+    }
+
+    /* ── Direct messages: a note + a number to text back, sent by api/message.php.
+          Hidden until TURNSTILE_SITE_KEY is set (the server requires the check). ── */
+    function messageHTML(c) {
+        if (!TURNSTILE_SITE_KEY) return '';
+        var id = 'msg-' + esc(c.id);
+        function field(name, label, input, hint) {
+            return '<div class="msg-field">' +
+                '<label class="msg-label" for="' + id + '-' + name + '">' + label + (hint ? ' <span class="msg-optional">' + hint + '</span>' : '') + '</label>' +
+                input +
+                '<p class="msg-error" id="' + id + '-' + name + '-error"></p></div>';
+        }
+        return '<div class="msg">' +
+            '<button type="button" class="msg-toggle" aria-expanded="false" aria-controls="' + id + '">Message me about this</button>' +
+            '<form class="msg-form" id="' + id + '" hidden novalidate>' +
+                '<p class="msg-intro">Leave me a note and a number I can text back. I’ll only use it to reply.</p>' +
+                field('message', 'Message', '<textarea class="msg-input" id="' + id + '-message" name="message" rows="4" maxlength="2000" required aria-describedby="' + id + '-message-error"></textarea>') +
+                field('phone', 'Phone for my reply', '<input class="msg-input" id="' + id + '-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="' + id + '-phone-error">') +
+                field('name', 'Name', '<input class="msg-input" id="' + id + '-name" name="name" autocomplete="name" maxlength="80" aria-describedby="' + id + '-name-error">', '(optional)') +
+                /* Honeypot: invisible to people, irresistible to bots */
+                '<div class="msg-hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>' +
+                '<div class="msg-turnstile"></div>' +
+                '<button type="submit" class="msg-send">Send</button>' +
+                '<p class="msg-status" role="status"></p>' +
+            '</form>' +
+        '</div>';
+    }
+
+    var turnstileReady = null;
+    function loadTurnstile() {
+        if (!turnstileReady) {
+            turnstileReady = new Promise(function (resolve, reject) {
+                window.nrTurnstileLoaded = function () { resolve(window.turnstile); };
+                var s = document.createElement('script');
+                s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=nrTurnstileLoaded';
+                s.onerror = function () { turnstileReady = null; reject(new Error('Turnstile failed to load')); };
+                document.head.appendChild(s);
+            });
+        }
+        return turnstileReady;
+    }
+
+    function setMsgStatus(form, text, isError) {
+        var st = form.querySelector('.msg-status');
+        st.textContent = text;
+        st.classList.toggle('is-error', !!isError);
+    }
+
+    function toggleMessage(btn) {
+        var form = document.getElementById(btn.getAttribute('aria-controls'));
+        var open = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(open));
+        form.hidden = !open;
+        if (!open) return;
+        form._openedAt = form._openedAt || Date.now();
+        form.querySelector('textarea').focus();
+        if (form._widget === undefined) {
+            form._widget = null;
+            loadTurnstile().then(function (ts) {
+                form._widget = ts.render(form.querySelector('.msg-turnstile'), {
+                    sitekey: TURNSTILE_SITE_KEY, theme: 'dark', size: 'flexible', appearance: 'interaction-only'
+                });
+            }, function () {
+                setMsgStatus(form, 'The spam check couldn’t load. Please try again later.', true);
+            });
+        }
+    }
+
+    function sendMessage(form) {
+        var card = form.closest('.card');
+        var f = form.elements;
+        form.querySelectorAll('.msg-error').forEach(function (el) { el.textContent = ''; });
+        form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+        var token = form._widget != null && window.turnstile ? window.turnstile.getResponse(form._widget) : '';
+        if (!token) {
+            setMsgStatus(form, 'One moment — the spam check is still running. Try Send again in a few seconds.', true);
+            return;
+        }
+        var btn = form.querySelector('.msg-send');
+        btn.disabled = true;
+        setMsgStatus(form, 'Sending…');
+        fetch('/api/message.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                section: mode, card: card.dataset.id,
+                message: f.message.value, phone: f.phone.value, name: f.name.value,
+                website: f.website.value, elapsed: Date.now() - form._openedAt, turnstile: token
+            })
+        }).then(function (r) {
+            return r.json().catch(function () { return { ok: false }; });
+        }).then(function (res) {
+            if (res.ok) {
+                form.reset();
+                setMsgStatus(form, 'Sent — thank you. I’ll text you back.');
+                return;
+            }
+            var first = null;
+            Object.keys(res.fields || {}).forEach(function (name) {
+                var input = f[name];
+                if (!input) return;
+                input.setAttribute('aria-invalid', 'true');
+                document.getElementById(input.id + '-error').textContent = res.fields[name];
+                first = first || input;
+            });
+            setMsgStatus(form, res.error || 'Your message couldn’t be sent. Please try again later.', true);
+            if (first) first.focus();
+        }, function () {
+            setMsgStatus(form, 'Your message couldn’t be sent — check your connection and try again.', true);
+        }).then(function () {
+            btn.disabled = false;
+            if (form._widget != null && window.turnstile) window.turnstile.reset(form._widget);   /* tokens are single-use */
+        });
     }
 
     function buildCards(section) {
@@ -588,10 +706,17 @@
             else openCard(card.dataset.id, true);
         } else if (t.dataset.step) {
             stepFilmstrip(t.closest('.card-chapter'), parseInt(t.dataset.step, 10));
+        } else if (t.classList.contains('msg-toggle')) {
+            toggleMessage(t);
         }
     });
+    els.cardsRow.addEventListener('submit', function (e) {
+        e.preventDefault();
+        sendMessage(e.target);
+    });
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && openId) closeCard(true);
+        /* Esc closes the card, but not while typing a message (it would lose the text) */
+        if (e.key === 'Escape' && openId && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) closeCard(true);
     });
     window.addEventListener('popstate', syncFromHash);
 
