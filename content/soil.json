@@ -6,9 +6,17 @@
       "title": "'Being Lori' Memorial Pollinator Garden",
       "published": true,
       "status": "In development",
-      "thumbnail": "",
-      "media": [],
-      "body": ""
+      "thumbnail": "/media/img_4270.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "/media/img_4270.webp",
+          "alt": "Pollinator garden in front yard of suburban home. Barn owl statue and Malachite butterfly metal art with rock border.",
+          "caption": "The ‘Being Lori’ pollinator garden in the front yard of the ranch."
+        }
+      ],
+      "body": "",
+      "link": null
     },
     {
       "id": "ranchland-beds",
@@ -17,7 +25,8 @@
       "status": "In development",
       "thumbnail": "",
       "media": [],
-      "body": ""
+      "body": "",
+      "link": null
     },
     {
       "id": "drip-line",
@@ -26,7 +35,8 @@
       "status": "In development",
       "thumbnail": "",
       "media": [],
-      "body": ""
+      "body": "",
+      "link": null
     }
   ]
 }
