@@ -28,7 +28,10 @@ export default function Hero() {
     <section className="hero" ref={sectionRef}>
       <div className="hero__shimmer" aria-hidden="true" />
       <div className="hero__stars hero__stars--far" aria-hidden="true" />
+      <div className="hero__stars hero__stars--band" aria-hidden="true" />
+      <div className="hero__stars hero__stars--mid" aria-hidden="true" />
       <div className="hero__stars hero__stars--near" aria-hidden="true" />
+      <div className="hero__stars hero__stars--bright" aria-hidden="true" />
       <Mark />
     </section>
   );
