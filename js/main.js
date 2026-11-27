@@ -24,7 +24,7 @@
     var PLACEHOLDER_PHOTOS = 3;
 
     /* Cloudflare Turnstile site key (public). Empty = message form hidden. */
-    var TURNSTILE_SITE_KEY = '';
+    var TURNSTILE_SITE_KEY = '0x4AAAAAAGVvP76-fOhMMYA5';
 
     var contentReady = Promise.all(Object.keys(SECTION_LABELS).map(function (key) {
         /* no-cache revalidates, so an edit shows up on the next visit */
