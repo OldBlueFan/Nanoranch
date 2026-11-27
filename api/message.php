@@ -60,7 +60,7 @@ function config(): array
         'pushover_user'      => '',
         'turnstile_secret'   => '',
         'allowed_origins'    => ['https://nanoranch.org', 'https://www.nanoranch.org'],
-        'turnstile_hostname' => 'nanoranch.org',
+        'turnstile_hostnames' => ['nanoranch.org', 'www.nanoranch.org'],
         'pushover_endpoint'  => 'https://api.pushover.net/1/messages.json',
         'turnstile_endpoint' => 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
     ];
@@ -214,7 +214,7 @@ if ($cfg['turnstile_secret'] !== '') {
     if ($check === null) {
         fail(502, 'The spam check is unavailable right now. Please try again in a minute.');
     }
-    if (empty($check['success']) || ($check['hostname'] ?? '') !== $cfg['turnstile_hostname']) {
+    if (empty($check['success']) || !in_array($check['hostname'] ?? '', $cfg['turnstile_hostnames'], true)) {
         fail(403, 'The spam check didn’t pass. Please try again.');
     }
 }
